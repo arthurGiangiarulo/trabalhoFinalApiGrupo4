@@ -1,5 +1,9 @@
 package com.trabalhofinal.trabalho.repository;
 
-public interface EnderecoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.trabalhofinal.trabalho.entity.Endereco;
+
+public interface EnderecoRepository extends JpaRepository<Endereco, Integer>{
     
 }

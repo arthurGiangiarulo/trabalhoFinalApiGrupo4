@@ -1,5 +1,9 @@
 package com.trabalhofinal.trabalho.repository;
 
-public interface ClienteRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.trabalhofinal.trabalho.entity.Cliente;
+
+public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
     
 }

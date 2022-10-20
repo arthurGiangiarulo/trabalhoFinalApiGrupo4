@@ -60,5 +60,10 @@ public class Categoria {
 		this.produtos = produtos;
 	}
 	
+	public Categoria setAllAtributos(Categoria categoria){
+		this.setNome(categoria.getNome());
+		this.setDescricao(categoria.getDescricao());
+		return this;
+	}
 }
 
