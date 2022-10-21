@@ -18,7 +18,7 @@ import com.trabalhofinal.trabalho.service.EnderecoService;
 
 
 @RestController
-@RequestMapping("/endereco")
+@RequestMapping("/enderecos")
 public class EnderecoController {
 	@Autowired
 	EnderecoService enderecoService;

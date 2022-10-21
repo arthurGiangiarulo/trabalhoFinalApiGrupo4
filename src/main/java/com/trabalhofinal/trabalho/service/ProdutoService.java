@@ -15,32 +15,6 @@ public class ProdutoService {
     @Autowired
     ProdutoRepository produtoRepository;
 
-    public List<Produto> getAllProdutos(){
-        return produtoRepository.findAll();
-        //incluir tratamento/verificação para not found?
-    }
-
-    public Produto getProdutoById(Integer id){
-        return produtoRepository.findById(id).orElse(null);
-        //incluir tratamento/verificação para not found?
-    }
-
-    public Produto saveProduto(Produto produto){
-        return produtoRepository.save(produto);
-    }
-    
-    public Produto uptadeProduto(Produto produto, Integer id){
-        Produto produtoExistenteNoBanco = getProdutoById(id);
-        produtoExistenteNoBanco.setAllAtributos(produto);
-        return produtoRepository.save(produtoExistenteNoBanco);
-    }
-
-    public Produto deleteProduto(Integer id){
-        produtoRepository.deleteById(id);
-        return getProdutoById(id);
-    }
-    
-//--------MÉTODO DTO ABAIXO---------
     public List <ProdutoDTO> getAll(){
 		List<Produto> lista = produtoRepository.findAll();
 		List<ProdutoDTO> listaDTO = new ArrayList<>();

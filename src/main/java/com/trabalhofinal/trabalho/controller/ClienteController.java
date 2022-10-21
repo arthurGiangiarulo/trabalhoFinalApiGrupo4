@@ -18,7 +18,7 @@ import com.trabalhofinal.trabalho.service.ClienteService;
 
 
 @RestController
-@RequestMapping("/cliente")
+@RequestMapping("/clientes")
 public class ClienteController {
 	@Autowired
 	ClienteService clienteService;

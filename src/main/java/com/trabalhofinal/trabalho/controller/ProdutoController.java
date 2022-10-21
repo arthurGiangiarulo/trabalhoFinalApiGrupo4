@@ -17,7 +17,7 @@ import com.trabalhofinal.trabalho.dto.ProdutoDTO;
 import com.trabalhofinal.trabalho.service.ProdutoService;
 
 @RestController
-@RequestMapping("/produto")
+@RequestMapping("/produtos")
 public class ProdutoController {
 	@Autowired
 	ProdutoService produtoService;

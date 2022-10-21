@@ -17,7 +17,7 @@ import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
 import com.trabalhofinal.trabalho.service.ItemPedidoService;
 
 @RestController
-@RequestMapping("/itemPedido")
+@RequestMapping("/itensPedido")
 public class ItemPedidoController {
 	@Autowired
 	ItemPedidoService itemService;
