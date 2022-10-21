@@ -107,5 +107,16 @@ public class Pedido {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	public Pedido setAllAtributos(Pedido pedido){
+		this.setDataPedido(pedido.getDataPedido());
+		this.setDataEntrega(pedido.getDataEntrega());
+		this.setDataEnvio(pedido.getDataEnvio());
+		this.setStatus(pedido.getStatus());
+		this.setValorTotal(pedido.getValorTotal());
+		this.setItensPedidos(pedido.getItensPedidos());
+		this.setCliente(pedido.getCliente());
+		return this;
+	}
 	
 }

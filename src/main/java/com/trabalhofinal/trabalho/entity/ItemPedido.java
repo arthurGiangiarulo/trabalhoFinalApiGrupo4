@@ -65,7 +65,7 @@ public class ItemPedido {
 		this.precoVenda = precoVenda;
 	}
 
-	public Double getVlBruto() {
+	public Double getValorBruto() {
 		return valorBruto;
 	}
 
@@ -105,4 +105,15 @@ public class ItemPedido {
 		this.produto = produto;
 	}
 	
+	public ItemPedido setAllAtributos(ItemPedido itemPedido){
+		this.setQuantidade(itemPedido.getQuantidade());
+		this.setPrecoVenda(itemPedido.getPrecoVenda());
+		this.setPercentualDesconto(itemPedido.getPercentualDesconto());
+		this.setValorBruto(itemPedido.getValorBruto());
+		this.setValorLiquido(itemPedido.getValorLiquido());
+		this.setPedido(itemPedido.getPedido());
+		this.setProduto(itemPedido.getProduto());
+		return this;
+	}
+
 }

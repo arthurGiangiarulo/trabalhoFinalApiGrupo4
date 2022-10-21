@@ -88,7 +88,7 @@ public class Produto {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public Double getVlUnitario() {
+	public Double getValorUnitario() {
 		return valorUnitario;
 	}
 
@@ -119,5 +119,18 @@ public class Produto {
 	public void setPedidosDoProduto(List<ItemPedido> pedidosDoProduto) {
 		this.pedidosDoProduto = pedidosDoProduto;
 	}
-	
+
+	public Produto setAllAtributos(Produto produto){
+		this.setNome(nome);
+		this.setNome(produto.getNome());
+		this.setDescricao(produto.getDescricao());
+		this.setQtdEstoque(produto.getQtdEstoque());
+		this.setDataCadastro(produto.getDataCadastro());
+		this.setValorUnitario(produto.getValorUnitario());
+		this.setImagem(produto.getImagem());
+		this.setCategoria(produto.getCategoria());
+		this.setPedidosDoProduto(produto.getPedidosDoProduto());
+		return this;
+	}
+
 }
