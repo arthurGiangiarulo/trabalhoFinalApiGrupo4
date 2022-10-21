@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trabalhofinal.trabalho.dto.CategoriaDTO;
+
 import com.trabalhofinal.trabalho.service.CategoriaService;
 
 @RestController
@@ -72,11 +74,19 @@ public class CategoriaController {
 	    }
 		
 		@PutMapping("/dto/{id}")
-		public ResponseEntity<CategoriaDTO> updateEditoraDTO(@RequestBody CategoriaDTO categoriaDTO,
+		public ResponseEntity<CategoriaDTO> updateCategoriaDTO(@RequestBody CategoriaDTO categoriaDTO,
 				@PathVariable Integer id) {
 			return new ResponseEntity<>(categoriaService.update(categoriaDTO, id), HttpStatus.OK);
 		}
 		
-		
+		@DeleteMapping("/dto/delete")
+		public ResponseEntity<CategoriaDTO> deleteCategoriaDTO(int id) {
+			CategoriaDTO categoriaDTO = categoriaService.getById(id);
+			if (categoriaDTO == null) {
+				return new ResponseEntity<>(categoriaDTO, HttpStatus.NOT_FOUND);
+			} else {
+				return new ResponseEntity<>(categoriaService.delete(id), HttpStatus.OK);
+			}
+		} 
 		
 	}
