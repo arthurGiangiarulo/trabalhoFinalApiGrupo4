@@ -33,9 +33,9 @@ public class CategoriaService {
         return categoriaRepository.save(categoriaExistenteNoBanco);
     }
 
-    public Categoria deleteCategoria(Integer id){
-        Aluno 
-    }
+//    public Categoria deleteCategoria(Integer id){
+//        Aluno 
+//    }
     // Update
     // Delete    
 
