@@ -105,5 +105,15 @@ public class Cliente {
 		this.pedidosDoCliente = pedidosDoCliente;
 	}
 	
+	public Cliente setAllAtributos(Cliente cliente){
+		this.setNomeCompleto(cliente.getNomeCompleto());
+		this.setCpf(cliente.getCpf());
+		this.setEmail(cliente.getEmail());
+		this.setEndereco(cliente.getEndereco());
+		this.setDataNascimento(cliente.getDataNascimento());
+		this.setTelefone(cliente.getTelefone());
+		this.setPedidosDoCliente(cliente.getPedidosDoCliente());
+		return this;
+	}
 }
 

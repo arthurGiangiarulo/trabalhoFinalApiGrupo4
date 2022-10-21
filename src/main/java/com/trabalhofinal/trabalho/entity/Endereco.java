@@ -113,4 +113,15 @@ public class Endereco {
 		this.cliente = cliente;
 	}
 
+	public Endereco setAllAtributos(Endereco endereco){
+		this.setCep(endereco.getCep());
+		this.setRua(endereco.getRua());
+		this.setBairro(endereco.getBairro());
+		this.setCidade(endereco.getCidade());
+		this.setNumero(endereco.getNumero());
+		this.setComplemento(endereco.getComplemento());
+		this.setUf(endereco.getUf());
+		return this;
+	}
+
 }

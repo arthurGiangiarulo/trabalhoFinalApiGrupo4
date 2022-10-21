@@ -15,12 +15,12 @@ public class CategoriaService {
 
     public List<Categoria> getAllCategorias(){
         return categoriaRepository.findAll();
-        //incluir tratamento para not found?
+        //incluir tratamento/verificação para not found?
     }
 
     public Categoria getCategoriaById(Integer id){
         return categoriaRepository.findById(id).orElse(null);
-        //incluir tratamento para not found?
+        //incluir tratamento/verificação para not found?
     }
 
     public Categoria saveCategoria(Categoria categoria){
@@ -34,10 +34,20 @@ public class CategoriaService {
     }
 
     public Categoria deleteCategoria(Integer id){
-        Aluno 
+        categoriaRepository.deleteById(id);
+        return getCategoriaById(id);
     }
-    // Update
-    // Delete    
-
+    
+    // public Categoria deleteCategoria(Integer id){
+    //     Categoria categoria = getCategoriaById(id);
+        
+    //     //Incluir tratamento para id not found
+    //     if(categoria != null){
+    //         categoriaRepository.deleteById(id);
+    //         return categoria;
+    //     } else {
+    //         return categoria;
+    //     }
+    // }
 
 }
