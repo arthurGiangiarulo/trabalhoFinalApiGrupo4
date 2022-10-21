@@ -19,6 +19,8 @@ import com.trabalhofinal.trabalho.service.CategoriaService;
 @RestController
 @RequestMapping("/categoria")
 public class CategoriaController {
+	@Autowired
+	CategoriaService categoriaService;
 	
 		
 	//// CONTROLLER DAS ENTITY --------------------------------------------------------------------------------
