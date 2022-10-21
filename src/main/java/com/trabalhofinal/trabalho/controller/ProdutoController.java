@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trabalhofinal.trabalho.dto.CategoriaDTO;
 import com.trabalhofinal.trabalho.dto.ProdutoDTO;
 import com.trabalhofinal.trabalho.service.ProdutoService;
 
@@ -75,5 +77,15 @@ public class ProdutoController {
 	public ResponseEntity<ProdutoDTO> updateEditoraDTO(@RequestBody ProdutoDTO produtoDTO,
 			@PathVariable Integer id) {
 		return new ResponseEntity<>(produtoService.update(produtoDTO, id), HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/dto/delete")
+	public ResponseEntity<ProdutoDTO> deleteProdutoDTO(int id) {
+		ProdutoDTO produtoDTO = produtoService.getById(id);
+		if (produtoDTO == null) {
+			return new ResponseEntity<>(produtoDTO, HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(produtoService.delete(id), HttpStatus.OK);
+		}
 	}
 }
