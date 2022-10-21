@@ -1,13 +1,14 @@
-.classpath	
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
 .project
-.settings/org.eclipse.jdt.core.prefs
-target/classes/com/trabalhofinal/trabalho/controller/CategoriaController.class
-target/classes/com/trabalhofinal/trabalho/controller/ClienteController.class
-target/classes/com/trabalhofinal/trabalho/controller/EnderecoController.class
-target/classes/com/trabalhofinal/trabalho/controller/ItemPedidoController.class
-target/classes/com/trabalhofinal/trabalho/controller/PedidoController.class
-target/classes/com/trabalhofinal/trabalho/controller/ProdutoController.class
-target/classes/com/trabalhofinal/trabalho/service/EmailService.class
-
-
-
+.settings
+.springBeans
+.sts4-cache
