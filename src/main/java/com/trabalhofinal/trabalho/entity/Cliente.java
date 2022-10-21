@@ -1,14 +1,11 @@
 package com.trabalhofinal.trabalho.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -34,11 +31,8 @@ public class Cliente {
 	@Column(name = "dataNascimento")
 	private String dataNascimento;
 	
-	@JoinColumn(name = "id_enderenco" , referencedColumnName = "id_endereco")
+	@OneToOne
 	private Endereco endereco;
-	
-	@OneToMany(mappedBy = "id_cliente")
-	private List <Pedido> pedidosDoCliente;
 
 
 	public Integer getIdCliente() {
@@ -95,14 +89,6 @@ public class Cliente {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-
-	public List<Pedido> getPedidosDoCliente() {
-		return pedidosDoCliente;
-	}
-
-	public void setPedidosDoCliente(List<Pedido> pedidosDoCliente) {
-		this.pedidosDoCliente = pedidosDoCliente;
 	}
 	
 }

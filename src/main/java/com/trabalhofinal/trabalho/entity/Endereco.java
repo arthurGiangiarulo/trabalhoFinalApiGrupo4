@@ -29,7 +29,7 @@ public class Endereco {
 	private String cidade;
 	
 	@Column(name = "numero")
-	private String numero;
+	private int numero;
 	
 	@Column(name = "complemento")
 	private String complemento;
@@ -37,7 +37,7 @@ public class Endereco {
 	@Column(name = "uf")
 	private String uf;
 	
-	@OneToOne(mappedBy = "id_endereco")
+	@OneToOne
 	private Cliente cliente;
 
 
@@ -81,11 +81,11 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 
-	public String getNumero() {
+	public int getNumero() {
 		return numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(int numero) {
 		this.numero = numero;
 	}
 
