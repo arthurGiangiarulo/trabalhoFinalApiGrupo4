@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trabalhofinal.trabalho.dto.ClienteDTO;
+import com.trabalhofinal.trabalho.dto.ConsultaCep;
 import com.trabalhofinal.trabalho.dto.EnderecoDTO;
+import com.trabalhofinal.trabalho.entity.Endereco;
+import com.trabalhofinal.trabalho.exception.NoSuchElementFoundException;
 import com.trabalhofinal.trabalho.service.EnderecoService;
 
 
@@ -52,6 +54,60 @@ public class EnderecoController {
 //	}
 //// FIM DO CONTROLLER DAS ENITY -----------------------------------------------------------------------------------
 
+	/* ------ ENTIDADE -------- */
+
+	//get all
+	@GetMapping
+	public ResponseEntity<List<Endereco>> getAllEnderecos(){
+		return new ResponseEntity <>(enderecoService.getAllEnderecos(),HttpStatus.OK); 
+	}
+	
+	//get id
+	@GetMapping("/{id}")
+	public ResponseEntity<Endereco> getEnderecoById(@PathVariable int id) {
+		Endereco endereco = enderecoService.getEnderecoById(id);
+		if(null != endereco)
+		return new ResponseEntity <>(endereco,HttpStatus.OK); 
+		else
+			throw new NoSuchElementFoundException("Não foi encontrado endereço com id "+id); 
+	}
+	
+	@GetMapping("/consulta-cep/{cep}")
+	public ResponseEntity<ConsultaCep> consultaCepApiExterna(@PathVariable String cep){
+		ConsultaCep consultaCep = enderecoService.consultaCepApiExterna(cep);
+		if(null == consultaCep)
+			throw new NoSuchElementFoundException("Não foi encontrado endereço com cep "+cep); 
+		else
+			return new ResponseEntity <>(consultaCep,HttpStatus.OK);
+	}
+	
+	//save
+	@GetMapping("cep/{cep}")
+	public ResponseEntity<Endereco> saveEnderecoFromApi(@PathVariable String cep) {
+		return new ResponseEntity <>(enderecoService.saveEnderecoFromApi(cep),HttpStatus.CREATED);
+	}
+	
+	//update
+	@PutMapping("/{id}")
+	public ResponseEntity<Endereco> updateEndereco(@RequestBody Endereco endereco, @PathVariable int id){
+		Endereco endereco2 = enderecoService.getEnderecoById(id);
+		if(null == endereco2)
+			throw new NoSuchElementFoundException("Não foi encontrado endereço com id "+id); 
+		else
+			return new ResponseEntity <>(enderecoService.updateEndereco(endereco, id),HttpStatus.OK);
+	}
+	
+	//delete
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Endereco> deleteEndereco(@PathVariable int id) {
+		Endereco endereco = enderecoService.getEnderecoById(id);
+		if(null == endereco)
+			throw new NoSuchElementFoundException("Não foi encontrado endereço com id "+id); 
+		else
+			return new ResponseEntity <>(enderecoService.deleteEndereco(id),HttpStatus.OK);
+	}
+	/* ------ ENTIDADE -------- */
+	
 // CONTROLLER DOS DTO
 	@GetMapping("/dto") 
     public ResponseEntity<List<EnderecoDTO>> getAll(){
