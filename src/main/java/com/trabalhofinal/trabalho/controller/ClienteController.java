@@ -73,7 +73,12 @@ public class ClienteController {
         return new ResponseEntity<>(clienteService.save(clienteDTO), HttpStatus.CREATED);
     }
 	
-	@PutMapping("/dto/{id}")
+	@PostMapping("/saveAll")
+	public ResponseEntity<List<ClienteDTO>> saveAllCategoriaDTO(@RequestBody List<ClienteDTO> clienteDTO) {
+		return new ResponseEntity<>(clienteService.saveAllDTO(clienteDTO), HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/dto/update/{id}")
 	public ResponseEntity<ClienteDTO> updateClienteDTO(@RequestBody ClienteDTO clienteDTO,
 			@PathVariable Integer id) {
 		return new ResponseEntity<>(clienteService.update(clienteDTO, id), HttpStatus.OK);

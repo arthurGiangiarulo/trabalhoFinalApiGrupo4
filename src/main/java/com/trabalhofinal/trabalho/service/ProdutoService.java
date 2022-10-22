@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.trabalhofinal.trabalho.dto.CategoriaDTO;
 import com.trabalhofinal.trabalho.dto.ProdutoDTO;
 import com.trabalhofinal.trabalho.entity.Produto;
 import com.trabalhofinal.trabalho.repository.ProdutoRepository;
@@ -43,6 +44,14 @@ public class ProdutoService {
 		ProdutoDTO produtoAtualizado = toDTO(novoProduto);
 		
 		return produtoAtualizado;
+	}
+	
+	public List<ProdutoDTO> saveAllDTO(List<ProdutoDTO> produtoDTO) {
+		produtoDTO.forEach(pdt -> {
+			//formatToUpperDTO(edt);
+			produtoRepository.save(toEntidade(pdt));
+		});
+		return produtoDTO;
 	}
 	
 	public ProdutoDTO update(ProdutoDTO produtoDTO,Integer id) {
@@ -86,17 +95,29 @@ public class ProdutoService {
 		return produtoDTO;
 	}
 	
+//	private CategoriaDTO converteEntitytoDTO(Categoria categoria) {
+//	CategoriaDTO categoriaDTO = new CategoriaDTO();
+//	categoriaDTO = (modelMapper.map(categoria, CategoriaDTO.class));
+//	return categoriaDTO;	
+//}
+	
 	public Produto toEntidade(ProdutoDTO produtoDTO) {
 		Produto produto = new Produto();
 
 		produto.setCategoria(produtoDTO.getCategoria());
 		produto.setDescricao(produtoDTO.getDescricao());
-		//produto.setDtCadastro(produtoDTO.getDtCadastro());
+		produto.setDataCadastro(produtoDTO.getDtCadastro());
 		produto.setImagem(produtoDTO.getImagem());
 		//produto.setItemPedido(produtoDTO.getItemPedido());
 		produto.setQtdEstoque(produtoDTO.getQtdEstoque());
-		//produto.setVlUnitario(produtoDTO.getVlUnitario());
+		produto.setValorUnitario(produtoDTO.getVlUnitario());
 
 		return produto;
 	}
+	
+//	private CategoriaDTO converteDTOEntity(Categoria categoria) {
+//	CategoriaDTO categoriaDTO = new CategoriaDTO();
+//	categoriaDTO = (modelMapper.map(categoria, CategoriaDTO.class));
+//	return categoriaDTO;	
+//}
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.trabalhofinal.trabalho.dto.CategoriaDTO;
 import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
 import com.trabalhofinal.trabalho.service.ItemPedidoService;
 
@@ -71,6 +71,11 @@ public class ItemPedidoController {
    public ResponseEntity<ItemPedidoDTO> save(@RequestBody ItemPedidoDTO enderecoDTO) {
        return new ResponseEntity<>(itemService.save(enderecoDTO), HttpStatus.CREATED);
    }
+	
+	@PostMapping("/saveAll")
+	public ResponseEntity<List<ItemPedidoDTO>> saveAllDTO(@RequestBody List<ItemPedidoDTO> categoriaDTO) {
+		return new ResponseEntity<>(itemService.saveAllDTO(categoriaDTO), HttpStatus.CREATED);
+	}
 	
 	@PutMapping("/dto/{id}")
 	public ResponseEntity<ItemPedidoDTO> updateEditoraDTO(@RequestBody ItemPedidoDTO itemDTO,

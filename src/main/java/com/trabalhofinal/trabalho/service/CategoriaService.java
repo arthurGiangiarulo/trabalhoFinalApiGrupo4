@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trabalhofinal.trabalho.dto.CategoriaDTO;
+import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
 import com.trabalhofinal.trabalho.entity.Categoria;
+import com.trabalhofinal.trabalho.entity.Cliente;
 import com.trabalhofinal.trabalho.repository.CategoriaRepository;
 
 @Service
@@ -49,9 +51,18 @@ public class CategoriaService {
 		return categoriaAtualizada;
 	}
 	
+	public List<CategoriaDTO> saveAllDTO(List<CategoriaDTO> categoriaDTO) {
+		categoriaDTO.forEach(cat -> {
+			//formatToUpperDTO(edt);
+			categoriaRepository.save(toEntidade(cat));
+		});
+		return categoriaDTO;
+	}
+	
+	//SALVANDO AO INVES DE DAR UPDATE
 	public CategoriaDTO update(CategoriaDTO categoriaDTO,Integer id) {
 		
-		Categoria categoriaExistenteNoBanco = categoriaRepository.findById(id).get();
+		Categoria categoriaExistenteNoBanco = categoriaRepository.findById(id).orElse(null);
 		CategoriaDTO categoriaAtualizadaDTO = new CategoriaDTO();
 		if(categoriaExistenteNoBanco != null) {
 			categoriaDTO.setNome(categoriaExistenteNoBanco.getNome());
@@ -86,7 +97,7 @@ public class CategoriaService {
 		 Categoria categoria = new Categoria();
 		 
 		 categoria.setNome(categoriaDTO.getNome());
-		 categoria.setDescricao(categoria.getDescricao());
+		 categoria.setDescricao(categoriaDTO.getDescricao());
 		return categoria;
 	}
 	

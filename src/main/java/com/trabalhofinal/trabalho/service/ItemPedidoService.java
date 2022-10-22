@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
+import com.trabalhofinal.trabalho.entity.Categoria;
 import com.trabalhofinal.trabalho.entity.ItemPedido;
 import com.trabalhofinal.trabalho.repository.ItemPedidoRepository;
 
@@ -44,7 +45,15 @@ public class ItemPedidoService {
 
 		return itemAtualizado;
 	}
-
+	
+	public List<ItemPedidoDTO> saveAllDTO(List<ItemPedidoDTO> itemDTO) {
+		itemDTO.forEach(edt -> {
+			//formatToUpperDTO(edt);
+			itemPedidoRepository.save(toEntidade(edt));
+		});
+		return itemDTO;
+	}
+	
 	public ItemPedidoDTO update(ItemPedidoDTO itemDTO, Integer id) {
 
 		ItemPedido itemExistenteNoBanco = itemPedidoRepository.findById(id).get();
@@ -71,19 +80,32 @@ public class ItemPedidoService {
 
 	public ItemPedidoDTO toDTO(ItemPedido item) {
 		ItemPedidoDTO itemDTO = new ItemPedidoDTO();
-
+		
+		itemDTO.setIdItemPedido(item.getIdItemPedido());
 		itemDTO.setQuantidade(item.getQuantidade());
 		itemDTO.setProduto(item.getProduto());
 
 		return itemDTO;
 	}
+	
+//	private CategoriaDTO converteEntitytoDTO(Categoria categoria) {
+//	CategoriaDTO categoriaDTO = new CategoriaDTO();
+//	categoriaDTO = (modelMapper.map(categoria, CategoriaDTO.class));
+//	return categoriaDTO;	
+//}
 
 	public ItemPedido toEntidade(ItemPedidoDTO itemDTO) {
-		ItemPedido item = new ItemPedido();
-
+		ItemPedido item = new ItemPedido();		
+		item.setIdItemPedido(itemDTO.getIdItemPedido());
 		item.setQuantidade(itemDTO.getQuantidade());
 		item.setProduto(itemDTO.getProduto());
 
 		return item;
 	}
+	
+//	private CategoriaDTO converteDTOtoEntity(Categoria categoria) {
+//	CategoriaDTO categoriaDTO = new CategoriaDTO();
+//	categoriaDTO = (modelMapper.map(categoria, CategoriaDTO.class));
+//	return categoriaDTO;	
+//}
 }

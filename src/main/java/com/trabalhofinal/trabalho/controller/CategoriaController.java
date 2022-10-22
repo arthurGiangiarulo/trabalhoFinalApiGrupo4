@@ -73,6 +73,11 @@ public class CategoriaController {
 	        return new ResponseEntity<>(categoriaService.save(categoriaDTO), HttpStatus.CREATED);
 	    }
 		
+		@PostMapping("/saveAll")
+		public ResponseEntity<List<CategoriaDTO>> saveAllCategoriaDTO(@RequestBody List<CategoriaDTO> categoriaDTO) {
+			return new ResponseEntity<>(categoriaService.saveAllDTO(categoriaDTO), HttpStatus.CREATED);
+		}
+		
 		@PutMapping("/dto/{id}")
 		public ResponseEntity<CategoriaDTO> updateCategoriaDTO(@RequestBody CategoriaDTO categoriaDTO,
 				@PathVariable Integer id) {
