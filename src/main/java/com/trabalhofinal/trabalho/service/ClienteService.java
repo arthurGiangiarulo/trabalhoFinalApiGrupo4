@@ -41,6 +41,7 @@ public class ClienteService {
 	}
 
 	public ClienteDTO save(ClienteDTO clienteDTO) {
+		clienteDTO = formatToUpperDTO(clienteDTO);
 		Cliente cliente = toEntidade(clienteDTO);
 		Cliente novoCliente = clienteRepository.save(cliente);
 
@@ -50,7 +51,7 @@ public class ClienteService {
 	}
 
 	public ClienteDTO update(ClienteDTO clienteDTO, Integer id) {
-
+		clienteDTO = formatToUpperDTO(clienteDTO);
 		Cliente clienteExistenteNoBanco = clienteRepository.findById(id).get();
 		ClienteDTO clienteAtualizadoDTO = new ClienteDTO();
 		if (clienteExistenteNoBanco != null) {
@@ -74,19 +75,6 @@ public class ClienteService {
 
 		return getById(id);
 	}
-
-//	public ClienteDTO toDTO(Cliente cliente) {
-//		ClienteDTO clienteDTO = new ClienteDTO();
-//
-//		clienteDTO.setCpf(cliente.getCpf());
-//		;
-//		clienteDTO.setNomeCompleto(cliente.getNomeCompleto());
-//		clienteDTO.setDataNascimento(cliente.getDataNascimento());
-//		clienteDTO.setTelefone(cliente.getTelefone());
-//		// clienteDTO.setPedido(cliente.getPedido());
-//
-//		return clienteDTO;
-//	}
 	
 	private ClienteDTO converteEntitytoDTO(Cliente cliente) {
 		ClienteDTO categoriaDTO = new ClienteDTO();
@@ -104,5 +92,11 @@ public class ClienteService {
 		cliente.setTelefone(clienteDTO.getTelefone());
 
 		return cliente;
+	}
+	
+//	Format inputs to UpperCase
+	private ClienteDTO formatToUpperDTO(ClienteDTO clienteDTO) {
+		clienteDTO.setNomeCompleto(clienteDTO.getNomeCompleto().toUpperCase());
+		return clienteDTO;
 	}
 }

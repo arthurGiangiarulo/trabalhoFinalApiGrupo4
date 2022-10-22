@@ -41,6 +41,7 @@ public class PedidoService {
 	}
 	
 	public PedidoDTO save(PedidoDTO pedidoDTO) {
+		pedidoDTO = formatToUpperDTO(pedidoDTO);
 		Pedido pedido = toEntidade(pedidoDTO);
 		Pedido novoPedido = pedidoRepository.save(pedido);
 		
@@ -50,7 +51,7 @@ public class PedidoService {
 	}
 	
 	public PedidoDTO update(PedidoDTO pedidoDTO,Integer id) {
-		
+		pedidoDTO = formatToUpperDTO(pedidoDTO);
 		Pedido pedidoExistenteNoBanco = pedidoRepository.findById(id).get();
 		PedidoDTO pedidoAtualizadoDTO = new PedidoDTO();
 		if(pedidoExistenteNoBanco != null) {
@@ -75,20 +76,6 @@ public class PedidoService {
 		return getById(id);
 	}
 	
-//	public PedidoDTO toDTO(Pedido pedido) {
-//		PedidoDTO pedidoDTO = new PedidoDTO();
-//		
-//		pedidoDTO.setIdPedido(pedido.getIdPedido());
-//		pedidoDTO.setCliente(pedido.getCliente());;
-//		//pedidoDTO.setDtEntrega(pedido.getDtEntrega());
-//		//pedidoDTO.setDtEnvio(pedido.getDtEnvio());
-//		//pedidoDTO.setDtPedido(pedido.getDtPedido());
-//		pedidoDTO.setStatus(pedido.getStatus());
-//		//pedidoDTO.setVlTotal(pedido.getVlTotal());
-//		
-//		return pedidoDTO;
-//	}
-	
 	public Pedido toEntidade(PedidoDTO pedidoDTO) {
 		Pedido pedido = new Pedido();
 		 
@@ -108,5 +95,11 @@ public class PedidoService {
 		PedidoDTO pedidoDTO = new PedidoDTO();
 		pedidoDTO = (modelMapper.map(pedido, PedidoDTO.class));
 		return pedidoDTO;	
+	}
+	
+//	Format inputs to UpperCase
+	private PedidoDTO formatToUpperDTO(PedidoDTO pedidoDTO) {
+		pedidoDTO.setStatus(pedidoDTO.getStatus().toUpperCase());
+		return pedidoDTO;
 	}
 }
