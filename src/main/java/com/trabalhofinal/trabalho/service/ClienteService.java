@@ -31,7 +31,7 @@ public class ClienteService {
 		return listaDTO;
 	}
 
-	public ClienteDTO getById(int id) {
+	public ClienteDTO getById(Integer id) {
 		Cliente cliente = clienteRepository.findById(id).orElse(null);
 		if (cliente != null) {
 			return converteEntitytoDTO(cliente);
