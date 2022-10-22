@@ -3,6 +3,7 @@ package com.trabalhofinal.trabalho.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +15,15 @@ import com.trabalhofinal.trabalho.repository.CategoriaRepository;
 public class CategoriaService {
     @Autowired
     CategoriaRepository categoriaRepository;
+    
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	public List <CategoriaDTO> getAll(){
 		List<Categoria> listaCategoria = categoriaRepository.findAll();
 		List<CategoriaDTO> listaCategoriaDTO = new ArrayList<>();
 		for(Categoria categoria : listaCategoria) {
-			CategoriaDTO categoriaDTO = toDTO(categoria);
+			CategoriaDTO categoriaDTO = converteEntitytoDTO(categoria);
 			
 			listaCategoriaDTO.add(categoriaDTO);
 		}
@@ -30,7 +34,7 @@ public class CategoriaService {
 	public CategoriaDTO getById(int id) {
 		Categoria categoria = categoriaRepository.findById(id).orElse(null);
 		if (categoria != null) {
-			return toDTO(categoria);
+			return converteEntitytoDTO(categoria);
 		} else {
 			return null;
 		}
@@ -40,7 +44,7 @@ public class CategoriaService {
 		Categoria categoria = toEntidade(categoriaDTO);
 		Categoria novaCategoria = categoriaRepository.save(categoria);
 		
-		CategoriaDTO categoriaAtualizada = toDTO(novaCategoria);
+		CategoriaDTO categoriaAtualizada = converteEntitytoDTO(novaCategoria);
 		
 		return categoriaAtualizada;
 	}
@@ -57,7 +61,7 @@ public class CategoriaService {
 			
 			Categoria categoriaAtualizada = categoriaRepository.save(categoriaExistenteNoBanco);
 			
-			categoriaAtualizadaDTO = toDTO(categoriaAtualizada);
+			categoriaAtualizadaDTO = converteEntitytoDTO(categoriaAtualizada);
 		}
 		
 		return categoriaAtualizadaDTO;
@@ -69,14 +73,14 @@ public class CategoriaService {
 		return getById(id);
 	}
 	
-	public CategoriaDTO toDTO(Categoria categoria) {
-		CategoriaDTO categoriaDTO = new CategoriaDTO();
-		
-		categoriaDTO.setDescricao(categoria.getDescricao());
-		categoriaDTO.setNome(categoria.getNome());
-		
-		return categoriaDTO;
-	}
+//	public CategoriaDTO toDTO(Categoria categoria) {
+//		CategoriaDTO categoriaDTO = new CategoriaDTO();
+//		
+//		categoriaDTO.setDescricao(categoria.getDescricao());
+//		categoriaDTO.setNome(categoria.getNome());
+//		
+//		return categoriaDTO;
+//	}
 	
 	public Categoria toEntidade(CategoriaDTO categoriaDTO) {
 		 Categoria categoria = new Categoria();
@@ -84,5 +88,11 @@ public class CategoriaService {
 		 categoria.setNome(categoriaDTO.getNome());
 		 categoria.setDescricao(categoria.getDescricao());
 		return categoria;
+	}
+	
+	private CategoriaDTO converteEntitytoDTO(Categoria categoria) {
+		CategoriaDTO categoriaDTO = new CategoriaDTO();
+		categoriaDTO = (modelMapper.map(categoria, CategoriaDTO.class));
+		return categoriaDTO;	
 	}
 }
