@@ -40,7 +40,6 @@ public class Endereco {
 	@OneToOne
 	private Cliente cliente;
 
-
 	public Integer getIdEndereco() {
 		return idEndereco;
 	}

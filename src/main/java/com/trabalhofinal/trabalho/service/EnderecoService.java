@@ -17,6 +17,7 @@ public class EnderecoService {
     @Autowired
     EnderecoRepository enderecoRepository;
 
+<<<<<<< Updated upstream
 	//get all
 	public List<Endereco> getAllEnderecos(){
 		return enderecoRepository.findAll(); 
@@ -60,6 +61,49 @@ public class EnderecoService {
 	//update
 	public Endereco updateEndereco (Endereco endereco, int id) { 
 		
+=======
+    public List<Endereco> getAllEnderecos(){
+        return enderecoRepository.findAll();
+        //incluir tratamento/verificação para not found?
+    }
+
+    public Endereco getEnderecoById(Integer id){
+        return enderecoRepository.findById(id).orElse(null);
+        //incluir tratamento/verificação para not found?
+    }
+
+    //save
+  	public ConsultaCep consultaCepApiExterna(String cep) {
+  		RestTemplate restTemplate = new RestTemplate();
+  		
+  		String uri = "https://viacep.com.br/ws/{cep}/json";
+  		
+  		Map<String,String> params = new HashMap<String, String>();
+  		params.put("cep", cep);
+  		
+  		ConsultaCep consultaCep = restTemplate.getForObject(uri, ConsultaCep.class, params);
+  		
+  		return consultaCep;
+  	}
+  	
+  	public Endereco saveEnderecoFromApi(String cep) {
+  		ConsultaCep consultaCep = consultaCepApiExterna(cep);
+  		
+  		Endereco endereco = new Endereco();
+  		
+  		endereco.setCep(consultaCep.getCep());
+  		endereco.setBairro(consultaCep.getBairro());
+  		endereco.setCidade(consultaCep.getLocalidade());
+  		endereco.setComplemento(consultaCep.getComplemento());
+  		endereco.setNumero(consultaCep.getNumero());
+  		endereco.setRua(consultaCep.getLogradouro());
+  		endereco.setUf(consultaCep.getUf());
+  		
+  		return enderecoRepository.save(endereco);
+  	}
+    
+    public Endereco uptadeEndereco(Endereco endereco, Integer id){
+>>>>>>> Stashed changes
 		Endereco enderecoExistenteNoBanco = enderecoRepository.findById(id).get();
 		enderecoExistenteNoBanco.setBairro(endereco.getBairro());
 		enderecoExistenteNoBanco.setCidade(endereco.getCidade());
@@ -67,6 +111,7 @@ public class EnderecoService {
 		enderecoExistenteNoBanco.setNumero(endereco.getNumero());
 		enderecoExistenteNoBanco.setRua(endereco.getRua());
 		enderecoExistenteNoBanco.setUf(endereco.getUf());
+<<<<<<< Updated upstream
 		
 		return enderecoRepository.save(enderecoExistenteNoBanco);
 	}
@@ -76,4 +121,26 @@ public class EnderecoService {
 		enderecoRepository.deleteById(id);
 		return getEnderecoById(id);
 	}
+=======
+        return enderecoRepository.save(enderecoExistenteNoBanco);
+    }
+
+    public Endereco deleteEndereco(Integer id){
+        enderecoRepository.deleteById(id);
+        return getEnderecoById(id);
+    }
+    
+    // public Endereco deleteEndereco(Integer id){
+    //     Endereco endereco = getEnderecoById(id);
+        
+    //     //Incluir tratamento para id not found
+    //     if(endereco != null){
+    //         enderecoRepository.deleteById(id);
+    //         return endereco;
+    //     } else {
+    //         return endereco;
+    //     }
+    // }
+
+>>>>>>> Stashed changes
 }

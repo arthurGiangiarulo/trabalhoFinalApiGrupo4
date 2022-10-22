@@ -50,4 +50,8 @@ public class ConsultaCep {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes
