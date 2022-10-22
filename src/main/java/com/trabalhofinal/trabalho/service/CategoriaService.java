@@ -84,7 +84,6 @@ public class CategoriaService {
 	public Categoria toEntidade(CategoriaDTO categoriaDTO) {
 		 Categoria categoria = new Categoria();
 		 
-		 categoria.setIdCategoria(categoriaDTO.getIdCategoria());
 		 categoria.setNome(categoriaDTO.getNome());
 		 categoria.setDescricao(categoriaDTO.getDescricao());
 		 return categoria;

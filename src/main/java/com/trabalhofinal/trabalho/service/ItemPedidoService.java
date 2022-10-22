@@ -3,10 +3,13 @@ package com.trabalhofinal.trabalho.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.trabalhofinal.trabalho.dto.CategoriaDTO;
 import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
+import com.trabalhofinal.trabalho.entity.Categoria;
 import com.trabalhofinal.trabalho.entity.ItemPedido;
 import com.trabalhofinal.trabalho.repository.ItemPedidoRepository;
 
@@ -14,12 +17,15 @@ import com.trabalhofinal.trabalho.repository.ItemPedidoRepository;
 public class ItemPedidoService {
     @Autowired
     ItemPedidoRepository itemPedidoRepository;
+    
+	@Autowired
+	private ModelMapper modelMapper;
 
 	public List<ItemPedidoDTO> getAll() {
 		List<ItemPedido> lista = itemPedidoRepository.findAll();
 		List<ItemPedidoDTO> listaDTO = new ArrayList<>();
 		for (ItemPedido item : lista) {
-			ItemPedidoDTO itemDTO = toDTO(item);
+			ItemPedidoDTO itemDTO = converteEntitytoDTO(item);
 
 			listaDTO.add(itemDTO);
 		}
@@ -30,7 +36,7 @@ public class ItemPedidoService {
 	public ItemPedidoDTO getById(int id) {
 		ItemPedido item = itemPedidoRepository.findById(id).orElse(null);
 		if (item != null) {
-			return toDTO(item);
+			return converteEntitytoDTO(item);
 		} else {
 			return null;
 		}
@@ -40,7 +46,7 @@ public class ItemPedidoService {
 		ItemPedido item = toEntidade(itemDTO);
 		ItemPedido novoEndereco = itemPedidoRepository.save(item);
 
-		ItemPedidoDTO itemAtualizado = toDTO(novoEndereco);
+		ItemPedidoDTO itemAtualizado = converteEntitytoDTO(novoEndereco);
 
 		return itemAtualizado;
 	}
@@ -57,7 +63,7 @@ public class ItemPedidoService {
 
 			ItemPedido itemAtualizado = itemPedidoRepository.save(itemExistenteNoBanco);
 
-			itemAtualizadoDTO = toDTO(itemAtualizado);
+			itemAtualizadoDTO = converteEntitytoDTO(itemAtualizado);
 		}
 
 		return itemAtualizadoDTO;
@@ -69,21 +75,30 @@ public class ItemPedidoService {
 		return getById(id);
 	}
 
-	public ItemPedidoDTO toDTO(ItemPedido item) {
-		ItemPedidoDTO itemDTO = new ItemPedidoDTO();
-
-		itemDTO.setQuantidade(item.getQuantidade());
-		itemDTO.setProduto(item.getProduto());
-
-		return itemDTO;
-	}
+//	public ItemPedidoDTO toDTO(ItemPedido item) {
+//		ItemPedidoDTO itemDTO = new ItemPedidoDTO();
+//
+//		itemDTO.setQuantidade(item.getQuantidade());
+//		itemDTO.setProduto(item.getProduto());
+//
+//		return itemDTO;
+//	}
 
 	public ItemPedido toEntidade(ItemPedidoDTO itemDTO) {
 		ItemPedido item = new ItemPedido();
-
+		
 		item.setQuantidade(itemDTO.getQuantidade());
+		item.setPrecoVenda(itemDTO.getPrecoVenda());
+		item.setPercentualDesconto(itemDTO.getPercentualDesconto());
+		item.setValorBruto(itemDTO.getValorBruto());
+		item.setValorLiquido(itemDTO.getValorLiquido());
 		item.setProduto(itemDTO.getProduto());
-
 		return item;
+	}
+	
+	private ItemPedidoDTO converteEntitytoDTO(ItemPedido item) {
+		ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
+		itemPedidoDTO = (modelMapper.map(item, ItemPedidoDTO.class));
+		return itemPedidoDTO;	
 	}
 }

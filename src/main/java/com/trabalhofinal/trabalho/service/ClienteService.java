@@ -97,7 +97,6 @@ public class ClienteService {
 	public Cliente toEntidade(ClienteDTO clienteDTO) {
 		Cliente cliente = new Cliente();
 
-		cliente.setIdCliente(clienteDTO.getIdCliente());
 		cliente.setEmail(clienteDTO.getEmail());
 		cliente.setCpf(clienteDTO.getCpf());
 		cliente.setNomeCompleto(clienteDTO.getNomeCompleto());
