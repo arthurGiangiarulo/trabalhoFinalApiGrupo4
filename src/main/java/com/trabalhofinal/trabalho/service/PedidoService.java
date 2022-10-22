@@ -3,6 +3,7 @@ package com.trabalhofinal.trabalho.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +15,15 @@ import com.trabalhofinal.trabalho.repository.PedidoRepository;
 public class PedidoService {
     @Autowired
     PedidoRepository pedidoRepository;
+    
+	@Autowired
+	private ModelMapper modelMapper;
 
 	public List <PedidoDTO> getAll(){
 		List<Pedido> lista = pedidoRepository.findAll();
 		List<PedidoDTO> listaDTO = new ArrayList<>();
 		for(Pedido pedido : lista) {
-			PedidoDTO pedidoDTO = toDTO(pedido);
+			PedidoDTO pedidoDTO = converteEntitytoDTO(pedido);
 			
 			listaDTO.add(pedidoDTO);
 		}
@@ -30,7 +34,7 @@ public class PedidoService {
 	public PedidoDTO getById(int id) {
 		Pedido pedido = pedidoRepository.findById(id).orElse(null);
 		if (pedido != null) {
-			return toDTO(pedido);
+			return converteEntitytoDTO(pedido);
 		} else {
 			return null;
 		}
@@ -40,7 +44,7 @@ public class PedidoService {
 		Pedido pedido = toEntidade(pedidoDTO);
 		Pedido novoPedido = pedidoRepository.save(pedido);
 		
-		PedidoDTO pedidoAtualizado = toDTO(novoPedido);
+		PedidoDTO pedidoAtualizado = converteEntitytoDTO(novoPedido);
 		
 		return pedidoAtualizado;
 	}
@@ -52,14 +56,14 @@ public class PedidoService {
 		if(pedidoExistenteNoBanco != null) {
 			pedidoDTO.setStatus(pedidoAtualizadoDTO.getStatus());
 			pedidoDTO.setCliente(pedidoAtualizadoDTO.getCliente());
-			pedidoDTO.setItemPedido(pedidoAtualizadoDTO.getItemPedido());
-			pedidoDTO.setVlTotal(pedidoAtualizadoDTO.getVlTotal());
+			pedidoDTO.setItensPedidos(pedidoAtualizadoDTO.getItensPedidos());
+			pedidoDTO.setValorTotal(pedidoAtualizadoDTO.getValorTotal());
 			
 			pedidoExistenteNoBanco = toEntidade(pedidoDTO);
 			
 			Pedido pedidoAtualizado = pedidoRepository.save(pedidoExistenteNoBanco);
 			
-			pedidoAtualizadoDTO = toDTO(pedidoAtualizado);
+			pedidoAtualizadoDTO = converteEntitytoDTO(pedidoAtualizado);
 		}
 		
 		return pedidoAtualizadoDTO;
@@ -71,31 +75,38 @@ public class PedidoService {
 		return getById(id);
 	}
 	
-	public PedidoDTO toDTO(Pedido pedido) {
-		PedidoDTO pedidoDTO = new PedidoDTO();
-		
-		pedidoDTO.setIdPedido(pedido.getIdPedido());
-		pedidoDTO.setCliente(pedido.getCliente());;
-		//pedidoDTO.setDtEntrega(pedido.getDtEntrega());
-		//pedidoDTO.setDtEnvio(pedido.getDtEnvio());
-		//pedidoDTO.setDtPedido(pedido.getDtPedido());
-		pedidoDTO.setStatus(pedido.getStatus());
-		//pedidoDTO.setVlTotal(pedido.getVlTotal());
-		
-		return pedidoDTO;
-	}
+//	public PedidoDTO toDTO(Pedido pedido) {
+//		PedidoDTO pedidoDTO = new PedidoDTO();
+//		
+//		pedidoDTO.setIdPedido(pedido.getIdPedido());
+//		pedidoDTO.setCliente(pedido.getCliente());;
+//		//pedidoDTO.setDtEntrega(pedido.getDtEntrega());
+//		//pedidoDTO.setDtEnvio(pedido.getDtEnvio());
+//		//pedidoDTO.setDtPedido(pedido.getDtPedido());
+//		pedidoDTO.setStatus(pedido.getStatus());
+//		//pedidoDTO.setVlTotal(pedido.getVlTotal());
+//		
+//		return pedidoDTO;
+//	}
 	
 	public Pedido toEntidade(PedidoDTO pedidoDTO) {
 		Pedido pedido = new Pedido();
 		 
+		pedido.setCliente(pedidoDTO.getCliente());
+		pedido.setDataEntrega(pedidoDTO.getDataEntrega());
+		pedido.setDataEnvio(pedidoDTO.getDataEnvio());
+		pedido.setDataPedido(pedidoDTO.getDataPedido());
 		pedido.setIdPedido(pedidoDTO.getIdPedido());
-		pedido.setCliente(pedidoDTO.getCliente());;
-		//pedido.setDtEntrega(pedidoDTO.getDtEntrega());
-		//pedido.setDtEnvio(pedidoDTO.getDtEnvio());
-		//pedido.setDtPedido(pedidoDTO.getDtPedido());
+		pedido.setItensPedidos(pedidoDTO.getItensPedidos());
 		pedido.setStatus(pedidoDTO.getStatus());
-		//pedido.setVlTotal(pedidoDTO.getVlTotal());
+		pedido.setValorTotal(pedidoDTO.getValorTotal());
 		
 		return pedido;
+	}
+	
+	private PedidoDTO converteEntitytoDTO(Pedido pedido) {
+		PedidoDTO pedidoDTO = new PedidoDTO();
+		pedidoDTO = (modelMapper.map(pedido, PedidoDTO.class));
+		return pedidoDTO;	
 	}
 }

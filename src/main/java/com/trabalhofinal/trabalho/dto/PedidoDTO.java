@@ -8,60 +8,75 @@ import com.trabalhofinal.trabalho.entity.ItemPedido;
 
 public class PedidoDTO {
 	private Integer idPedido;
-	private Instant dtPedido;
-	private Instant dtEntrega;
-	private Instant dtEnvio;
+	private Instant dataPedido;
+	private Instant dataEntrega;
+	private Instant dataEnvio;
 	private String status;
-	private Double vlTotal;
-	private List <ItemPedido> itemPedido;
+	private Double valorTotal;
+	private List<ItemPedido> itensPedidos;
 	private Cliente cliente;
+
 	public Integer getIdPedido() {
 		return idPedido;
 	}
+
 	public void setIdPedido(Integer idPedido) {
 		this.idPedido = idPedido;
 	}
-	public Instant getDtPedido() {
-		return dtPedido;
-	}
-	public void setDtPedido(Instant dtPedido) {
-		this.dtPedido = dtPedido;
-	}
-	public Instant getDtEntrega() {
-		return dtEntrega;
-	}
-	public void setDtEntrega(Instant dtEntrega) {
-		this.dtEntrega = dtEntrega;
-	}
-	public Instant getDtEnvio() {
-		return dtEnvio;
-	}
-	public void setDtEnvio(Instant dtEnvio) {
-		this.dtEnvio = dtEnvio;
-	}
+
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Double getVlTotal() {
-		return vlTotal;
-	}
-	public void setVlTotal(Double vlTotal) {
-		this.vlTotal = vlTotal;
-	}
-	public List<ItemPedido> getItemPedido() {
-		return itemPedido;
-	}
-	public void setItemPedido(List<ItemPedido> itemPedido) {
-		this.itemPedido = itemPedido;
-	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}
+
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
+
+	public Instant getDataPedido() {
+		return dataPedido;
+	}
+
+	public void setDataPedido(Instant dataPedido) {
+		this.dataPedido = dataPedido;
+	}
+
+	public Instant getDataEntrega() {
+		return dataEntrega;
+	}
+
+	public void setDataEntrega(Instant dataEntrega) {
+		this.dataEntrega = dataEntrega;
+	}
+
+	public Instant getDataEnvio() {
+		return dataEnvio;
+	}
+
+	public void setDataEnvio(Instant dataEnvio) {
+		this.dataEnvio = dataEnvio;
+	}
+
+	public Double getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+	public List<ItemPedido> getItensPedidos() {
+		return itensPedidos;
+	}
+
+	public void setItensPedidos(List<ItemPedido> itensPedidos) {
+		this.itensPedidos = itensPedidos;
+	}
 }
