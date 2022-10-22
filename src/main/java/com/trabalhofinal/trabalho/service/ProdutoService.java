@@ -62,9 +62,9 @@ public class ProdutoService {
 
 			produtoExistenteNoBanco = toEntidade(produtoDTO);
 
-			Produto enderecoAtualizado = produtoRepository.save(produtoExistenteNoBanco);
+			Produto produtoAtualizado = produtoRepository.save(produtoExistenteNoBanco);
 
-			produtoAtualizadoDTO = converteEntitytoDTO(enderecoAtualizado);
+			produtoAtualizadoDTO = converteEntitytoDTO(produtoAtualizado);
 		}
 
 		return produtoAtualizadoDTO;

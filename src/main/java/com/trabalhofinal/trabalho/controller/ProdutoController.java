@@ -74,7 +74,7 @@ public class ProdutoController {
    }
 	
 	@PutMapping("/dto/{id}")
-	public ResponseEntity<ProdutoDTO> updateEditoraDTO(@RequestBody ProdutoDTO produtoDTO,
+	public ResponseEntity<ProdutoDTO> updateProdutoDTO(@RequestBody ProdutoDTO produtoDTO,
 			@PathVariable Integer id) {
 		return new ResponseEntity<>(produtoService.update(produtoDTO, id), HttpStatus.OK);
 	}
