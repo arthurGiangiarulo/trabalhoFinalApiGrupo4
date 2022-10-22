@@ -24,33 +24,6 @@ import com.trabalhofinal.trabalho.service.ClienteService;
 public class ClienteController {
 	@Autowired
 	ClienteService clienteService;
-	
-//// CONTROLLER DAS ENTITY --------------------------------------------------------------------------------
-//	@GetMapping
-//    public ResponseEntity<List<Cliente>> getAllCliente(){
-//        return new ResponseEntity<>(clienteService.getAllClientes(), HttpStatus.OK);
-//    }
-//	
-//	@GetMapping("/{id}")
-//	public ResponseEntity<Cliente> getClienteaById(@PathVariable int id) {
-//		Cliente cliente = clienteService.getClienteById(id);
-//		if (cliente != null) {
-//			return new ResponseEntity<>(cliente, HttpStatus.OK);
-//		} else {
-//			return new ResponseEntity<>(cliente, HttpStatus.NOT_FOUND);
-//		}
-//	}
-//	
-//	@PostMapping
-//	public ResponseEntity<Cliente> saveCliente(@RequestBody Cliente cliente) {
-//		return new ResponseEntity<>(clienteService.saveCliente(cliente), HttpStatus.OK);
-//	}
-//	
-//	@PutMapping("/{id}")
-//	public ResponseEntity<Cliente> updateCliente(@RequestBody Cliente cliente, @PathVariable int id) {
-//		return new ResponseEntity<>(clienteService.updateCliente(cliente, id), HttpStatus.OK);		
-//	}
-//// FIM DO CONTROLLER DAS ENTITY -----------------------------------------------------------------------------------
 
 // CONTROLLER DOS DTO
 	@GetMapping("/dto") 
@@ -73,7 +46,7 @@ public class ClienteController {
         return new ResponseEntity<>(clienteService.save(clienteDTO), HttpStatus.CREATED);
     }
 	
-	@PutMapping("/dto/{id}")
+	@PutMapping("/update/{id}")
 	public ResponseEntity<ClienteDTO> updateClienteDTO(@RequestBody ClienteDTO clienteDTO,
 			@PathVariable Integer id) {
 		return new ResponseEntity<>(clienteService.update(clienteDTO, id), HttpStatus.OK);

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trabalhofinal.trabalho.dto.CategoriaDTO;
+import com.trabalhofinal.trabalho.dto.ClienteDTO;
 import com.trabalhofinal.trabalho.entity.Categoria;
+import com.trabalhofinal.trabalho.entity.Cliente;
 import com.trabalhofinal.trabalho.repository.CategoriaRepository;
 
 @Service
@@ -48,22 +50,24 @@ public class CategoriaService {
 		return categoriaAtualizada;
 	}
 	
-	public CategoriaDTO update(CategoriaDTO categoriaDTO,Integer id) {
+	public CategoriaDTO update(CategoriaDTO categoriaDTO, Integer id) {
+
+		Categoria categoriaExistenteNoBanco = categoriaRepository.findById(id).orElse(null);
+		CategoriaDTO categoriaAtualizadoDTO = new CategoriaDTO();
 		
-		Categoria categoriaExistenteNoBanco = categoriaRepository.findById(id).get();
-		CategoriaDTO categoriaAtualizadaDTO = new CategoriaDTO();
-		if(categoriaExistenteNoBanco != null) {
-			categoriaDTO.setNome(categoriaExistenteNoBanco.getNome());
-			categoriaDTO.setDescricao(categoriaExistenteNoBanco.getDescricao());
+		if (categoriaExistenteNoBanco != null) {
 			
-			categoriaExistenteNoBanco = toEntidade(categoriaDTO);
+			Categoria categoriaExistente = toEntidade(categoriaDTO);
 			
-			Categoria categoriaAtualizada = categoriaRepository.save(categoriaExistenteNoBanco);
+			categoriaExistenteNoBanco.setDescricao(categoriaExistente.getDescricao());
+			categoriaExistenteNoBanco.setNome(categoriaExistente.getNome());
 			
-			categoriaAtualizadaDTO = converteEntitytoDTO(categoriaAtualizada);
+			Categoria categoriaAtualizado = categoriaRepository.save(categoriaExistenteNoBanco);
+			
+			categoriaAtualizadoDTO = converteEntitytoDTO(categoriaAtualizado);
+			 
 		}
-		
-		return categoriaAtualizadaDTO;
+		return categoriaAtualizadoDTO;
 	}
 	
 	public CategoriaDTO delete(Integer id) {

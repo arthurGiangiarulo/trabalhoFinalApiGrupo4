@@ -51,21 +51,22 @@ public class ClienteService {
 
 	public ClienteDTO update(ClienteDTO clienteDTO, Integer id) {
 
-		Cliente clienteExistenteNoBanco = clienteRepository.findById(id).get();
+		Cliente clienteExistenteNoBanco = clienteRepository.findById(id).orElse(null);
 		ClienteDTO clienteAtualizadoDTO = new ClienteDTO();
+		
 		if (clienteExistenteNoBanco != null) {
-			clienteDTO.setNomeCompleto(clienteAtualizadoDTO.getNomeCompleto());
-			clienteDTO.setPedido(clienteAtualizadoDTO.getPedido());
-			clienteDTO.setEmail(clienteAtualizadoDTO.getEmail());
-			clienteDTO.setEndereco(clienteAtualizadoDTO.getEndereco());
-
-			clienteExistenteNoBanco = toEntidade(clienteDTO);
-
+			
+			Cliente clienteExistente = toEntidade(clienteDTO);
+			
+			clienteExistenteNoBanco.setCpf(clienteExistente.getCpf());
+			clienteExistenteNoBanco.setEmail(clienteExistente.getEmail());
+			clienteExistenteNoBanco.setNomeCompleto(clienteExistente.getNomeCompleto());
+			
 			Cliente clienteAtualizado = clienteRepository.save(clienteExistenteNoBanco);
-
+			
 			clienteAtualizadoDTO = converteEntitytoDTO(clienteAtualizado);
+			 
 		}
-
 		return clienteAtualizadoDTO;
 	}
 
@@ -96,7 +97,8 @@ public class ClienteService {
 
 	public Cliente toEntidade(ClienteDTO clienteDTO) {
 		Cliente cliente = new Cliente();
-
+		
+		cliente.setIdCliente(clienteDTO.getIdCliente());
 		cliente.setEmail(clienteDTO.getEmail());
 		cliente.setCpf(clienteDTO.getCpf());
 		cliente.setNomeCompleto(clienteDTO.getNomeCompleto());
