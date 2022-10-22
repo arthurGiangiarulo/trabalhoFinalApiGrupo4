@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -33,11 +34,12 @@ public class Cliente {
 	
 	@Column(name = "dataNascimento")
 	private String dataNascimento;
-	
+
+	@OneToOne
 	@JoinColumn(name = "id_enderenco" , referencedColumnName = "id_endereco")
 	private Endereco endereco;
 	
-	@OneToMany(mappedBy = "id_cliente")
+	@OneToMany(mappedBy = "cliente")
 	private List <Pedido> pedidosDoCliente;
 
 

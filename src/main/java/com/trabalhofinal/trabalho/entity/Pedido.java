@@ -36,7 +36,7 @@ public class Pedido {
 	@Column(name = "valorTotal")
 	private Double valorTotal;
 	
-	@OneToMany(mappedBy = "id_pedido")
+	@OneToMany(mappedBy = "pedido")
 	private List <ItemPedido> itensPedidos;
 	
 	@ManyToOne

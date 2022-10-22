@@ -44,7 +44,7 @@ public class Produto {
 	@JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
 	private Categoria categoria;
 	
-	@OneToMany(mappedBy = "id_produto")
+	@OneToMany(mappedBy = "produto")
 	private List <ItemPedido> pedidosDoProduto;
 
 

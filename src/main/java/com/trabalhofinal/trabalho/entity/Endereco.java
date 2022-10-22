@@ -37,7 +37,7 @@ public class Endereco {
 	@Column(name = "uf")
 	private String uf;
 	
-	@OneToOne(mappedBy = "id_endereco")
+	@OneToOne(mappedBy = "endereco")
 	private Cliente cliente;
 
 
