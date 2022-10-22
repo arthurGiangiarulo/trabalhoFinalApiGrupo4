@@ -7,9 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.trabalhofinal.trabalho.dto.CategoriaDTO;
 import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
-import com.trabalhofinal.trabalho.entity.Categoria;
 import com.trabalhofinal.trabalho.entity.ItemPedido;
 import com.trabalhofinal.trabalho.repository.ItemPedidoRepository;
 

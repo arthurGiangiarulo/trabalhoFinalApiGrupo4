@@ -102,6 +102,7 @@ public class ClienteService {
 		cliente.setNomeCompleto(clienteDTO.getNomeCompleto());
 		cliente.setDataNascimento(clienteDTO.getDataNascimento());
 		cliente.setTelefone(clienteDTO.getTelefone());
+		//Não está faltando o endereço?
 
 		return cliente;
 	}

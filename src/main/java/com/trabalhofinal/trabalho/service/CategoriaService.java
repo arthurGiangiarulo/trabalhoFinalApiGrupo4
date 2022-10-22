@@ -86,10 +86,11 @@ public class CategoriaService {
 		 
 		 categoria.setNome(categoriaDTO.getNome());
 		 categoria.setDescricao(categoriaDTO.getDescricao());
+		 categoria.setProdutosFromDTO(categoriaDTO.getProdutoDTO());
 		 return categoria;
 	}
 	
-	private CategoriaDTO converteEntitytoDTO(Categoria categoria) {
+	public CategoriaDTO converteEntitytoDTO(Categoria categoria) {
 		CategoriaDTO categoriaDTO = new CategoriaDTO();
 		categoriaDTO = (modelMapper.map(categoria, CategoriaDTO.class));
 		return categoriaDTO;	

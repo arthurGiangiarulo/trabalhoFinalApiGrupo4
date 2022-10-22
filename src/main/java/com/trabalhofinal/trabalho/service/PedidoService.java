@@ -92,7 +92,7 @@ public class PedidoService {
 	public Pedido toEntidade(PedidoDTO pedidoDTO) {
 		Pedido pedido = new Pedido();
 		 
-		//pedido.setCliente(pedidoDTO.getClienteDTO());
+		pedido.setClienteFromDTO(pedidoDTO.getClienteDTO());
 		pedido.setDataEntrega(pedidoDTO.getDataEntrega());
 		pedido.setDataEnvio(pedidoDTO.getDataEnvio());
 		pedido.setDataPedido(pedidoDTO.getDataPedido());

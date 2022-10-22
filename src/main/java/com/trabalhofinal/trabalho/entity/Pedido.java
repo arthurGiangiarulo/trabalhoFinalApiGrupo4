@@ -15,7 +15,9 @@ import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.trabalhofinal.trabalho.dto.ClienteDTO;
 import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
+import com.trabalhofinal.trabalho.service.ClienteService;
 import com.trabalhofinal.trabalho.service.ItemPedidoService;
 
 @Entity
@@ -23,6 +25,9 @@ import com.trabalhofinal.trabalho.service.ItemPedidoService;
 public class Pedido {
 	@Autowired
 	ItemPedidoService itemPedidoService;
+
+	@Autowired
+	ClienteService clienteService;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -109,7 +114,8 @@ public class Pedido {
 	}
 
 	public void setItensPedidosFromDTO(List<ItemPedidoDTO> itensPedidosDTO) {
-		this.itensPedidos = itemPedidoService.toEntidade(itensPedidosDTO);
+		for(ItemPedidoDTO itemPedidoDTO: itensPedidosDTO)
+			this.itensPedidos.add(itemPedidoService.toEntidade(itemPedidoDTO));
 	}
 
 	public Cliente getCliente() {
@@ -118,6 +124,10 @@ public class Pedido {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public void setClienteFromDTO(ClienteDTO clienteDTO) {
+		this.cliente = clienteService.toEntidade(clienteDTO);
 	}
 
 	public Pedido setAllAtributos(Pedido pedido){
