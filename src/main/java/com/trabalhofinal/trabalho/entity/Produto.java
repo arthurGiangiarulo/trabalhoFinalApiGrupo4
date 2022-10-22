@@ -21,32 +21,31 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_produto")
 	private Integer idProduto;
-	
+
 	@Column(name = "nome", unique = true)
 	private String nome;
-	
+
 	@Column(name = "descricao", unique = true)
 	private String descricao;
-	
+
 	@Column(name = "qtd_estoque")
 	private Integer qtdEstoque;
-	
+
 	@Column(name = "data_cadastro")
 	private Instant dataCadastro;
-	
+
 	@Column(name = "valor_unitario")
 	private Double valorUnitario;
-	
+
 	@Column(name = "imagem")
 	private String imagem;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
 	private Categoria categoria;
-	
-	@OneToMany(mappedBy = "produto")
-	private List <ItemPedido> pedidosDoProduto;
 
+	@OneToMany(mappedBy = "produto")
+	private List<ItemPedido> pedidosDoProduto;
 
 	public Integer getIdProduto() {
 		return idProduto;
@@ -120,7 +119,7 @@ public class Produto {
 		this.pedidosDoProduto = pedidosDoProduto;
 	}
 
-	public Produto setAllAtributos(Produto produto){
+	public Produto setAllAtributos(Produto produto) {
 		this.setNome(nome);
 		this.setNome(produto.getNome());
 		this.setDescricao(produto.getDescricao());
@@ -132,5 +131,4 @@ public class Produto {
 		this.setPedidosDoProduto(produto.getPedidosDoProduto());
 		return this;
 	}
-
 }
