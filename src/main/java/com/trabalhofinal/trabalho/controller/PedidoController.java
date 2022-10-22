@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trabalhofinal.trabalho.dto.CategoriaDTO;
 import com.trabalhofinal.trabalho.dto.PedidoDTO;
+import com.trabalhofinal.trabalho.service.EmailService;
 import com.trabalhofinal.trabalho.service.PedidoService;
 
 @RestController
@@ -23,6 +23,10 @@ import com.trabalhofinal.trabalho.service.PedidoService;
 public class PedidoController {
 	@Autowired
 	PedidoService pedidoService;
+	
+	@Autowired
+	EmailService emailService;
+	
 
 //CONTROLLER DOS DTO's
 	@GetMapping("/search")
@@ -42,6 +46,7 @@ public class PedidoController {
 
 	@PostMapping("/save")
 	public ResponseEntity<PedidoDTO> save(@RequestBody PedidoDTO pedidoDTO) {
+//		emailService.sendMail("arthurcg@live.com", "Teste API", "Body");
 		return new ResponseEntity<>(pedidoService.save(pedidoDTO), HttpStatus.CREATED);
 	}
 

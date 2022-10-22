@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trabalhofinal.trabalho.dto.ClienteDTO;
 import com.trabalhofinal.trabalho.service.ClienteService;
+import com.trabalhofinal.trabalho.service.EmailService;
 
 @RestController
 @RequestMapping("/clientes")
