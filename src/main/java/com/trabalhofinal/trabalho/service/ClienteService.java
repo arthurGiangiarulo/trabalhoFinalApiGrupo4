@@ -61,7 +61,7 @@ public class ClienteService {
 			clienteExistenteNoBanco.setCpf(clienteExistente.getCpf());
 			clienteExistenteNoBanco.setEmail(clienteExistente.getEmail());
 			clienteExistenteNoBanco.setNomeCompleto(clienteExistente.getNomeCompleto());
-			
+			clienteExistenteNoBanco.setTelefone(clienteExistente.getTelefone());
 			Cliente clienteAtualizado = clienteRepository.save(clienteExistenteNoBanco);
 			
 			clienteAtualizadoDTO = converteEntitytoDTO(clienteAtualizado);
