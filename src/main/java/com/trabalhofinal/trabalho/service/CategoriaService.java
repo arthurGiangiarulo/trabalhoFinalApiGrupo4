@@ -43,7 +43,6 @@ public class CategoriaService {
 	public CategoriaDTO save(CategoriaDTO categoriaDTO) {
 		Categoria categoria = toEntidade(categoriaDTO);
 		Categoria novaCategoria = categoriaRepository.save(categoria);
-		
 		CategoriaDTO categoriaAtualizada = converteEntitytoDTO(novaCategoria);
 		
 		return categoriaAtualizada;
@@ -85,9 +84,10 @@ public class CategoriaService {
 	public Categoria toEntidade(CategoriaDTO categoriaDTO) {
 		 Categoria categoria = new Categoria();
 		 
+		 categoria.setIdCategoria(categoriaDTO.getIdCategoria());
 		 categoria.setNome(categoriaDTO.getNome());
-		 categoria.setDescricao(categoria.getDescricao());
-		return categoria;
+		 categoria.setDescricao(categoriaDTO.getDescricao());
+		 return categoria;
 	}
 	
 	private CategoriaDTO converteEntitytoDTO(Categoria categoria) {
