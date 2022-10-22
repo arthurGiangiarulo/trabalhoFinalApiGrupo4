@@ -19,6 +19,9 @@ public class ProdutoService {
 	ProdutoRepository produtoRepository;
 
 	@Autowired
+	CategoriaService categoriaService;
+
+	@Autowired
 	private ModelMapper modelMapper;
 
 	public List<ProdutoDTO> getAll() {
@@ -57,14 +60,14 @@ public class ProdutoService {
 		ProdutoDTO produtoAtualizadoDTO = new ProdutoDTO();
 		
 		if (produtoExistenteNoBanco != null) {
-			
-			Produto produtoExistente = toEntidade(produtoDTO);
-			
-			produtoExistenteNoBanco.setDescricao(produtoExistente.getDescricao());
-			produtoExistenteNoBanco.setNome(produtoExistente.getNome());
-			produtoExistenteNoBanco.setQtdEstoque(produtoExistente.getQtdEstoque());
-			produtoExistenteNoBanco.setValorUnitario(produtoExistente.getValorUnitario());
-			
+			produtoDTO.setCategoriaDTO(categoriaService.converteEntitytoDTO(produtoExistenteNoBanco.getCategoria()));
+			produtoDTO.setDescricao(produtoExistenteNoBanco.getDescricao());
+			produtoDTO.setImagem(produtoExistenteNoBanco.getImagem());
+			produtoDTO.setQtdEstoque(produtoExistenteNoBanco.getQtdEstoque());
+			produtoDTO.setNome(produtoExistenteNoBanco.getNome());
+
+			produtoExistenteNoBanco = toEntidade(produtoDTO);
+
 			Produto produtoAtualizado = produtoRepository.save(produtoExistenteNoBanco);
 			
 			produtoAtualizadoDTO = converteEntitytoDTO(produtoAtualizado);
@@ -96,12 +99,12 @@ public class ProdutoService {
 	public Produto toEntidade(ProdutoDTO produtoDTO) {
 		Produto produto = new Produto();
 
-		produto.setCategoria(produtoDTO.getCategoria());
+		produto.setCategoriaFromDTO(produtoDTO.getCategoriaDTO());
 		produto.setDataCadastro(produtoDTO.getDataCadastro());
 		produto.setDescricao(produtoDTO.getDescricao());
 		produto.setImagem(produtoDTO.getImagem());
 		produto.setNome(produtoDTO.getNome());
-		produto.setPedidosDoProduto(produtoDTO.getPedidosDoProduto());
+		produto.setPedidosDoProdutoFromDTO(produtoDTO.getPedidosDoProdutoDTO());
 		produto.setQtdEstoque(produtoDTO.getQtdEstoque());
 		produto.setValorUnitario(produtoDTO.getValorUnitario());
 		return produto;

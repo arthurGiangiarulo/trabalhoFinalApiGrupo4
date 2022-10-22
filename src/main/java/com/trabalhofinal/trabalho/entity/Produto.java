@@ -14,9 +14,24 @@ import javax.persistence.OneToMany;
 
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.trabalhofinal.trabalho.dto.CategoriaDTO;
+import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
+import com.trabalhofinal.trabalho.dto.ProdutoDTO;
+import com.trabalhofinal.trabalho.service.CategoriaService;
+import com.trabalhofinal.trabalho.service.ItemPedidoService;
+import com.trabalhofinal.trabalho.service.ProdutoService;
+
 @Entity
 @Table(name = "produto")
 public class Produto {
+	@Autowired
+	ItemPedidoService itemPedidoService;
+
+	@Autowired
+	CategoriaService categoriaService;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_produto")
@@ -110,6 +125,10 @@ public class Produto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+	
+	public void setCategoriaFromDTO(CategoriaDTO categoriaDTO){
+		this.categoria = categoriaService.toEntidade(categoriaDTO);
+	}
 
 	public List<ItemPedido> getPedidosDoProduto() {
 		return pedidosDoProduto;
@@ -117,6 +136,15 @@ public class Produto {
 
 	public void setPedidosDoProduto(List<ItemPedido> pedidosDoProduto) {
 		this.pedidosDoProduto = pedidosDoProduto;
+	}
+
+	public void setPedidosDoProdutoFromDTO(List<ItemPedidoDTO> pedidosDoProdutoDTO) {
+		for(ItemPedidoDTO itemPedidoDTO: pedidosDoProdutoDTO){
+			this.pedidosDoProduto.add(itemPedidoService.toEntidade(itemPedidoDTO));
+		}
+
+	
+
 	}
 
 	public Produto setAllAtributos(Produto produto) {

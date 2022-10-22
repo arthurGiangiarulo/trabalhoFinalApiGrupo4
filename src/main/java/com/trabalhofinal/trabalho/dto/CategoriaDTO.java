@@ -2,15 +2,13 @@ package com.trabalhofinal.trabalho.dto;
 
 import java.util.List;
 
-import com.trabalhofinal.trabalho.entity.Produto;
-
 public class CategoriaDTO {
 	private Integer idCategoria;
 	private String nome;
 	private String descricao;
-	private List<Produto> produto;
+	private List<ProdutoDTO> produtoDTO;
 	
-	
+
 	public Integer getIdCategoria() {
 		return idCategoria;
 	}
@@ -29,10 +27,11 @@ public class CategoriaDTO {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public List<Produto> getProduto() {
-		return produto;
+	public List<ProdutoDTO> getProdutoDTO() {
+		return produtoDTO;
 	}
-	public void setProduto(List<Produto> produto) {
-		this.produto = produto;
+	public void setProdutoDTO(List<ProdutoDTO> produtoDTO) {
+		this.produtoDTO = produtoDTO;
 	}
+	
 }

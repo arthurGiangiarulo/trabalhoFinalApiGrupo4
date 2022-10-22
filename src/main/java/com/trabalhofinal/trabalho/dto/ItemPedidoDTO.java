@@ -1,8 +1,5 @@
 package com.trabalhofinal.trabalho.dto;
 
-import com.trabalhofinal.trabalho.entity.Pedido;
-import com.trabalhofinal.trabalho.entity.Produto;
-
 public class ItemPedidoDTO {
 	private Integer idItemPedido;
 	private Integer quantidade;
@@ -10,10 +7,11 @@ public class ItemPedidoDTO {
 	private Double percentualDesconto;
 	private Double valorBruto;
 	private Double valorLiquido;
-	private Pedido pedido;
-	private Produto produto;
+	private PedidoDTO pedidoDTO;
+	private ProdutoDTO produtoDTO;
 
-//	Getters and Setters
+
+	//	Getters and Setters
 	public Integer getIdItemPedido() {
 		return idItemPedido;
 	}
@@ -62,19 +60,20 @@ public class ItemPedidoDTO {
 		this.valorLiquido = valorLiquido;
 	}
 
-	public Pedido getPedido() {
-		return pedido;
+	public PedidoDTO getPedidoDTO() {
+		return pedidoDTO;
 	}
 
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
+	public void setPedidoDTO(PedidoDTO pedidoDTO) {
+		this.pedidoDTO = pedidoDTO;
 	}
 
-	public Produto getProduto() {
-		return produto;
+	public ProdutoDTO getProdutoDTO() {
+		return produtoDTO;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setProdutoDTO(ProdutoDTO produtoDTO) {
+		this.produtoDTO = produtoDTO;
 	}
+
 }

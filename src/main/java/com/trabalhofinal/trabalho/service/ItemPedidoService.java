@@ -7,9 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.trabalhofinal.trabalho.dto.CategoriaDTO;
 import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
-import com.trabalhofinal.trabalho.entity.Categoria;
 import com.trabalhofinal.trabalho.entity.ItemPedido;
 import com.trabalhofinal.trabalho.repository.ItemPedidoRepository;
 
@@ -57,12 +55,11 @@ public class ItemPedidoService {
 		ItemPedidoDTO itemAtualizadoDTO = new ItemPedidoDTO();
 		
 		if (itemExistenteNoBanco != null) {
-			
-			ItemPedido itemExistente = toEntidade(itemDTO);
-			
-			itemExistenteNoBanco.setPercentualDesconto(itemExistente.getPercentualDesconto());
-			itemExistenteNoBanco.setQuantidade(itemExistente.getQuantidade());
-			
+			itemDTO.setProdutoDTO(itemAtualizadoDTO.getProdutoDTO());
+			itemDTO.setQuantidade(itemAtualizadoDTO.getQuantidade());
+
+			itemExistenteNoBanco = toEntidade(itemDTO);
+
 			ItemPedido itemAtualizado = itemPedidoRepository.save(itemExistenteNoBanco);
 			
 			itemAtualizadoDTO = converteEntitytoDTO(itemAtualizado);
@@ -94,7 +91,7 @@ public class ItemPedidoService {
 		item.setPercentualDesconto(itemDTO.getPercentualDesconto());
 		item.setValorBruto(itemDTO.getValorBruto(itemDTO.getPrecoVenda(), itemDTO.getQuantidade()));
 		item.setValorLiquido(itemDTO.getValorLiquido(itemDTO.getValorBruto(itemDTO.getPrecoVenda(), itemDTO.getQuantidade()), itemDTO.getPercentualDesconto()));
-		item.setProduto(itemDTO.getProduto());
+		item.setProdutoFromDTO(itemDTO.getProdutoDTO());
 		return item;
 	}
 	
