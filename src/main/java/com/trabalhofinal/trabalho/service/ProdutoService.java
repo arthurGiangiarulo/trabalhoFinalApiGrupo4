@@ -7,7 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.trabalhofinal.trabalho.dto.PedidoDTO;
 import com.trabalhofinal.trabalho.dto.ProdutoDTO;
+import com.trabalhofinal.trabalho.entity.Pedido;
 import com.trabalhofinal.trabalho.entity.Produto;
 import com.trabalhofinal.trabalho.repository.ProdutoRepository;
 
@@ -51,22 +53,23 @@ public class ProdutoService {
 
 	public ProdutoDTO update(ProdutoDTO produtoDTO, Integer id) {
 
-		Produto produtoExistenteNoBanco = produtoRepository.findById(id).get();
+		Produto produtoExistenteNoBanco = produtoRepository.findById(id).orElse(null);
 		ProdutoDTO produtoAtualizadoDTO = new ProdutoDTO();
+		
 		if (produtoExistenteNoBanco != null) {
-			produtoDTO.setCategoria(produtoExistenteNoBanco.getCategoria());
-			produtoDTO.setDescricao(produtoExistenteNoBanco.getDescricao());
-			produtoDTO.setImagem(produtoExistenteNoBanco.getImagem());
-			produtoDTO.setQtdEstoque(produtoExistenteNoBanco.getQtdEstoque());
-			produtoDTO.setNome(produtoExistenteNoBanco.getNome());
-
-			produtoExistenteNoBanco = toEntidade(produtoDTO);
-
+			
+			Produto produtoExistente = toEntidade(produtoDTO);
+			
+			produtoExistenteNoBanco.setDescricao(produtoExistente.getDescricao());
+			produtoExistenteNoBanco.setNome(produtoExistente.getNome());
+			produtoExistenteNoBanco.setQtdEstoque(produtoExistente.getQtdEstoque());
+			produtoExistenteNoBanco.setValorUnitario(produtoExistente.getValorUnitario());
+			
 			Produto produtoAtualizado = produtoRepository.save(produtoExistenteNoBanco);
-
+			
 			produtoAtualizadoDTO = converteEntitytoDTO(produtoAtualizado);
+			 
 		}
-
 		return produtoAtualizadoDTO;
 	}
 

@@ -7,7 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
 import com.trabalhofinal.trabalho.dto.PedidoDTO;
+import com.trabalhofinal.trabalho.entity.ItemPedido;
 import com.trabalhofinal.trabalho.entity.Pedido;
 import com.trabalhofinal.trabalho.repository.PedidoRepository;
 
@@ -49,23 +51,24 @@ public class PedidoService {
 		return pedidoAtualizado;
 	}
 	
-	public PedidoDTO update(PedidoDTO pedidoDTO,Integer id) {
-		
-		Pedido pedidoExistenteNoBanco = pedidoRepository.findById(id).get();
+	public PedidoDTO update(PedidoDTO itemDTO, Integer id) {
+
+		Pedido pedidoExistenteNoBanco = pedidoRepository.findById(id).orElse(null);
 		PedidoDTO pedidoAtualizadoDTO = new PedidoDTO();
-		if(pedidoExistenteNoBanco != null) {
-			pedidoDTO.setStatus(pedidoAtualizadoDTO.getStatus());
-			pedidoDTO.setCliente(pedidoAtualizadoDTO.getCliente());
-			pedidoDTO.setItensPedidos(pedidoAtualizadoDTO.getItensPedidos());
-			pedidoDTO.setValorTotal(pedidoAtualizadoDTO.getValorTotal());
+		
+		if (pedidoExistenteNoBanco != null) {
 			
-			pedidoExistenteNoBanco = toEntidade(pedidoDTO);
+			Pedido pedidoExistente = toEntidade(itemDTO);
+			
+			pedidoExistenteNoBanco.setDataEnvio(pedidoExistente.getDataEnvio());
+			pedidoExistenteNoBanco.setStatus(pedidoExistente.getStatus());
+			pedidoExistenteNoBanco.setValorTotal(pedidoExistente.getValorTotal());
 			
 			Pedido pedidoAtualizado = pedidoRepository.save(pedidoExistenteNoBanco);
 			
 			pedidoAtualizadoDTO = converteEntitytoDTO(pedidoAtualizado);
+			 
 		}
-		
 		return pedidoAtualizadoDTO;
 	}
 	

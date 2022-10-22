@@ -53,19 +53,21 @@ public class ItemPedidoService {
 
 	public ItemPedidoDTO update(ItemPedidoDTO itemDTO, Integer id) {
 
-		ItemPedido itemExistenteNoBanco = itemPedidoRepository.findById(id).get();
+		ItemPedido itemExistenteNoBanco = itemPedidoRepository.findById(id).orElse(null);
 		ItemPedidoDTO itemAtualizadoDTO = new ItemPedidoDTO();
+		
 		if (itemExistenteNoBanco != null) {
-			itemDTO.setProduto(itemAtualizadoDTO.getProduto());
-			itemDTO.setQuantidade(itemAtualizadoDTO.getQuantidade());
-
-			itemExistenteNoBanco = toEntidade(itemDTO);
-
+			
+			ItemPedido itemExistente = toEntidade(itemDTO);
+			
+			itemExistenteNoBanco.setPercentualDesconto(itemExistente.getPercentualDesconto());
+			itemExistenteNoBanco.setQuantidade(itemExistente.getQuantidade());
+			
 			ItemPedido itemAtualizado = itemPedidoRepository.save(itemExistenteNoBanco);
-
+			
 			itemAtualizadoDTO = converteEntitytoDTO(itemAtualizado);
+			 
 		}
-
 		return itemAtualizadoDTO;
 	}
 
