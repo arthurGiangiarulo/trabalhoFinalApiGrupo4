@@ -1,7 +1,5 @@
 package com.trabalhofinal.trabalho.dto;
 
-import com.trabalhofinal.trabalho.entity.Cliente;
-
 public class EnderecoDTO {
 	private Integer idEndereco;
 	private String cep;
@@ -11,7 +9,7 @@ public class EnderecoDTO {
 	private String numero;
 	private String complemento;
 	private String uf;
-	private Cliente cliente;
+	private ClienteDTO clienteDTO;
 	
 	
 	public Integer getIdEndereco() {
@@ -62,10 +60,10 @@ public class EnderecoDTO {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-	public Cliente getCliente() {
-		return cliente;
+	public ClienteDTO getClienteDTO() {
+		return clienteDTO;
 	}
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setClienteDTO(ClienteDTO clienteDTO) {
+		this.clienteDTO = clienteDTO;
 	}
 }

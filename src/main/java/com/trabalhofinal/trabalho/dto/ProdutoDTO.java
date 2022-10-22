@@ -3,9 +3,6 @@ package com.trabalhofinal.trabalho.dto;
 import java.time.Instant;
 import java.util.List;
 
-import com.trabalhofinal.trabalho.entity.Categoria;
-import com.trabalhofinal.trabalho.entity.ItemPedido;
-
 public class ProdutoDTO {
 	private Integer idProduto;
 	private String nome;
@@ -14,10 +11,11 @@ public class ProdutoDTO {
 	private Instant dataCadastro;
 	private Double valorUnitario;
 	private String imagem;
-	private Categoria categoria;
-	private List<ItemPedido> pedidosDoProduto;
+	private CategoriaDTO categoriaDTO;
+	private List<ItemPedidoDTO> pedidosDoProdutoDTO;
 
-//	Getters and Setters
+
+	//	Getters and Setters
 	public Integer getIdProduto() {
 		return idProduto;
 	}
@@ -58,14 +56,6 @@ public class ProdutoDTO {
 		this.imagem = imagem;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-
 	public Instant getDataCadastro() {
 		return dataCadastro;
 	}
@@ -82,11 +72,19 @@ public class ProdutoDTO {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public List<ItemPedido> getPedidosDoProduto() {
-		return pedidosDoProduto;
+	public CategoriaDTO getCategoriaDTO() {
+		return categoriaDTO;
 	}
 
-	public void setPedidosDoProduto(List<ItemPedido> pedidosDoProduto) {
-		this.pedidosDoProduto = pedidosDoProduto;
+	public void setCategoriaDTO(CategoriaDTO categoriaDTO) {
+		this.categoriaDTO = categoriaDTO;
+	}
+
+	public List<ItemPedidoDTO> getPedidosDoProdutoDTO() {
+		return pedidosDoProdutoDTO;
+	}
+
+	public void setPedidosDoProdutoDTO(List<ItemPedidoDTO> pedidosDoProdutoDTO) {
+		this.pedidosDoProdutoDTO = pedidosDoProdutoDTO;
 	}
 }

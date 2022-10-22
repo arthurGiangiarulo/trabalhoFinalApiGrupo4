@@ -54,7 +54,7 @@ public class ProdutoService {
 		Produto produtoExistenteNoBanco = produtoRepository.findById(id).get();
 		ProdutoDTO produtoAtualizadoDTO = new ProdutoDTO();
 		if (produtoExistenteNoBanco != null) {
-			produtoDTO.setCategoria(produtoExistenteNoBanco.getCategoria());
+			//produtoDTO.setCategoriaDTO(produtoExistenteNoBanco.getCategoria());
 			produtoDTO.setDescricao(produtoExistenteNoBanco.getDescricao());
 			produtoDTO.setImagem(produtoExistenteNoBanco.getImagem());
 			produtoDTO.setQtdEstoque(produtoExistenteNoBanco.getQtdEstoque());
@@ -93,12 +93,13 @@ public class ProdutoService {
 	public Produto toEntidade(ProdutoDTO produtoDTO) {
 		Produto produto = new Produto();
 
-		produto.setCategoria(produtoDTO.getCategoria());
+		//produto.setCategoria(produtoDTO.getCategoria());
 		produto.setDataCadastro(produtoDTO.getDataCadastro());
 		produto.setDescricao(produtoDTO.getDescricao());
 		produto.setImagem(produtoDTO.getImagem());
 		produto.setNome(produtoDTO.getNome());
-		produto.setPedidosDoProduto(produtoDTO.getPedidosDoProduto());
+		//produto.setPedidosDoProduto(produtoDTO.getPedidosDoProdutoDTO());
+		produto.setPedidosDoProdutoFromDTO(produtoDTO.getPedidosDoProdutoDTO());
 		produto.setQtdEstoque(produtoDTO.getQtdEstoque());
 		produto.setValorUnitario(produtoDTO.getValorUnitario());
 		return produto;
