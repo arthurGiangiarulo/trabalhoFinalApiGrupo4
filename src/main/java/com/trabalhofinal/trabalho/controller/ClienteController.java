@@ -24,12 +24,12 @@ public class ClienteController {
 	ClienteService clienteService;
 
 // CONTROLLER DOS DTO's
-	@GetMapping("/dto")
+	@GetMapping("/search")
 	public ResponseEntity<List<ClienteDTO>> getAllClienteDTO() {
 		return new ResponseEntity<>(clienteService.getAll(), HttpStatus.OK);
 	}
 
-	@GetMapping("/dto/{id}")
+	@GetMapping("/search/id/{id}")
 	public ResponseEntity<ClienteDTO> getClienteDTOById(@PathVariable int id) {
 		ClienteDTO clienteDTO = clienteService.getById(id);
 		if (clienteDTO != null) {
@@ -39,17 +39,17 @@ public class ClienteController {
 		}
 	}
 
-	@PostMapping("/dto")
+	@PostMapping("/save")
 	public ResponseEntity<ClienteDTO> saveClienteDTO(@RequestBody ClienteDTO clienteDTO) {
 		return new ResponseEntity<>(clienteService.save(clienteDTO), HttpStatus.CREATED);
 	}
 
-	@PutMapping("/dto/{id}")
+	@PutMapping("/update/{id}")
 	public ResponseEntity<ClienteDTO> updateClienteDTO(@RequestBody ClienteDTO clienteDTO, @PathVariable Integer id) {
 		return new ResponseEntity<>(clienteService.update(clienteDTO, id), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/dto/delete/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<ClienteDTO> deleteClienteDTO(@PathVariable Integer id) {
 		ClienteDTO clienteDTO = clienteService.getById(id);
 		if (clienteDTO == null) {

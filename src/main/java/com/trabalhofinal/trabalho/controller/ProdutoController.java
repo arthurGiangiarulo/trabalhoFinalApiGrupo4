@@ -23,42 +23,14 @@ import com.trabalhofinal.trabalho.service.ProdutoService;
 public class ProdutoController {
 	@Autowired
 	ProdutoService produtoService;
-	
-	
-////CONTROLLER DAS ENTITY --------------------------------------------------------------------------------
-//	@GetMapping
-//   public ResponseEntity<List<Categoria>> getAllCategoria(){
-//       return new ResponseEntity<>(categoriaService.getAllCategoria(), HttpStatus.OK);
-//   }
-//	
-//	@GetMapping("/{id}")
-//	public ResponseEntity<Categoria> getCategoriaById(@PathVariable int id) {
-//		Categoria categoria = categoriaService.getCategoriaById(id);
-//		if (categoria != null) {
-//			return new ResponseEntity<>(categoria, HttpStatus.OK);
-//		} else {
-//			return new ResponseEntity<>(categoria, HttpStatus.NOT_FOUND);
-//		}
-//	}
-//	
-//	@PostMapping
-//	public ResponseEntity<Categoria> saveCategoria(@RequestBody Categoria categoria) {
-//		return new ResponseEntity<>(categoriaService.saveCategoria(categoria), HttpStatus.OK);
-//	}
-//	
-//	@PutMapping("/{id}")
-//	public ResponseEntity<Categoria> updateCategoria(@RequestBody Categoria categoria, @PathVariable int id) {
-//		return new ResponseEntity<>(categoriaService.updateCategoria(categoria, id), HttpStatus.OK);		
-//	}
-////FIM DO CONTROLLER DAS ENITY -----------------------------------------------------------------------------------
 
-//CONTROLLER DOS DTO
-	@GetMapping("/dto") 
+//CONTROLLER DOS DTO's
+	@GetMapping("/search")
    public ResponseEntity<List<ProdutoDTO>> getAll(){
        return new ResponseEntity<>(produtoService.getAll(), HttpStatus.OK);
    } 
 	
-	@GetMapping("/dto/{id}")
+	@GetMapping("/search/id/{id}")
 	public ResponseEntity<ProdutoDTO> getById(@PathVariable int id) {
 		ProdutoDTO produtoDTO = produtoService.getById(id);
 		if (produtoDTO != null) {
@@ -68,19 +40,19 @@ public class ProdutoController {
 		}
 	}
 	
-	@PostMapping("/dto")
+	@PostMapping("/save")
    public ResponseEntity<ProdutoDTO> save(@RequestBody ProdutoDTO produtoDTO) {
        return new ResponseEntity<>(produtoService.save(produtoDTO), HttpStatus.CREATED);
    }
 	
-	@PutMapping("/dto/{id}")
+	@PutMapping("/update/{id}")
 	public ResponseEntity<ProdutoDTO> updateProdutoDTO(@RequestBody ProdutoDTO produtoDTO,
 			@PathVariable Integer id) {
 		return new ResponseEntity<>(produtoService.update(produtoDTO, id), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/dto/delete")
-	public ResponseEntity<ProdutoDTO> deleteProdutoDTO(int id) {
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<ProdutoDTO> deleteProdutoDTO(Integer id) {
 		ProdutoDTO produtoDTO = produtoService.getById(id);
 		if (produtoDTO == null) {
 			return new ResponseEntity<>(produtoDTO, HttpStatus.NOT_FOUND);

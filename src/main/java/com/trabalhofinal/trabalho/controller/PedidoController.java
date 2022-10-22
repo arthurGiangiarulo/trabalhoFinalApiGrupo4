@@ -23,41 +23,14 @@ import com.trabalhofinal.trabalho.service.PedidoService;
 public class PedidoController {
 	@Autowired
 	PedidoService pedidoService;
-	
-////CONTROLLER DAS ENTITY --------------------------------------------------------------------------------
-//	@GetMapping
-//   public ResponseEntity<List<Categoria>> getAllCategoria(){
-//       return new ResponseEntity<>(categoriaService.getAllCategoria(), HttpStatus.OK);
-//   }
-//	
-//	@GetMapping("/{id}")
-//	public ResponseEntity<Categoria> getCategoriaById(@PathVariable int id) {
-//		Categoria categoria = categoriaService.getCategoriaById(id);
-//		if (categoria != null) {
-//			return new ResponseEntity<>(categoria, HttpStatus.OK);
-//		} else {
-//			return new ResponseEntity<>(categoria, HttpStatus.NOT_FOUND);
-//		}
-//	}
-//	
-//	@PostMapping
-//	public ResponseEntity<Categoria> saveCategoria(@RequestBody Categoria categoria) {
-//		return new ResponseEntity<>(categoriaService.saveCategoria(categoria), HttpStatus.OK);
-//	}
-//	
-//	@PutMapping("/{id}")
-//	public ResponseEntity<Categoria> updateCategoria(@RequestBody Categoria categoria, @PathVariable int id) {
-//		return new ResponseEntity<>(categoriaService.updateCategoria(categoria, id), HttpStatus.OK);		
-//	}
-////FIM DO CONTROLLER DAS ENITY -----------------------------------------------------------------------------------
 
-//CONTROLLER DOS DTO
-	@GetMapping("/dto") 
-   public ResponseEntity<List<PedidoDTO>> getAll(){
-       return new ResponseEntity<>(pedidoService.getAll(), HttpStatus.OK);
-   } 
-	
-	@GetMapping("/dto/{id}")
+//CONTROLLER DOS DTO's
+	@GetMapping("/search")
+	public ResponseEntity<List<PedidoDTO>> getAll() {
+		return new ResponseEntity<>(pedidoService.getAll(), HttpStatus.OK);
+	}
+
+	@GetMapping("/search/id/{id}")
 	public ResponseEntity<PedidoDTO> getById(@PathVariable int id) {
 		PedidoDTO pedidoDTO = pedidoService.getById(id);
 		if (pedidoDTO != null) {
@@ -66,19 +39,18 @@ public class PedidoController {
 			return new ResponseEntity<>(pedidoDTO, HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	@PostMapping("/dto")
-   public ResponseEntity<PedidoDTO> save(@RequestBody PedidoDTO pedidoDTO) {
-       return new ResponseEntity<>(pedidoService.save(pedidoDTO), HttpStatus.CREATED);
-   }
-	
-	@PutMapping("/dto/{id}")
-	public ResponseEntity<PedidoDTO> updateEditoraDTO(@RequestBody PedidoDTO pedidoDTO,
-			@PathVariable Integer id) {
+
+	@PostMapping("/save")
+	public ResponseEntity<PedidoDTO> save(@RequestBody PedidoDTO pedidoDTO) {
+		return new ResponseEntity<>(pedidoService.save(pedidoDTO), HttpStatus.CREATED);
+	}
+
+	@PutMapping("/update/{id}")
+	public ResponseEntity<PedidoDTO> updateEditoraDTO(@RequestBody PedidoDTO pedidoDTO, @PathVariable Integer id) {
 		return new ResponseEntity<>(pedidoService.update(pedidoDTO, id), HttpStatus.OK);
 	}
-	
-	@DeleteMapping("/dto/delete")
+
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<PedidoDTO> deletePedidoDTO(int id) {
 		PedidoDTO pedidoDTO = pedidoService.getById(id);
 		if (pedidoDTO == null) {
