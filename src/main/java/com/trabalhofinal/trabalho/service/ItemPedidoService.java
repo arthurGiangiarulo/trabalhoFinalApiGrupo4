@@ -90,8 +90,8 @@ public class ItemPedidoService {
 		item.setQuantidade(itemDTO.getQuantidade());
 		item.setPrecoVenda(itemDTO.getPrecoVenda());
 		item.setPercentualDesconto(itemDTO.getPercentualDesconto());
-		item.setValorBruto(itemDTO.getValorBruto());
-		item.setValorLiquido(itemDTO.getValorLiquido());
+		item.setValorBruto(itemDTO.getValorBruto(itemDTO.getPrecoVenda(), itemDTO.getQuantidade()));
+		item.setValorLiquido(itemDTO.getValorLiquido(itemDTO.getValorBruto(itemDTO.getPrecoVenda(), itemDTO.getQuantidade()), itemDTO.getPercentualDesconto()));
 		item.setProduto(itemDTO.getProduto());
 		return item;
 	}

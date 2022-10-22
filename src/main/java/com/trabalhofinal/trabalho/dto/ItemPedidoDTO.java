@@ -46,16 +46,16 @@ public class ItemPedidoDTO {
 		this.percentualDesconto = percentualDesconto;
 	}
 
-	public Double getValorBruto() {
-		return valorBruto;
+	public Double getValorBruto(Double precoVenda, int quantidade) {
+		return valorBruto = (precoVenda*quantidade);
 	}
 
 	public void setValorBruto(Double valorBruto) {
 		this.valorBruto = valorBruto;
 	}
 
-	public Double getValorLiquido() {
-		return valorLiquido;
+	public Double getValorLiquido(Double valorBruto, Double percentualDesconto) {
+		return valorLiquido = valorBruto-(valorBruto*percentualDesconto/100);
 	}
 
 	public void setValorLiquido(Double valorLiquido) {
