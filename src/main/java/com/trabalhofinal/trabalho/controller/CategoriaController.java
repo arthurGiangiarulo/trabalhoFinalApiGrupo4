@@ -80,7 +80,7 @@ public class CategoriaController {
 		}
 		
 		@DeleteMapping("/dto/delete")
-		public ResponseEntity<CategoriaDTO> deleteCategoriaDTO(int id) {
+		public ResponseEntity<CategoriaDTO> deleteCategoriaDTO(Integer id) {
 			CategoriaDTO categoriaDTO = categoriaService.getById(id);
 			if (categoriaDTO == null) {
 				return new ResponseEntity<>(categoriaDTO, HttpStatus.NOT_FOUND);
