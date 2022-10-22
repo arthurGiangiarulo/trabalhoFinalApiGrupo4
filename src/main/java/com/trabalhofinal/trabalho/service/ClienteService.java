@@ -23,7 +23,7 @@ public class ClienteService {
 		List<Cliente> lista = clienteRepository.findAll();
 		List<ClienteDTO> listaDTO = new ArrayList<>();
 		for (Cliente cliente : lista) {
-			ClienteDTO clienteDTO = toDTO(cliente);
+			ClienteDTO clienteDTO = converteEntitytoDTO(cliente);
 
 			listaDTO.add(clienteDTO);
 		}
@@ -34,7 +34,7 @@ public class ClienteService {
 	public ClienteDTO getById(int id) {
 		Cliente cliente = clienteRepository.findById(id).orElse(null);
 		if (cliente != null) {
-			return toDTO(cliente);
+			return converteEntitytoDTO(cliente);
 		} else {
 			return null;
 		}
@@ -44,7 +44,7 @@ public class ClienteService {
 		Cliente cliente = toEntidade(clienteDTO);
 		Cliente novoCliente = clienteRepository.save(cliente);
 
-		ClienteDTO clienteAtualizado = toDTO(novoCliente);
+		ClienteDTO clienteAtualizado = converteEntitytoDTO(novoCliente);
 
 		return clienteAtualizado;
 	}
@@ -63,7 +63,7 @@ public class ClienteService {
 
 			Cliente clienteAtualizado = clienteRepository.save(clienteExistenteNoBanco);
 
-			clienteAtualizadoDTO = toDTO(clienteAtualizado);
+			clienteAtualizadoDTO = converteEntitytoDTO(clienteAtualizado);
 		}
 
 		return clienteAtualizadoDTO;
@@ -75,18 +75,18 @@ public class ClienteService {
 		return getById(id);
 	}
 
-	public ClienteDTO toDTO(Cliente cliente) {
-		ClienteDTO clienteDTO = new ClienteDTO();
-
-		clienteDTO.setCpf(cliente.getCpf());
-		;
-		clienteDTO.setNomeCompleto(cliente.getNomeCompleto());
-		clienteDTO.setDataNascimento(cliente.getDataNascimento());
-		clienteDTO.setTelefone(cliente.getTelefone());
-		// clienteDTO.setPedido(cliente.getPedido());
-
-		return clienteDTO;
-	}
+//	public ClienteDTO toDTO(Cliente cliente) {
+//		ClienteDTO clienteDTO = new ClienteDTO();
+//
+//		clienteDTO.setCpf(cliente.getCpf());
+//		;
+//		clienteDTO.setNomeCompleto(cliente.getNomeCompleto());
+//		clienteDTO.setDataNascimento(cliente.getDataNascimento());
+//		clienteDTO.setTelefone(cliente.getTelefone());
+//		// clienteDTO.setPedido(cliente.getPedido());
+//
+//		return clienteDTO;
+//	}
 	
 	private ClienteDTO converteEntitytoDTO(Cliente cliente) {
 		ClienteDTO categoriaDTO = new ClienteDTO();
