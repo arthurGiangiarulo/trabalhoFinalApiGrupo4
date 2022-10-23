@@ -59,7 +59,7 @@ public class ProdutoService {
 	}
 	
 	public ProdutoDTO saveProdutoImgDatabase(String produtoJson, MultipartFile foto)  {
-		ProdutoDTO produtoFromJson = convertEditoraFromStringJson(produtoJson);
+		ProdutoDTO produtoFromJson = convertProdutoFromStringJson(produtoJson);
 		String fileName = StringUtils.cleanPath(foto.getOriginalFilename());
 		System.out.println(fileName);
 		try {
@@ -71,7 +71,7 @@ public class ProdutoService {
 		return produtoFromJson;
 	}
 	
-	private ProdutoDTO convertEditoraFromStringJson(String produtoJson) {
+	private ProdutoDTO convertProdutoFromStringJson(String produtoJson) {
 		ProdutoDTO produto = new ProdutoDTO();
 		
 		try {
