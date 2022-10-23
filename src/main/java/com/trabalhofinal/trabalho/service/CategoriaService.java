@@ -77,7 +77,7 @@ public class CategoriaService {
 		 
 		 categoria.setNome(categoriaDTO.getNome());
 		 categoria.setDescricao(categoriaDTO.getDescricao());
-		 categoria.setProdutosFromDTO(categoriaDTO.getProdutoDTO());
+//		 categoria.setProdutosFromDTO(categoriaDTO.getProdutoDTO());
 		 return categoria;
 	}
 	

@@ -83,7 +83,7 @@ public class PedidoService {
 		pedido.setDataEnvio(pedidoDTO.getDataEnvio());
 		pedido.setDataPedido(pedidoDTO.getDataPedido());
 		pedido.setIdPedido(pedidoDTO.getIdPedido());
-		pedido.setItensPedidosFromDTO(pedidoDTO.getItensPedidosDTO());
+//		pedido.setItensPedidosFromDTO(pedidoDTO.getItensPedidosDTO());
 		pedido.setStatus(pedidoDTO.getStatus());
 		pedido.setValorTotal(pedidoDTO.getValorTotal());
 
