@@ -10,10 +10,17 @@ public class ItemPedidoDTO {
 	private PedidoDTO pedidoDTO;
 	private ProdutoDTO produtoDTO;
 
-
-	//	Getters and Setters
+	// Getters and Setters
 	public Integer getIdItemPedido() {
 		return idItemPedido;
+	}
+
+	public Double getValorBruto() {
+		return valorBruto;
+	}
+
+	public Double getValorLiquido() {
+		return valorLiquido;
 	}
 
 	public void setIdItemPedido(Integer idItemPedido) {
@@ -45,7 +52,7 @@ public class ItemPedidoDTO {
 	}
 
 	public Double getValorBruto(Double precoVenda, int quantidade) {
-		return valorBruto = (precoVenda*quantidade);
+		return valorBruto = (precoVenda * quantidade);
 	}
 
 	public void setValorBruto(Double valorBruto) {
@@ -53,7 +60,7 @@ public class ItemPedidoDTO {
 	}
 
 	public Double getValorLiquido(Double valorBruto, Double percentualDesconto) {
-		return valorLiquido = valorBruto-(valorBruto*percentualDesconto/100);
+		return valorLiquido = valorBruto - (valorBruto * percentualDesconto / 100);
 	}
 
 	public void setValorLiquido(Double valorLiquido) {

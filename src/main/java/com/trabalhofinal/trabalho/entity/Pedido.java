@@ -23,39 +23,32 @@ import com.trabalhofinal.trabalho.service.ItemPedidoService;
 @Entity
 @Table(name = "pedido")
 public class Pedido {
-//	@Autowired
-//	ItemPedidoService itemPedidoService;
-//
-//	@Autowired
-//	ClienteService clienteService;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_pedido")
 	private Integer idPedido;
-	
+
 	@Column(name = "data_pedido")
 	private Instant dataPedido;
-	
+
 	@Column(name = "data_entrega")
 	private Instant dataEntrega;
-	
+
 	@Column(name = "data_envio")
 	private Instant dataEnvio;
-	
+
 	@Column(name = "status")
 	private String status;
-	
+
 	@Column(name = "valorTotal")
 	private Double valorTotal;
-	
+
 	@OneToMany(mappedBy = "pedido")
-	private List <ItemPedido> itensPedidos;
-	
+	private List<ItemPedido> itensPedidos;
+
 	@ManyToOne
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
 	private Cliente cliente;
-	
 
 	public Integer getIdPedido() {
 		return idPedido;
@@ -113,11 +106,6 @@ public class Pedido {
 		this.itensPedidos = itensPedidos;
 	}
 
-//	public void setItensPedidosFromDTO(List<ItemPedidoDTO> itensPedidosDTO) {
-//		for(ItemPedidoDTO itemPedidoDTO: itensPedidosDTO)
-//			this.itensPedidos.add(itemPedidoService.toEntidade(itemPedidoDTO));
-//	}
-
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -126,11 +114,7 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-//	public void setClienteFromDTO(ClienteDTO clienteDTO) {
-//		this.cliente = clienteService.toEntidade(clienteDTO);
-//	}
-
-	public Pedido setAllAtributos(Pedido pedido){
+	public Pedido setAllAtributos(Pedido pedido) {
 		this.setDataPedido(pedido.getDataPedido());
 		this.setDataEntrega(pedido.getDataEntrega());
 		this.setDataEnvio(pedido.getDataEnvio());
@@ -140,5 +124,5 @@ public class Pedido {
 		this.setCliente(pedido.getCliente());
 		return this;
 	}
-	
+
 }
