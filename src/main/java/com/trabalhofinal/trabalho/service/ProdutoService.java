@@ -74,21 +74,11 @@ public class ProdutoService {
 
 	public ProdutoDTO delete(Integer id) {
 		produtoRepository.deleteById(id);
-
 		return getById(id);
 	}
 
 	public Produto toEntidade(ProdutoDTO produtoDTO) {
-		Produto produto = new Produto();
-
-//		produto.setCategoriaFromDTO(produtoDTO.getCategoriaDTO());
-		produto.setDataCadastro(produtoDTO.getDataCadastro());
-		produto.setDescricao(produtoDTO.getDescricao());
-		produto.setImagem(produtoDTO.getImagem());
-		produto.setNome(produtoDTO.getNome());
-//		produto.setPedidosDoProdutoFromDTO(produtoDTO.getPedidosDoProdutoDTO());
-		produto.setQtdEstoque(produtoDTO.getQtdEstoque());
-		produto.setValorUnitario(produtoDTO.getValorUnitario());
+		Produto produto = (modelMapper.map(produtoDTO, Produto.class));
 		return produto;
 	}
 

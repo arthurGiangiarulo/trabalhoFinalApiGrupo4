@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trabalhofinal.trabalho.dto.CategoriaDTO;
-import com.trabalhofinal.trabalho.dto.ClienteDTO;
 import com.trabalhofinal.trabalho.entity.Categoria;
-import com.trabalhofinal.trabalho.entity.Cliente;
 import com.trabalhofinal.trabalho.repository.CategoriaRepository;
 
 @Service
@@ -68,16 +66,11 @@ public class CategoriaService {
 	
 	public CategoriaDTO delete(Integer id) {
 		categoriaRepository.deleteById(id);
-		
 		return getById(id);
 	}
 	
 	public Categoria toEntidade(CategoriaDTO categoriaDTO) {
-		 Categoria categoria = new Categoria();
-		 
-		 categoria.setNome(categoriaDTO.getNome());
-		 categoria.setDescricao(categoriaDTO.getDescricao());
-//		 categoria.setProdutosFromDTO(categoriaDTO.getProdutoDTO());
+		 Categoria categoria = (modelMapper.map(categoriaDTO, Categoria.class));
 		 return categoria;
 	}
 	
