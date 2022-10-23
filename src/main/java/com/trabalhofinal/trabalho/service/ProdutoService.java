@@ -1,15 +1,18 @@
 package com.trabalhofinal.trabalho.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.trabalhofinal.trabalho.dto.PedidoDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trabalhofinal.trabalho.dto.ProdutoDTO;
-import com.trabalhofinal.trabalho.entity.Pedido;
 import com.trabalhofinal.trabalho.entity.Produto;
 import com.trabalhofinal.trabalho.repository.ProdutoRepository;
 
@@ -52,6 +55,30 @@ public class ProdutoService {
 		ProdutoDTO produtoAtualizado = converteEntitytoDTO(novoProduto);
 
 		return produtoAtualizado;
+	}
+	
+	public ProdutoDTO saveProdutoImgDatabase(String produtoJson, MultipartFile foto)  {
+		ProdutoDTO produtoFromJson = convertProdutoFromStringJson(produtoJson);
+		String fileName = StringUtils.cleanPath(foto.getOriginalFilename());
+		try {
+			produtoFromJson.setImagem(Base64.getEncoder().encodeToString(foto.getBytes()));
+		} catch (Exception e) {
+				e.printStackTrace();
+		}
+		produtoRepository.save(toEntidade(produtoFromJson));
+		return produtoFromJson;
+	}
+	
+	private ProdutoDTO convertProdutoFromStringJson(String produtoJson) {
+		ProdutoDTO produto = new ProdutoDTO();
+		
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			produto = objectMapper.readValue(produtoJson, ProdutoDTO.class);
+		} catch (IOException err) {
+			System.out.printf("Ocorreu um erro ao tentar converter a string json para um instância da entidade ProdutoDTO", err.toString());
+		}
+		return produto;
 	}
 
 	public ProdutoDTO update(ProdutoDTO produtoDTO, Integer id) {
