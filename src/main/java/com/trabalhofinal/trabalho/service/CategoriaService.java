@@ -43,6 +43,7 @@ public class CategoriaService {
 	}
 	
 	public CategoriaDTO save(CategoriaDTO categoriaDTO) {
+		categoriaDTO = formatToUpperDTO(categoriaDTO);
 		Categoria categoria = toEntidade(categoriaDTO);
 		Categoria novaCategoria = categoriaRepository.save(categoria);
 		CategoriaDTO categoriaAtualizada = converteEntitytoDTO(novaCategoria);
@@ -50,24 +51,19 @@ public class CategoriaService {
 		return categoriaAtualizada;
 	}
 	
-	public CategoriaDTO update(CategoriaDTO categoriaDTO, Integer id) {
-
-		Categoria categoriaExistenteNoBanco = categoriaRepository.findById(id).orElse(null);
-		CategoriaDTO categoriaAtualizadoDTO = new CategoriaDTO();
-		
-		if (categoriaExistenteNoBanco != null) {
+	public CategoriaDTO update(CategoriaDTO categoriaDTO,Integer id) {
+		categoriaDTO = formatToUpperDTO(categoriaDTO);
+		Categoria categoriaExistenteNoBanco = categoriaRepository.findById(id).get();
+		CategoriaDTO categoriaAtualizadaDTO = new CategoriaDTO();
+		if(categoriaExistenteNoBanco != null) {
+			categoriaDTO.setNome(categoriaExistenteNoBanco.getNome());
+			categoriaDTO.setDescricao(categoriaExistenteNoBanco.getDescricao());
+			categoriaExistenteNoBanco = toEntidade(categoriaDTO);
 			
-			Categoria categoriaExistente = toEntidade(categoriaDTO);
-			
-			categoriaExistenteNoBanco.setDescricao(categoriaExistente.getDescricao());
-			categoriaExistenteNoBanco.setNome(categoriaExistente.getNome());
-			
-			Categoria categoriaAtualizado = categoriaRepository.save(categoriaExistenteNoBanco);
-			
-			categoriaAtualizadoDTO = converteEntitytoDTO(categoriaAtualizado);
-			 
+			Categoria categoriaAtualizada = categoriaRepository.save(categoriaExistenteNoBanco);
+			categoriaAtualizadaDTO = converteEntitytoDTO(categoriaAtualizada);
 		}
-		return categoriaAtualizadoDTO;
+		return categoriaAtualizadaDTO;
 	}
 	
 	public CategoriaDTO delete(Integer id) {
@@ -75,15 +71,6 @@ public class CategoriaService {
 		
 		return getById(id);
 	}
-	
-//	public CategoriaDTO toDTO(Categoria categoria) {
-//		CategoriaDTO categoriaDTO = new CategoriaDTO();
-//		
-//		categoriaDTO.setDescricao(categoria.getDescricao());
-//		categoriaDTO.setNome(categoria.getNome());
-//		
-//		return categoriaDTO;
-//	}
 	
 	public Categoria toEntidade(CategoriaDTO categoriaDTO) {
 		 Categoria categoria = new Categoria();
@@ -97,5 +84,12 @@ public class CategoriaService {
 		CategoriaDTO categoriaDTO = new CategoriaDTO();
 		categoriaDTO = (modelMapper.map(categoria, CategoriaDTO.class));
 		return categoriaDTO;	
+	}
+	
+//	Format inputs to UpperCase
+	private CategoriaDTO formatToUpperDTO(CategoriaDTO categoriaDTO) {
+		categoriaDTO.setNome(categoriaDTO.getNome().toUpperCase());
+		categoriaDTO.setDescricao(categoriaDTO.getDescricao().toUpperCase());
+		return categoriaDTO;
 	}
 }

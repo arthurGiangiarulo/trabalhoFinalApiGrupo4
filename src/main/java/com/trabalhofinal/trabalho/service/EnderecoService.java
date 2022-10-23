@@ -75,16 +75,4 @@ public class EnderecoService {
         enderecoRepository.deleteById(id);
         return getEnderecoById(id);
     }
-    
-    // public Endereco deleteEndereco(Integer id){
-    //     Endereco endereco = getEnderecoById(id);
-        
-    //     //Incluir tratamento para id not found
-    //     if(endereco != null){
-    //         enderecoRepository.deleteById(id);
-    //         return endereco;
-    //     } else {
-    //         return endereco;
-    //     }
-    // }
 }
