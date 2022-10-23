@@ -1,15 +1,15 @@
 package com.trabalhofinal.trabalho.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.trabalhofinal.trabalho.dto.PedidoDTO;
 import com.trabalhofinal.trabalho.dto.ProdutoDTO;
-import com.trabalhofinal.trabalho.entity.Pedido;
 import com.trabalhofinal.trabalho.entity.Produto;
 import com.trabalhofinal.trabalho.repository.ProdutoRepository;
 
@@ -45,8 +45,10 @@ public class ProdutoService {
 		}
 	}
 
-	public ProdutoDTO save(ProdutoDTO produtoDTO) {
+	public ProdutoDTO save(ProdutoDTO produtoDTO, MultipartFile foto) throws IOException {
 		produtoDTO = formatToUpperDTO(produtoDTO);
+		Produto produto2 = new Produto();
+		produto2.setImagem(foto.getBytes());
 		Produto produto = toEntidade(produtoDTO);
 		Produto novoProduto = produtoRepository.save(produto);
 		ProdutoDTO produtoAtualizado = converteEntitytoDTO(novoProduto);

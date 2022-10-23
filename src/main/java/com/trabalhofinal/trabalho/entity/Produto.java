@@ -44,7 +44,7 @@ public class Produto {
 	private Double valorUnitario;
 
 	@Lob
-	@Column(name = "imagem")
+	@Column(name = "imagem", columnDefinition = "BLOB")
 	private byte[] imagem;
 
 	@ManyToOne

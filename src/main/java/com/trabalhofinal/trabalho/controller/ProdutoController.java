@@ -44,14 +44,14 @@ public class ProdutoController {
 	}
 	
 	@PostMapping("/save")
-   public ResponseEntity<ProdutoDTO> save(@RequestBody ProdutoDTO produtoDTO,@RequestParam MultipartFile foto) {
+   public ResponseEntity<ProdutoDTO> save(@RequestBody ProdutoDTO produtoDTO, @RequestParam("foto") MultipartFile foto)throws IOException{
 		try {
 			produtoDTO.setImagem(foto.getBytes());
-			return new ResponseEntity<>(produtoService.save(produtoDTO), HttpStatus.CREATED);
+			return new ResponseEntity<>(produtoService.save(produtoDTO, foto), HttpStatus.CREATED);
 		} catch (IOException e) {
 			//TODO Auto-generated catch block
 			e.printStackTrace();
-			return new ResponseEntity<>(produtoService.save(produtoDTO), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(produtoService.save(produtoDTO, foto), HttpStatus.BAD_REQUEST);
 		}
 		
    }
