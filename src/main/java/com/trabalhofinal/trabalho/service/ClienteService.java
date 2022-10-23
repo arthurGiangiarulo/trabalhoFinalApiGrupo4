@@ -55,10 +55,13 @@ public class ClienteService {
 		ClienteDTO clienteAtualizadoDTO = new ClienteDTO();
 		
 		if (clienteExistenteNoBanco != null) {
-			clienteDTO.setNomeCompleto(clienteAtualizadoDTO.getNomeCompleto());
-			clienteDTO.setPedidoDTO(clienteAtualizadoDTO.getPedidoDTO());
-			clienteDTO.setEmail(clienteAtualizadoDTO.getEmail());
-			clienteDTO.setEnderecoDTO(clienteAtualizadoDTO.getEnderecoDTO());
+			
+			Cliente clienteExistente = toEntidade(clienteDTO);
+			
+			clienteExistenteNoBanco.setNomeCompleto(clienteExistente.getNomeCompleto());
+			clienteExistenteNoBanco.setPedidosDoCliente(clienteExistente.getPedidosDoCliente());
+			clienteExistenteNoBanco.setEmail(clienteExistente.getEmail());
+			clienteExistenteNoBanco.setEndereco(clienteExistente.getEndereco());
 
 			clienteExistenteNoBanco = toEntidade(clienteDTO);
 

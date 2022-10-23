@@ -51,33 +51,32 @@ public class PedidoService {
 		return pedidoAtualizado;
 	}
 	
-	public PedidoDTO update(PedidoDTO itemDTO, Integer id) {
+	public PedidoDTO update(PedidoDTO pedidoDTO, Integer id) {
 
-		Pedido pedidoExistenteNoBanco = pedidoRepository.findById(id).orElse(null);
-		PedidoDTO pedidoAtualizadoDTO = new PedidoDTO();
-		if(pedidoExistenteNoBanco != null) {
-			pedidoDTO.setStatus(pedidoAtualizadoDTO.getStatus());
-			pedidoDTO.setClienteDTO(pedidoAtualizadoDTO.getClienteDTO());
-			pedidoDTO.setItensPedidosDTO(pedidoAtualizadoDTO.getItensPedidosDTO());
-			pedidoDTO.setValorTotal(pedidoAtualizadoDTO.getValorTotal());
-			
-			pedidoExistenteNoBanco.setDataEnvio(pedidoExistente.getDataEnvio());
-			pedidoExistenteNoBanco.setStatus(pedidoExistente.getStatus());
-			pedidoExistenteNoBanco.setValorTotal(pedidoExistente.getValorTotal());
-			
-			Pedido pedidoAtualizado = pedidoRepository.save(pedidoExistenteNoBanco);
-			
-			pedidoAtualizadoDTO = converteEntitytoDTO(pedidoAtualizado);
-			 
-		}
-		return pedidoAtualizadoDTO;
-	}
-	
-	public PedidoDTO delete(Integer id) {
-		pedidoRepository.deleteById(id);
-		
-		return getById(id);
-	}
+        Pedido pedidoExistenteNoBanco = pedidoRepository.findById(id).orElse(null);
+        PedidoDTO pedidoAtualizadoDTO = new PedidoDTO();
+
+        if (pedidoExistenteNoBanco != null) {
+
+            Pedido pedidoExistente = toEntidade(pedidoDTO);
+
+            pedidoExistenteNoBanco.setDataEnvio(pedidoExistente.getDataEnvio());
+            pedidoExistenteNoBanco.setStatus(pedidoExistente.getStatus());
+            pedidoExistenteNoBanco.setValorTotal(pedidoExistente.getValorTotal());
+
+            Pedido pedidoAtualizado = pedidoRepository.save(pedidoExistenteNoBanco);
+
+            pedidoAtualizadoDTO = converteEntitytoDTO(pedidoAtualizado);
+
+        }
+        return pedidoAtualizadoDTO;
+    }
+
+    public PedidoDTO delete(Integer id) {
+        pedidoRepository.deleteById(id);
+
+        return getById(id);
+    }
 	
 //	public PedidoDTO toDTO(Pedido pedido) {
 //		PedidoDTO pedidoDTO = new PedidoDTO();

@@ -60,11 +60,14 @@ public class ProdutoService {
 		ProdutoDTO produtoAtualizadoDTO = new ProdutoDTO();
 		
 		if (produtoExistenteNoBanco != null) {
-			produtoDTO.setCategoriaDTO(categoriaService.converteEntitytoDTO(produtoExistenteNoBanco.getCategoria()));
-			produtoDTO.setDescricao(produtoExistenteNoBanco.getDescricao());
-			produtoDTO.setImagem(produtoExistenteNoBanco.getImagem());
-			produtoDTO.setQtdEstoque(produtoExistenteNoBanco.getQtdEstoque());
-			produtoDTO.setNome(produtoExistenteNoBanco.getNome());
+			
+			Produto produtoExistente = toEntidade(produtoDTO);
+			
+			//produtoExistenteNoBanco.setCategoria(categoriaService.converteEntitytoDTO(produtoExistente.getCategoria()));
+			produtoExistenteNoBanco.setDescricao(produtoExistente.getDescricao());
+			produtoExistenteNoBanco.setImagem(produtoExistente.getImagem());
+			produtoExistenteNoBanco.setQtdEstoque(produtoExistente.getQtdEstoque());
+			produtoExistenteNoBanco.setNome(produtoExistente.getNome());
 
 			produtoExistenteNoBanco = toEntidade(produtoDTO);
 
