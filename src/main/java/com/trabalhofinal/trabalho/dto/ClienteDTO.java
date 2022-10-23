@@ -12,7 +12,8 @@ public class ClienteDTO {
 	private EnderecoDTO enderecoDTO;
 	private List <PedidoDTO> pedidoDTO;
 	
-	
+
+//	Getters and Setters
 	public Integer getIdCliente() {
 		return idCliente;
 	}

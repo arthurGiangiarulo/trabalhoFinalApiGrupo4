@@ -13,7 +13,7 @@ public class PedidoDTO {
 	private List<ItemPedidoDTO> itensPedidosDTO;
 	private ClienteDTO clienteDTO;
 
-
+//	Getters and Setters
 	public Integer getIdPedido() {
 		return idPedido;
 	}

@@ -53,7 +53,7 @@ public class ItemPedidoService {
 
 		ItemPedido itemExistenteNoBanco = itemPedidoRepository.findById(id).orElse(null);
 		ItemPedidoDTO itemAtualizadoDTO = new ItemPedidoDTO();
-		
+
 		if (itemExistenteNoBanco != null) {
 			itemDTO.setProdutoDTO(itemAtualizadoDTO.getProdutoDTO());
 			itemDTO.setQuantidade(itemAtualizadoDTO.getQuantidade());
@@ -61,9 +61,9 @@ public class ItemPedidoService {
 			itemExistenteNoBanco = toEntidade(itemDTO);
 
 			ItemPedido itemAtualizado = itemPedidoRepository.save(itemExistenteNoBanco);
-			
+
 			itemAtualizadoDTO = converteEntitytoDTO(itemAtualizado);
-			 
+
 		}
 		return itemAtualizadoDTO;
 	}
@@ -84,7 +84,6 @@ public class ItemPedidoService {
 		item.setValorLiquido(
 				itemDTO.getValorLiquido(itemDTO.getValorBruto(itemDTO.getPrecoVenda(), itemDTO.getQuantidade()),
 						itemDTO.getPercentualDesconto()));
-//		item.setProduto(itemDTO.getProdutoDTO());
 		return item;
 	}
 
