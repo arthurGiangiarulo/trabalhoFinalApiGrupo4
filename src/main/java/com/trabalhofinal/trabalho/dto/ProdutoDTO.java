@@ -11,7 +11,7 @@ public class ProdutoDTO {
 	private Instant dataCadastro;
 	private Double valorUnitario;
 	private String imagem;
-	private CategoriaDTO categoriaDTO;
+	private CategoriaDTO categoria;
 	private List<ItemPedidoDTO> pedidosDoProdutoDTO;
 
 
@@ -72,12 +72,12 @@ public class ProdutoDTO {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public CategoriaDTO getCategoriaDTO() {
-		return categoriaDTO;
+	public CategoriaDTO getCategoria() {
+		return categoria;
 	}
 
-	public void setCategoriaDTO(CategoriaDTO categoriaDTO) {
-		this.categoriaDTO = categoriaDTO;
+	public void setCategoria(CategoriaDTO categoria) {
+		this.categoria = categoria;
 	}
 
 	public List<ItemPedidoDTO> getPedidosDoProdutoDTO() {
