@@ -1,15 +1,17 @@
 package com.trabalhofinal.trabalho.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.trabalhofinal.trabalho.dto.PedidoDTO;
 import com.trabalhofinal.trabalho.dto.ProdutoDTO;
-import com.trabalhofinal.trabalho.entity.Pedido;
 import com.trabalhofinal.trabalho.entity.Produto;
 import com.trabalhofinal.trabalho.repository.ProdutoRepository;
 
@@ -46,12 +48,30 @@ public class ProdutoService {
 	}
 
 	public ProdutoDTO save(ProdutoDTO produtoDTO) {
-		produtoDTO = formatToUpperDTO(produtoDTO);
+//		produtoDTO = formatToUpperDTO(produtoDTO);
+		produtoDTO.setImagem(Base64.getEncoder().encodeToString(produtoDTO.getImagem().getBytes()));
 		Produto produto = toEntidade(produtoDTO);
 		Produto novoProduto = produtoRepository.save(produto);
 		ProdutoDTO produtoAtualizado = converteEntitytoDTO(novoProduto);
 
 		return produtoAtualizado;
+	}
+	
+	public ProdutoDTO saveProdutoImgToDatabase(ProdutoDTO produto)  {
+//		ProdutoDTO produto = new ProdutoDTO();
+//		String fileName = StringUtils.cleanPath(produto.getImagem().getOriginalFilename());
+//		if(fileName.contains("..")) {
+//			System.out.println("Invalid image");
+//		} else {
+//			try {
+//				System.out.println("hello");
+////				produto.setImagem(Base64.getEncoder().encodeToString(file.getBytes()));
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+		produtoRepository.save(toEntidade(produto));
+		return produto;
 	}
 
 	public ProdutoDTO update(ProdutoDTO produtoDTO, Integer id) {
