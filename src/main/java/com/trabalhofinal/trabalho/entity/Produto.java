@@ -44,8 +44,8 @@ public class Produto {
 	private Double valorUnitario;
 
 	@Lob
-	@Column(name = "imagem", columnDefinition = "BLOB")
-	private byte[] imagem;
+	@Column(name = "imagem")
+	private String imagem;
 
 	@ManyToOne
 	@JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
@@ -102,13 +102,11 @@ public class Produto {
 		this.valorUnitario = valorUnitario;
 	}
 	
-	
-
-	public byte[] getImagem() {
+	public String getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(byte[] imagem) {
+	public void setImagem(String imagem) {
 		this.imagem = imagem;
 	}
 

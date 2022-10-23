@@ -10,7 +10,7 @@ public class ProdutoDTO {
 	private Integer qtdEstoque;
 	private Instant dataCadastro;
 	private Double valorUnitario;
-	private byte[] imagem;
+	private String imagem;
 	private CategoriaDTO categoriaDTO;
 	private List<ItemPedidoDTO> pedidosDoProdutoDTO;
 
@@ -48,13 +48,11 @@ public class ProdutoDTO {
 		this.qtdEstoque = qtdEstoque;
 	}
 
-	
-
-	public byte[] getImagem() {
+	public String getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(byte[] imagem) {
+	public void setImagem(String imagem) {
 		this.imagem = imagem;
 	}
 
