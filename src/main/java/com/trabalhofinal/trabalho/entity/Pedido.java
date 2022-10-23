@@ -23,11 +23,11 @@ import com.trabalhofinal.trabalho.service.ItemPedidoService;
 @Entity
 @Table(name = "pedido")
 public class Pedido {
-	@Autowired
-	ItemPedidoService itemPedidoService;
-
-	@Autowired
-	ClienteService clienteService;
+//	@Autowired
+//	ItemPedidoService itemPedidoService;
+//
+//	@Autowired
+//	ClienteService clienteService;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -113,10 +113,10 @@ public class Pedido {
 		this.itensPedidos = itensPedidos;
 	}
 
-	public void setItensPedidosFromDTO(List<ItemPedidoDTO> itensPedidosDTO) {
-		for(ItemPedidoDTO itemPedidoDTO: itensPedidosDTO)
-			this.itensPedidos.add(itemPedidoService.toEntidade(itemPedidoDTO));
-	}
+//	public void setItensPedidosFromDTO(List<ItemPedidoDTO> itensPedidosDTO) {
+//		for(ItemPedidoDTO itemPedidoDTO: itensPedidosDTO)
+//			this.itensPedidos.add(itemPedidoService.toEntidade(itemPedidoDTO));
+//	}
 
 	public Cliente getCliente() {
 		return cliente;
@@ -126,9 +126,9 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public void setClienteFromDTO(ClienteDTO clienteDTO) {
-		this.cliente = clienteService.toEntidade(clienteDTO);
-	}
+//	public void setClienteFromDTO(ClienteDTO clienteDTO) {
+//		this.cliente = clienteService.toEntidade(clienteDTO);
+//	}
 
 	public Pedido setAllAtributos(Pedido pedido){
 		this.setDataPedido(pedido.getDataPedido());

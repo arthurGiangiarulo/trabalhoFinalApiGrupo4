@@ -26,12 +26,12 @@ public class ClienteController {
 	ClienteService clienteService;
 
 // CONTROLLER DOS DTO
-	@GetMapping("/dto") 
+	@GetMapping("/search")
     public ResponseEntity<List<ClienteDTO>> getAllClienteDTO(){
         return new ResponseEntity<>(clienteService.getAll(), HttpStatus.OK);
     } 
 	
-	@GetMapping("/dto/{id}")
+	@GetMapping("/search/id/{id}")
 	public ResponseEntity<ClienteDTO> getClienteDTOById(@PathVariable int id) {
 		ClienteDTO clienteDTO = clienteService.getById(id);
 		if (clienteDTO != null) {
@@ -41,7 +41,7 @@ public class ClienteController {
 		}
 	}
 	
-	@PostMapping("/dto")
+	@PostMapping("/save")
     public ResponseEntity<ClienteDTO> saveClienteDTO(@RequestBody ClienteDTO clienteDTO) {
         return new ResponseEntity<>(clienteService.save(clienteDTO), HttpStatus.CREATED);
     }
@@ -52,7 +52,7 @@ public class ClienteController {
 		return new ResponseEntity<>(clienteService.update(clienteDTO, id), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/dto/delete")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<ClienteDTO> deleteClienteDTO(int id) {
 		ClienteDTO clienteDTO = clienteService.getById(id);
 		if (clienteDTO == null) {

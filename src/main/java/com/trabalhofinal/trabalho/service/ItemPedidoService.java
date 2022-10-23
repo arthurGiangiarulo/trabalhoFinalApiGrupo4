@@ -13,9 +13,9 @@ import com.trabalhofinal.trabalho.repository.ItemPedidoRepository;
 
 @Service
 public class ItemPedidoService {
-    @Autowired
-    ItemPedidoRepository itemPedidoRepository;
-    
+	@Autowired
+	ItemPedidoRepository itemPedidoRepository;
+
 	@Autowired
 	private ModelMapper modelMapper;
 
@@ -74,30 +74,23 @@ public class ItemPedidoService {
 		return getById(id);
 	}
 
-//	public ItemPedidoDTO toDTO(ItemPedido item) {
-//		ItemPedidoDTO itemDTO = new ItemPedidoDTO();
-//
-//		itemDTO.setQuantidade(item.getQuantidade());
-//		itemDTO.setProduto(item.getProduto());
-//
-//		return itemDTO;
-//	}
-
 	public ItemPedido toEntidade(ItemPedidoDTO itemDTO) {
 		ItemPedido item = new ItemPedido();
-		
+
 		item.setQuantidade(itemDTO.getQuantidade());
 		item.setPrecoVenda(itemDTO.getPrecoVenda());
 		item.setPercentualDesconto(itemDTO.getPercentualDesconto());
 		item.setValorBruto(itemDTO.getValorBruto(itemDTO.getPrecoVenda(), itemDTO.getQuantidade()));
-		item.setValorLiquido(itemDTO.getValorLiquido(itemDTO.getValorBruto(itemDTO.getPrecoVenda(), itemDTO.getQuantidade()), itemDTO.getPercentualDesconto()));
-		item.setProdutoFromDTO(itemDTO.getProdutoDTO());
+		item.setValorLiquido(
+				itemDTO.getValorLiquido(itemDTO.getValorBruto(itemDTO.getPrecoVenda(), itemDTO.getQuantidade()),
+						itemDTO.getPercentualDesconto()));
+//		item.setProduto(itemDTO.getProdutoDTO());
 		return item;
 	}
-	
+
 	private ItemPedidoDTO converteEntitytoDTO(ItemPedido item) {
 		ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
 		itemPedidoDTO = (modelMapper.map(item, ItemPedidoDTO.class));
-		return itemPedidoDTO;	
+		return itemPedidoDTO;
 	}
 }

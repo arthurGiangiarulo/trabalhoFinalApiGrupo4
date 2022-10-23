@@ -17,8 +17,8 @@ import com.trabalhofinal.trabalho.service.ProdutoService;
 @Entity
 @Table(name = "item_pedido")
 public class ItemPedido {
-	@Autowired
-	ProdutoService produtoService;
+//	@Autowired
+//	ProdutoService produtoService;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -113,9 +113,9 @@ public class ItemPedido {
 		this.produto = produto;
 	}
 
-	public void setProdutoFromDTO(ProdutoDTO produtoDTO){
-		this.produto = produtoService.toEntidade(produtoDTO);
-	}
+//	public void setProdutoFromDTO(ProdutoDTO produtoDTO){
+//		this.produto = produtoService.toEntidade(produtoDTO);
+//	}
 	
 	public ItemPedido setAllAtributos(ItemPedido itemPedido){
 		this.setQuantidade(itemPedido.getQuantidade());

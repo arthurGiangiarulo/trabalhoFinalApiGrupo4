@@ -18,8 +18,8 @@ import com.trabalhofinal.trabalho.service.ProdutoService;
 @Entity
 @Table(name = "categoria")
 public class Categoria {
-	@Autowired
-	ProdutoService produtoService;
+//	@Autowired
+//	ProdutoService produtoService;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,11 +68,11 @@ public class Categoria {
 		this.produtos = produtos;
 	}
 
-	public void setProdutosFromDTO(List<ProdutoDTO> produtosDTO){
-		for(ProdutoDTO produtoDTO: produtosDTO){
-			this.produtos.add(produtoService.toEntidade(produtoDTO)); 
-		}
-	}
+//	public void setProdutosFromDTO(List<ProdutoDTO> produtosDTO){
+//		for(ProdutoDTO produtoDTO: produtosDTO){
+//			this.produtos.add(produtoService.toEntidade(produtoDTO)); 
+//		}
+//	}
 	
 	public Categoria setAllAtributos(Categoria categoria){
 		this.setNome(categoria.getNome());
