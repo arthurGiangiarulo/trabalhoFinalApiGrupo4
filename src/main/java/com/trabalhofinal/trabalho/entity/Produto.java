@@ -9,19 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
 import javax.persistence.Table;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.trabalhofinal.trabalho.dto.CategoriaDTO;
-import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
-import com.trabalhofinal.trabalho.dto.ProdutoDTO;
-import com.trabalhofinal.trabalho.service.CategoriaService;
-import com.trabalhofinal.trabalho.service.ItemPedidoService;
-import com.trabalhofinal.trabalho.service.ProdutoService;
 
 @Entity
 @Table(name = "produto")
@@ -52,8 +43,9 @@ public class Produto {
 	@Column(name = "valor_unitario")
 	private Double valorUnitario;
 
+	@Lob
 	@Column(name = "imagem")
-	private String imagem;
+	private byte[] imagem;
 
 	@ManyToOne
 	@JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
@@ -109,12 +101,14 @@ public class Produto {
 	public void setValorUnitario(Double valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
+	
+	
 
-	public String getImagem() {
+	public byte[] getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(String imagem) {
+	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
 	}
 
