@@ -1,11 +1,10 @@
 package com.trabalhofinal.trabalho.controller;
 
-import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,27 +42,17 @@ public class ProdutoController {
 		}
 	}
 	
-	@PostMapping("/save")
-   public ResponseEntity<ProdutoDTO> save(@RequestBody ProdutoDTO produtoDTO,@RequestParam("imagem") MultipartFile foto) {
+	@PostMapping(value = "/save",
+			consumes = {MediaType.APPLICATION_JSON_VALUE,
+						MediaType.MULTIPART_FORM_DATA_VALUE})
+   public ResponseEntity<ProdutoDTO> save(@RequestPart("produto") String produtoDTO, @RequestPart("image") MultipartFile foto) {
 		try {
-			return new ResponseEntity<>(produtoService.save(produtoDTO), HttpStatus.CREATED);
+			return new ResponseEntity<>(produtoService.saveProdutoImgDatabase(produtoDTO, foto), HttpStatus.CREATED);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(produtoService.save(produtoDTO), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(produtoService.saveProdutoImgDatabase(produtoDTO, foto), HttpStatus.BAD_REQUEST);
 		}
    }
-	
-	@PostMapping("/save/image")
-	public ResponseEntity<ProdutoDTO> saveProductImage(@RequestParam("image") MultipartFile file) {
-		ProdutoDTO produto = new ProdutoDTO();
-		try {
-			produto.setImagem(Base64.getEncoder().encodeToString(file.getBytes()));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ResponseEntity<>(produtoService.saveProdutoImgToDatabase(produto), HttpStatus.CREATED);
-	}
 	
 	@PutMapping("/update/{id}")
 	public ResponseEntity<ProdutoDTO> updateProdutoDTO(@RequestBody ProdutoDTO produtoDTO,
