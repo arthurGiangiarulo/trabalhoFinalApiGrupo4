@@ -59,7 +59,6 @@ public class PedidoService {
 
 		if (pedidoExistenteNoBanco != null) {
 			Pedido pedidoExistente = toEntidade(pedidoDTO);
-
 			pedidoExistenteNoBanco.setDataEnvio(pedidoExistente.getDataEnvio());
 			pedidoExistenteNoBanco.setStatus(pedidoExistente.getStatus());
 			pedidoExistenteNoBanco.setValorTotal(pedidoExistente.getValorTotal());
@@ -79,12 +78,12 @@ public class PedidoService {
 	public Pedido toEntidade(PedidoDTO pedidoDTO) {
 		Pedido pedido = new Pedido();
 
-		pedido.setCliente(pedidoDTO.getCliente());
+//		pedido.setCliente(pedidoDTO.getCliente());
 		pedido.setDataEntrega(pedidoDTO.getDataEntrega());
 		pedido.setDataEnvio(pedidoDTO.getDataEnvio());
 		pedido.setDataPedido(pedidoDTO.getDataPedido());
 		pedido.setIdPedido(pedidoDTO.getIdPedido());
-		pedido.setItensPedidos(pedidoDTO.getItensPedidos());
+		pedido.setItensPedidosFromDTO(pedidoDTO.getItensPedidosDTO());
 		pedido.setStatus(pedidoDTO.getStatus());
 		pedido.setValorTotal(pedidoDTO.getValorTotal());
 

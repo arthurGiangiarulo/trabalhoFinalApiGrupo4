@@ -56,13 +56,13 @@ public class ClienteService {
 		ClienteDTO clienteAtualizadoDTO = new ClienteDTO();
 		
 		if (clienteExistenteNoBanco != null) {
-			
-			Cliente clienteExistente = toEntidade(clienteDTO);
-			
-			clienteExistenteNoBanco.setCpf(clienteExistente.getCpf());
-			clienteExistenteNoBanco.setEmail(clienteExistente.getEmail());
-			clienteExistenteNoBanco.setNomeCompleto(clienteExistente.getNomeCompleto());
-			clienteExistenteNoBanco.setTelefone(clienteExistente.getTelefone());
+			clienteDTO.setNomeCompleto(clienteAtualizadoDTO.getNomeCompleto());
+			clienteDTO.setPedidoDTO(clienteAtualizadoDTO.getPedidoDTO());
+			clienteDTO.setEmail(clienteAtualizadoDTO.getEmail());
+			clienteDTO.setEnderecoDTO(clienteAtualizadoDTO.getEnderecoDTO());
+
+			clienteExistenteNoBanco = toEntidade(clienteDTO);
+
 			Cliente clienteAtualizado = clienteRepository.save(clienteExistenteNoBanco);
 			
 			clienteAtualizadoDTO = converteEntitytoDTO(clienteAtualizado);
@@ -92,6 +92,7 @@ public class ClienteService {
 		cliente.setNomeCompleto(clienteDTO.getNomeCompleto());
 		cliente.setDataNascimento(clienteDTO.getDataNascimento());
 		cliente.setTelefone(clienteDTO.getTelefone());
+		//Não está faltando o endereço?
 
 		return cliente;
 	}

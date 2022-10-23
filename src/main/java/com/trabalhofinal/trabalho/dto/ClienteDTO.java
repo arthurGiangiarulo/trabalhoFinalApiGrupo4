@@ -2,9 +2,6 @@ package com.trabalhofinal.trabalho.dto;
 
 import java.util.List;
 
-import com.trabalhofinal.trabalho.entity.Endereco;
-import com.trabalhofinal.trabalho.entity.Pedido;
-
 public class ClienteDTO {
 	private Integer idCliente;
 	private String email;
@@ -12,8 +9,10 @@ public class ClienteDTO {
 	private String cpf;
 	private String telefone;
 	private String dataNascimento;
-	private Endereco endereco;
-	private List <Pedido> pedido;
+	private EnderecoDTO enderecoDTO;
+	private List <PedidoDTO> pedidoDTO;
+	
+	
 	public Integer getIdCliente() {
 		return idCliente;
 	}
@@ -50,16 +49,17 @@ public class ClienteDTO {
 	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	public Endereco getEndereco() {
-		return endereco;
+	public EnderecoDTO getEnderecoDTO() {
+		return enderecoDTO;
 	}
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setEnderecoDTO(EnderecoDTO enderecoDTO) {
+		this.enderecoDTO = enderecoDTO;
 	}
-	public List<Pedido> getPedido() {
-		return pedido;
+	public List<PedidoDTO> getPedidoDTO() {
+		return pedidoDTO;
 	}
-	public void setPedido(List<Pedido> pedido) {
-		this.pedido = pedido;
+	public void setPedidoDTO(List<PedidoDTO> pedidoDTO) {
+		this.pedidoDTO = pedidoDTO;
 	}
+	
 }

@@ -19,6 +19,9 @@ public class ProdutoService {
 	ProdutoRepository produtoRepository;
 
 	@Autowired
+	CategoriaService categoriaService;
+
+	@Autowired
 	private ModelMapper modelMapper;
 
 	public List<ProdutoDTO> getAll() {
@@ -63,7 +66,6 @@ public class ProdutoService {
 			produtoExistenteNoBanco.setNome(produtoExistente.getNome());
 			produtoExistenteNoBanco.setQtdEstoque(produtoExistente.getQtdEstoque());
 			produtoExistenteNoBanco.setValorUnitario(produtoExistente.getValorUnitario());
-
 			Produto produtoAtualizado = produtoRepository.save(produtoExistenteNoBanco);
 			produtoAtualizadoDTO = converteEntitytoDTO(produtoAtualizado);
 		}
@@ -79,12 +81,12 @@ public class ProdutoService {
 	public Produto toEntidade(ProdutoDTO produtoDTO) {
 		Produto produto = new Produto();
 
-		produto.setCategoria(produtoDTO.getCategoria());
+		produto.setCategoriaFromDTO(produtoDTO.getCategoriaDTO());
 		produto.setDataCadastro(produtoDTO.getDataCadastro());
 		produto.setDescricao(produtoDTO.getDescricao());
 		produto.setImagem(produtoDTO.getImagem());
 		produto.setNome(produtoDTO.getNome());
-		produto.setPedidosDoProduto(produtoDTO.getPedidosDoProduto());
+		produto.setPedidosDoProdutoFromDTO(produtoDTO.getPedidosDoProdutoDTO());
 		produto.setQtdEstoque(produtoDTO.getQtdEstoque());
 		produto.setValorUnitario(produtoDTO.getValorUnitario());
 		return produto;

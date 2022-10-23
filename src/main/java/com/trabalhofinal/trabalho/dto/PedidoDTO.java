@@ -3,9 +3,6 @@ package com.trabalhofinal.trabalho.dto;
 import java.time.Instant;
 import java.util.List;
 
-import com.trabalhofinal.trabalho.entity.Cliente;
-import com.trabalhofinal.trabalho.entity.ItemPedido;
-
 public class PedidoDTO {
 	private Integer idPedido;
 	private Instant dataPedido;
@@ -13,8 +10,9 @@ public class PedidoDTO {
 	private Instant dataEnvio;
 	private String status;
 	private Double valorTotal;
-	private List<ItemPedido> itensPedidos;
-	private Cliente cliente;
+	private List<ItemPedidoDTO> itensPedidosDTO;
+	private ClienteDTO clienteDTO;
+
 
 	public Integer getIdPedido() {
 		return idPedido;
@@ -30,14 +28,6 @@ public class PedidoDTO {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
 	}
 
 	public Instant getDataPedido() {
@@ -72,11 +62,19 @@ public class PedidoDTO {
 		this.valorTotal = valorTotal;
 	}
 
-	public List<ItemPedido> getItensPedidos() {
-		return itensPedidos;
+	public List<ItemPedidoDTO> getItensPedidosDTO() {
+		return itensPedidosDTO;
 	}
 
-	public void setItensPedidos(List<ItemPedido> itensPedidos) {
-		this.itensPedidos = itensPedidos;
+	public void setItensPedidosDTO(List<ItemPedidoDTO> itensPedidosDTO) {
+		this.itensPedidosDTO = itensPedidosDTO;
+	}
+
+	public ClienteDTO getClienteDTO() {
+		return clienteDTO;
+	}
+
+	public void setClienteDTO(ClienteDTO clienteDTO) {
+		this.clienteDTO = clienteDTO;
 	}
 }

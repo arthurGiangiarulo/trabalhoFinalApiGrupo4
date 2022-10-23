@@ -9,9 +9,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.trabalhofinal.trabalho.dto.ProdutoDTO;
+import com.trabalhofinal.trabalho.service.ProdutoService;
+
 @Entity
 @Table(name = "item_pedido")
 public class ItemPedido {
+	@Autowired
+	ProdutoService produtoService;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_item_pedido")
@@ -104,6 +112,10 @@ public class ItemPedido {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+
+	public void setProdutoFromDTO(ProdutoDTO produtoDTO){
+		this.produto = produtoService.toEntidade(produtoDTO);
+	}
 	
 	public ItemPedido setAllAtributos(ItemPedido itemPedido){
 		this.setQuantidade(itemPedido.getQuantidade());
@@ -115,5 +127,6 @@ public class ItemPedido {
 		this.setProduto(itemPedido.getProduto());
 		return this;
 	}
+
 
 }
