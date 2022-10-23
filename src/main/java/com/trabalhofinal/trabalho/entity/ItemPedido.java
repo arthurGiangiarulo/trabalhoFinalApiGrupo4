@@ -17,9 +17,6 @@ import com.trabalhofinal.trabalho.service.ProdutoService;
 @Entity
 @Table(name = "item_pedido")
 public class ItemPedido {
-//	@Autowired
-//	ProdutoService produtoService;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_item_pedido")
@@ -47,7 +44,6 @@ public class ItemPedido {
 	@ManyToOne
 	@JoinColumn(name = "id_produto", referencedColumnName = "id_produto")
 	private Produto produto;
-
 
 	public Integer getIdItemPedido() {
 		return idItemPedido;
@@ -112,10 +108,6 @@ public class ItemPedido {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-
-//	public void setProdutoFromDTO(ProdutoDTO produtoDTO){
-//		this.produto = produtoService.toEntidade(produtoDTO);
-//	}
 	
 	public ItemPedido setAllAtributos(ItemPedido itemPedido){
 		this.setQuantidade(itemPedido.getQuantidade());
@@ -127,6 +119,4 @@ public class ItemPedido {
 		this.setProduto(itemPedido.getProduto());
 		return this;
 	}
-
-
 }

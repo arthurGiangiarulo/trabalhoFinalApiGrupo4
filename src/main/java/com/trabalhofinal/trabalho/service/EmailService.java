@@ -2,11 +2,14 @@ package com.trabalhofinal.trabalho.service;
 
 import java.util.Properties;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -57,6 +60,23 @@ public class EmailService {
 		try {
 			emailSender.send(mailMessage);
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendHtmlMail(String destinatario, String assunto) {
+		MimeMessage mimeMessage = emailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+		try {
+			helper.setSubject(assunto);
+			helper.setFrom(mailFrom);
+			helper.setTo(destinatario);
+			
+			boolean html = true;
+			String htmlBody = "<b>Hey<b>,<br><i>I am the API</i>";
+			helper.setText(htmlBody, html);
+			emailSender.send(mimeMessage);
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}

@@ -15,31 +15,30 @@ public class Endereco {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_endereco")
 	private Integer idEndereco;
-	
+
 	@Column(name = "cep")
 	private String cep;
-	
+
 	@Column(name = "rua")
 	private String rua;
-	
+
 	@Column(name = "bairro")
 	private String bairro;
-	
+
 	@Column(name = "cidade")
 	private String cidade;
-	
+
 	@Column(name = "numero")
 	private int numero;
-	
+
 	@Column(name = "complemento")
 	private String complemento;
-	
+
 	@Column(name = "uf")
 	private String uf;
-	
+
 	@OneToOne(mappedBy = "endereco")
 	private Cliente cliente;
-
 
 	public Integer getIdEndereco() {
 		return idEndereco;
@@ -113,7 +112,7 @@ public class Endereco {
 		this.cliente = cliente;
 	}
 
-	public Endereco setAllAtributos(Endereco endereco){
+	public Endereco setAllAtributos(Endereco endereco) {
 		this.setCep(endereco.getCep());
 		this.setRua(endereco.getRua());
 		this.setBairro(endereco.getBairro());
@@ -123,5 +122,4 @@ public class Endereco {
 		this.setUf(endereco.getUf());
 		return this;
 	}
-
 }
