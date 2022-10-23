@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trabalhofinal.trabalho.dto.ProdutoDTO;
 import com.trabalhofinal.trabalho.entity.Produto;
 import com.trabalhofinal.trabalho.repository.ProdutoRepository;
@@ -57,20 +58,28 @@ public class ProdutoService {
 		return produtoAtualizado;
 	}
 	
-	public ProdutoDTO saveProdutoImgToDatabase(ProdutoDTO produto)  {
-//		ProdutoDTO produto = new ProdutoDTO();
-//		String fileName = StringUtils.cleanPath(produto.getImagem().getOriginalFilename());
-//		if(fileName.contains("..")) {
-//			System.out.println("Invalid image");
-//		} else {
-//			try {
-//				System.out.println("hello");
-////				produto.setImagem(Base64.getEncoder().encodeToString(file.getBytes()));
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
-		produtoRepository.save(toEntidade(produto));
+	public ProdutoDTO saveProdutoImgDatabase(String produtoJson, MultipartFile foto)  {
+		ProdutoDTO produtoFromJson = convertEditoraFromStringJson(produtoJson);
+		String fileName = StringUtils.cleanPath(foto.getOriginalFilename());
+		System.out.println(fileName);
+		try {
+			produtoFromJson.setImagem(Base64.getEncoder().encodeToString(foto.getBytes()));
+		} catch (Exception e) {
+				e.printStackTrace();
+		}
+		produtoRepository.save(toEntidade(produtoFromJson));
+		return produtoFromJson;
+	}
+	
+	private ProdutoDTO convertEditoraFromStringJson(String produtoJson) {
+		ProdutoDTO produto = new ProdutoDTO();
+		
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			produto = objectMapper.readValue(produtoJson, ProdutoDTO.class);
+		} catch (IOException err) {
+			System.out.printf("Ocorreu um erro ao tentar converter a string json para um instância da entidade ProdutoDTO", err.toString());
+		}
 		return produto;
 	}
 
