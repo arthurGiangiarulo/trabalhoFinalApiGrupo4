@@ -40,8 +40,8 @@ public class ItemPedidoController {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<ItemPedidoDTO> save(@RequestBody ItemPedidoDTO enderecoDTO) {
-		return new ResponseEntity<>(itemService.save(enderecoDTO), HttpStatus.CREATED);
+	public ResponseEntity<ItemPedidoDTO> save(@RequestBody ItemPedidoDTO itemDTO) {
+		return new ResponseEntity<>(itemService.save(itemDTO), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/update/{id}")

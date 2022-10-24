@@ -7,8 +7,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.trabalhofinal.trabalho.dto.ClienteDTO;
 import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
 import com.trabalhofinal.trabalho.dto.PedidoDTO;
+import com.trabalhofinal.trabalho.dto.RelatorioPedido;
+import com.trabalhofinal.trabalho.dto.ResumoPedido;
 import com.trabalhofinal.trabalho.entity.ItemPedido;
 import com.trabalhofinal.trabalho.entity.Pedido;
 import com.trabalhofinal.trabalho.repository.PedidoRepository;
@@ -17,6 +20,12 @@ import com.trabalhofinal.trabalho.repository.PedidoRepository;
 public class PedidoService {
 	@Autowired
 	PedidoRepository pedidoRepository;
+	
+	@Autowired
+	ItemPedidoService itemService;
+	
+	@Autowired
+	ClienteService clienteService;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -43,13 +52,42 @@ public class PedidoService {
 	}
 
 	public PedidoDTO save(PedidoDTO pedidoDTO) {
+		RelatorioPedido relatorio = relatorio(pedidoDTO);
+		System.out.println(relatorio);
 		pedidoDTO = formatToUpperDTO(pedidoDTO);
+		
+//		ClienteDTO cliente = clienteService.getById(id);
 		Pedido pedido = toEntidade(pedidoDTO);
 		Pedido novoPedido = pedidoRepository.save(pedido);
 
 		PedidoDTO pedidoAtualizado = converteEntitytoDTO(novoPedido);
 
 		return pedidoAtualizado;
+	}
+	
+	public RelatorioPedido relatorio(PedidoDTO pedidoDTO) {
+		List<ResumoPedido> listaResumo = new ArrayList<>();
+		RelatorioPedido relatorio = new RelatorioPedido();
+		relatorio.setIdPedido(pedidoDTO.getIdPedido());
+		relatorio.setDataPedido(pedidoDTO.getDataPedido());
+		relatorio.setValorTotal(pedidoDTO.getValorTotal());
+		
+		if(pedidoDTO.getItensPedidosDTO().size()> 0) {
+			pedidoDTO.getItensPedidosDTO().forEach(item -> {
+				ResumoPedido resumoTemp = new ResumoPedido();
+				resumoTemp.setIdProduto(item.getProdutoDTO().getIdProduto());
+				resumoTemp.setNome(item.getProdutoDTO().getNome());
+				resumoTemp.setPercentualDesconto(item.getPercentualDesconto());
+				resumoTemp.setPrecoVenda(item.getPrecoVenda());
+				resumoTemp.setQuantidade(item.getQuantidade());
+				resumoTemp.setValorBruto(item.getValorBruto());
+				resumoTemp.setValorLiquido(item.getValorLiquido());
+				listaResumo.add(resumoTemp);
+			});
+			relatorio.setResumo(listaResumo);
+		}
+		
+		return relatorio;
 	}
 
 	public PedidoDTO update(PedidoDTO pedidoDTO, Integer id) {
