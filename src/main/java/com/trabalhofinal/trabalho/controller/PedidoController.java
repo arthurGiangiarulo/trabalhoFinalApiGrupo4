@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trabalhofinal.trabalho.dto.PedidoDTO;
-import com.trabalhofinal.trabalho.service.EmailService;
+//import com.trabalhofinal.trabalho.service.EmailService;
 import com.trabalhofinal.trabalho.service.PedidoService;
 
 @RestController
@@ -24,8 +24,8 @@ public class PedidoController {
 	@Autowired
 	PedidoService pedidoService;
 	
-	@Autowired
-	EmailService emailService;
+//	@Autowired
+//	EmailService emailService;
 	
 
 //CONTROLLER DOS DTO's
