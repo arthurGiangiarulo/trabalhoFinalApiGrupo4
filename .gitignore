@@ -13,5 +13,5 @@ target/
 .springBeans
 .sts4-cache
 
-/login
+application.properties
 .vscode/settings.json
