@@ -1,5 +1,6 @@
 package com.trabalhofinal.trabalho.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
 import com.trabalhofinal.trabalho.dto.PedidoDTO;
 import com.trabalhofinal.trabalho.dto.RelatorioPedido;
@@ -43,7 +45,6 @@ public class PedidoService {
 			PedidoDTO pedidoDTO = converteEntitytoDTO(pedido);
 			listaDTO.add(pedidoDTO);
 		}
-
 		return listaDTO;
 	}
 
@@ -56,14 +57,52 @@ public class PedidoService {
 		}
 	}
 
-	public PedidoDTO save(PedidoDTO pedidoDTO) {
-		pedidoDTO = formatToUpperDTO(pedidoDTO);
+//	public PedidoDTO save(PedidoDTO pedidoDTO) {
+//		pedidoDTO = formatToUpperDTO(pedidoDTO);
+//		Pedido pedido = toEntidade(pedidoDTO);
+//		Pedido novoPedido = pedidoRepository.save(pedido);
+//		PedidoDTO pedidoAtualizado = converteEntitytoDTO(novoPedido);		
+//		RelatorioPedido relatorio = getPedidoItem(pedidoAtualizado);
+//		return pedidoAtualizado;
+//	}
+	
+	public PedidoDTO order(String pedidoJson, String itens) {
+		PedidoDTO pedidoDTO = convertPedidoFromStringJson(pedidoJson);
 		Pedido pedido = toEntidade(pedidoDTO);
 		Pedido novoPedido = pedidoRepository.save(pedido);
-		PedidoDTO pedidoAtualizado = converteEntitytoDTO(novoPedido);
-//		RelatorioPedido relatorio = getPedidoItem(pedidoAtualizado);
-//		System.out.println(relatorio.getResumo());
+		
+		ItemPedidoDTO itemDTO = convertItemFromStringJson(itens);
+		itemDTO.setPedido(converteEntitytoDTO(novoPedido));
+		itemDTO = itemPedidoService.save(itemDTO);
+		
+		pedidoDTO = formatToUpperDTO(pedidoDTO);
+		PedidoDTO pedidoAtualizado = converteEntitytoDTO(novoPedido);		
+		RelatorioPedido relatorio = getPedidoItem(pedidoAtualizado);
 		return pedidoAtualizado;
+	}
+	
+	private PedidoDTO convertPedidoFromStringJson(String pedidoJson) {
+		PedidoDTO pedido = new PedidoDTO();
+		
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			pedido = objectMapper.readValue(pedidoJson, PedidoDTO.class);
+		} catch (IOException err) {
+			System.out.printf("Ocorreu um erro ao tentar converter a string json para um instância da entidade PedidoDTO", err.toString());
+		}
+		return pedido;
+	}
+	
+	private ItemPedidoDTO convertItemFromStringJson(String itensJson) {
+		ItemPedidoDTO itens = new ItemPedidoDTO();
+		
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			itens = objectMapper.readValue(itensJson, ItemPedidoDTO.class);
+		} catch (IOException err) {
+			System.out.printf("Ocorreu um erro ao tentar converter a string json para um instância da entidade ItemPedidoDTO", err.toString());
+		}
+		return itens;
 	}
 	
 	public List<RelatorioPedido> getAllPedidoItem() {
@@ -102,7 +141,7 @@ public class PedidoService {
 
 	public RelatorioPedido getPedidoItem(PedidoDTO pedido) {
 		RelatorioPedido relatorio = new RelatorioPedido();
-		List<ItemPedidoDTO> itensDTO = new ArrayList<>(); 
+		List<ItemPedidoDTO> itensDTO = new ArrayList<>();
 		List<ItemPedido> itensEntity = new ArrayList<>();
 		List<ResumoPedido> resumos = new ArrayList<>();
 		

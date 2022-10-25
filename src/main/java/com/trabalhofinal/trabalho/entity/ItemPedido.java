@@ -9,11 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.trabalhofinal.trabalho.dto.ProdutoDTO;
-import com.trabalhofinal.trabalho.service.ProdutoService;
-
 @Entity
 @Table(name = "item_pedido")
 public class ItemPedido {
