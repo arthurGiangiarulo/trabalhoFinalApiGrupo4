@@ -63,7 +63,7 @@ public class EmailService {
 		String body = "\nRelatório do pedido"
 				+ "\nId pedido = " + relatorio.getIdPedido()
 				+ "\ndataPedido = " + relatorio.getDataPedido()
-				+ "\nvalorTotal = " + relatorio.getValorTotal()
+				+ "\nvalorTotal = " + relatorio.getResumo().get(0).getValorBruto()
 				+ "\nresumo: \n\n"
 				+ "\nNome: " + relatorio.getResumo().get(0).getNome()
 				+ "\nPreço de venda: " + relatorio.getResumo().get(0).getPrecoVenda()
