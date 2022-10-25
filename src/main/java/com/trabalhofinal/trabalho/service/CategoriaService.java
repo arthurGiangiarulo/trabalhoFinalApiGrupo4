@@ -54,9 +54,12 @@ public class CategoriaService {
 		Categoria categoriaExistenteNoBanco = categoriaRepository.findById(id).get();
 		CategoriaDTO categoriaAtualizadaDTO = new CategoriaDTO();
 		if(categoriaExistenteNoBanco != null) {
-			categoriaDTO.setNome(categoriaExistenteNoBanco.getNome());
-			categoriaDTO.setDescricao(categoriaExistenteNoBanco.getDescricao());
-			categoriaExistenteNoBanco = toEntidade(categoriaDTO);
+			
+			Categoria categoriaExistente = toEntidade(categoriaDTO);
+			
+			categoriaExistenteNoBanco.setNome(categoriaExistente.getNome());
+			categoriaExistenteNoBanco.setDescricao(categoriaExistente.getDescricao());
+			
 			
 			Categoria categoriaAtualizada = categoriaRepository.save(categoriaExistenteNoBanco);
 			categoriaAtualizadaDTO = converteEntitytoDTO(categoriaAtualizada);

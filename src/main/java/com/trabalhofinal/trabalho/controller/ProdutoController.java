@@ -66,7 +66,7 @@ public class ProdutoController {
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<ProdutoDTO> deleteProdutoDTO(Integer id) {
+	public ResponseEntity<ProdutoDTO> deleteProdutoDTO(@PathVariable Integer id) {
 		ProdutoDTO produtoDTO = produtoService.getById(id);
 		if (produtoDTO == null) {
 			return new ResponseEntity<>(produtoDTO, HttpStatus.NOT_FOUND);

@@ -66,7 +66,7 @@ public class PedidoController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<PedidoDTO> deletePedidoDTO(int id) {
+	public ResponseEntity<PedidoDTO> deletePedidoDTO(@PathVariable Integer id) {
 		PedidoDTO pedidoDTO = pedidoService.getById(id);
 		if (pedidoDTO == null) {
 			return new ResponseEntity<>(pedidoDTO, HttpStatus.NOT_FOUND);

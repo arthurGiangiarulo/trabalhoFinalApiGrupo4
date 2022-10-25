@@ -32,7 +32,7 @@ public class ClienteController {
     } 
 	
 	@GetMapping("/search/id/{id}")
-	public ResponseEntity<ClienteDTO> getClienteDTOById(@PathVariable int id) {
+	public ResponseEntity<ClienteDTO> getClienteDTOById(@PathVariable Integer id) {
 		ClienteDTO clienteDTO = clienteService.getById(id);
 		if (clienteDTO != null) {
 			return new ResponseEntity<>(clienteDTO, HttpStatus.OK);
@@ -53,12 +53,13 @@ public class ClienteController {
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<ClienteDTO> deleteClienteDTO(int id) {
+	public ResponseEntity<ClienteDTO> deleteClienteDTO(@PathVariable Integer id) {
 		ClienteDTO clienteDTO = clienteService.getById(id);
-		if (clienteDTO == null) {
-			return new ResponseEntity<>(clienteDTO, HttpStatus.NOT_FOUND);
-		} else {
+		if (clienteDTO != null) {
 			return new ResponseEntity<>(clienteService.delete(id), HttpStatus.OK);
+		} else {
+			
+			return new ResponseEntity<>(clienteDTO, HttpStatus.NOT_FOUND);
 		}
 	}
 }
