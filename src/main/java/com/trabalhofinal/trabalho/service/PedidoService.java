@@ -60,9 +60,9 @@ public class PedidoService {
 		pedidoDTO = formatToUpperDTO(pedidoDTO);
 		Pedido pedido = toEntidade(pedidoDTO);
 		Pedido novoPedido = pedidoRepository.save(pedido);
-		RelatorioPedido relatorio = getPedidoItem(pedidoDTO);
-		System.out.println(relatorio);
 		PedidoDTO pedidoAtualizado = converteEntitytoDTO(novoPedido);
+//		RelatorioPedido relatorio = getPedidoItem(pedidoAtualizado);
+//		System.out.println(relatorio.getResumo());
 		return pedidoAtualizado;
 	}
 	
@@ -111,11 +111,11 @@ public class PedidoService {
 			itensDTO.add(itemPedidoService.converteEntitytoDTO(entity));
 		});
 		
+		relatorio.setIdPedido(pedido.getIdPedido());
+		relatorio.setDataPedido(pedido.getDataPedido());
+		relatorio.setValorTotal(pedido.getValorTotal());
 		itensDTO.forEach(item -> {
 			ResumoPedido resumoTemp = new ResumoPedido();
-			relatorio.setIdPedido(item.getPedido().getIdPedido());
-			relatorio.setDataPedido(item.getPedido().getDataPedido());
-			relatorio.setValorTotal(item.getPedido().getValorTotal());
 			resumoTemp.setIdProduto(item.getProduto().getIdProduto());
 			resumoTemp.setNome(item.getProduto().getNome());
 			resumoTemp.setPercentualDesconto(item.getPercentualDesconto());
