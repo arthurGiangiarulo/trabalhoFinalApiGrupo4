@@ -71,6 +71,7 @@ public class PedidoService {
 	
 	public PedidoDTO order(String pedidoJson, String itens) {
 		PedidoDTO pedidoDTO = convertPedidoFromStringJson(pedidoJson);
+		pedidoDTO = formatToUpperDTO(pedidoDTO);
 		Pedido pedido = toEntidade(pedidoDTO);
 		Pedido novoPedido = pedidoRepository.save(pedido);
 		
@@ -78,7 +79,6 @@ public class PedidoService {
 		itemDTO.setPedido(converteEntitytoDTO(novoPedido));
 		itemDTO = itemPedidoService.save(itemDTO);
 		
-		pedidoDTO = formatToUpperDTO(pedidoDTO);
 		PedidoDTO pedidoAtualizado = converteEntitytoDTO(novoPedido);		
 		RelatorioPedido relatorio = getPedidoItem(pedidoAtualizado);
 		
