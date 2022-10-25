@@ -20,16 +20,16 @@ import com.trabalhofinal.trabalho.repository.PedidoRepository;
 public class PedidoService {
 	@Autowired
 	PedidoRepository pedidoRepository;
-
+	
 	@Autowired
 	ItemPedidoRepository itemPedidoRepository;
-
+	
 	@Autowired
 	ItemPedidoService itemPedidoService;
-
+	
 	@Autowired
 	ItemPedidoService itemService;
-
+	
 	@Autowired
 	ClienteService clienteService;
 
@@ -60,43 +60,19 @@ public class PedidoService {
 		pedidoDTO = formatToUpperDTO(pedidoDTO);
 		Pedido pedido = toEntidade(pedidoDTO);
 		Pedido novoPedido = pedidoRepository.save(pedido);
-		RelatorioPedido relatorio = getPedidoItem(pedidoDTO);
-		System.out.println(relatorio);
 		PedidoDTO pedidoAtualizado = converteEntitytoDTO(novoPedido);
+//		RelatorioPedido relatorio = getPedidoItem(pedidoAtualizado);
+//		System.out.println(relatorio.getResumo());
 		return pedidoAtualizado;
 	}
-
-//	public RelatorioPedido relatorio(PedidoDTO pedidoDTO) {
-//		List<ResumoPedido> listaResumo = new ArrayList<>();
-//		RelatorioPedido relatorio = new RelatorioPedido();
-//		relatorio.setIdPedido(pedidoDTO.getIdPedido());
-//		relatorio.setDataPedido(pedidoDTO.getDataPedido());
-//		relatorio.setValorTotal(pedidoDTO.getValorTotal());
-//		
-////		if(pedidoDTO.getItensPedidosDTO().size()> 0) {
-////			pedidoDTO.getItensPedidosDTO().forEach(item -> {
-////				ResumoPedido resumoTemp = new ResumoPedido();
-////				resumoTemp.setIdProduto(item.getProdutoDTO().getIdProduto());
-////				resumoTemp.setNome(item.getProdutoDTO().getNome());
-////				resumoTemp.setPercentualDesconto(item.getPercentualDesconto());
-////				resumoTemp.setPrecoVenda(item.getPrecoVenda());
-////				resumoTemp.setQuantidade(item.getQuantidade());
-////				resumoTemp.setValorBruto(item.getValorBruto());
-////				resumoTemp.setValorLiquido(item.getValorLiquido());
-////				listaResumo.add(resumoTemp);
-////			});  
-//			relatorio.setResumo(listaResumo);
-//		//}
-//		
-//		//return relatorio;
-
+	
 	public List<RelatorioPedido> getAllPedidoItem() {
 		List<PedidoDTO> pedidos = getAll();
 		List<RelatorioPedido> listaRelatorio = new ArrayList<>();
-
+	
 		pedidos.forEach(ped -> {
 			RelatorioPedido relatorio = new RelatorioPedido();
-			List<ItemPedidoDTO> itensDTO = new ArrayList<>();
+			List<ItemPedidoDTO> itensDTO = new ArrayList<>(); 
 			List<ItemPedido> itensEntity = new ArrayList<>();
 			itensEntity = itemPedidoRepository.findByPedido(toEntidade(ped));
 			itensEntity.forEach(entity -> {
@@ -105,7 +81,7 @@ public class PedidoService {
 			relatorio.setIdPedido(ped.getIdPedido());
 			relatorio.setDataPedido(ped.getDataPedido());
 			relatorio.setValorTotal(ped.getValorTotal());
-
+			
 			List<ResumoPedido> resumos = new ArrayList<>();
 			itensDTO.forEach(item -> {
 				ResumoPedido resumoTemp = new ResumoPedido();
@@ -122,25 +98,24 @@ public class PedidoService {
 			listaRelatorio.add(relatorio);
 		});
 		return listaRelatorio;
-
 	}
 
 	public RelatorioPedido getPedidoItem(PedidoDTO pedido) {
 		RelatorioPedido relatorio = new RelatorioPedido();
-		List<ItemPedidoDTO> itensDTO = new ArrayList<>();
+		List<ItemPedidoDTO> itensDTO = new ArrayList<>(); 
 		List<ItemPedido> itensEntity = new ArrayList<>();
 		List<ResumoPedido> resumos = new ArrayList<>();
-
+		
 		itensEntity = itemPedidoRepository.findByPedido(toEntidade(pedido));
 		itensEntity.forEach(entity -> {
 			itensDTO.add(itemPedidoService.converteEntitytoDTO(entity));
 		});
-
+		
+		relatorio.setIdPedido(pedido.getIdPedido());
+		relatorio.setDataPedido(pedido.getDataPedido());
+		relatorio.setValorTotal(pedido.getValorTotal());
 		itensDTO.forEach(item -> {
 			ResumoPedido resumoTemp = new ResumoPedido();
-			relatorio.setIdPedido(item.getPedido().getIdPedido());
-			relatorio.setDataPedido(item.getPedido().getDataPedido());
-			relatorio.setValorTotal(item.getPedido().getValorTotal());
 			resumoTemp.setIdProduto(item.getProduto().getIdProduto());
 			resumoTemp.setNome(item.getProduto().getNome());
 			resumoTemp.setPercentualDesconto(item.getPercentualDesconto());
@@ -153,11 +128,11 @@ public class PedidoService {
 		relatorio.setResumo(resumos);
 		return relatorio;
 	}
-
+	
 	public PedidoDTO update(PedidoDTO pedidoDTO, Integer id) {
 		pedidoDTO = formatToUpperDTO(pedidoDTO);
 		Pedido pedidoExistenteNoBanco = pedidoRepository.findById(id).get();
-		PedidoDTO pedidoAtualizadoDTO = new PedidoDTO();
+		PedidoDTO pedidoAtualizadoDTO = new PedidoDTO(); 
 
 		if (pedidoExistenteNoBanco != null) {
 			Pedido pedidoExistente = toEntidade(pedidoDTO);
