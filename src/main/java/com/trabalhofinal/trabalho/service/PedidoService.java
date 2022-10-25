@@ -33,6 +33,9 @@ public class PedidoService {
 	ItemPedidoService itemService;
 	
 	@Autowired
+	EmailService emailService;
+	
+	@Autowired
 	ClienteService clienteService;
 
 	@Autowired
@@ -78,6 +81,11 @@ public class PedidoService {
 		pedidoDTO = formatToUpperDTO(pedidoDTO);
 		PedidoDTO pedidoAtualizado = converteEntitytoDTO(novoPedido);		
 		RelatorioPedido relatorio = getPedidoItem(pedidoAtualizado);
+		
+		
+//		emailService.sendMail("arthurcg@live.com", "Teste API", "Body");
+		
+	
 		return pedidoAtualizado;
 	}
 	

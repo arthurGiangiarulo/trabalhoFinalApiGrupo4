@@ -15,13 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
 import com.trabalhofinal.trabalho.dto.PedidoDTO;
-import com.trabalhofinal.trabalho.dto.ProdutoDTO;
 import com.trabalhofinal.trabalho.dto.RelatorioPedido;
-//import com.trabalhofinal.trabalho.service.EmailService;
 import com.trabalhofinal.trabalho.service.PedidoService;
 
 @RestController
@@ -30,8 +26,6 @@ public class PedidoController {
 	@Autowired
 	PedidoService pedidoService;
 	
-//	@Autowired
-//	EmailService emailService;
 	
 
 //CONTROLLER DOS DTO's
