@@ -3,10 +3,14 @@ package com.trabalhofinal.trabalho.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
 import com.trabalhofinal.trabalho.dto.PedidoDTO;
 import com.trabalhofinal.trabalho.dto.RelatorioPedido;
@@ -90,7 +94,8 @@ public class PedidoService {
 		PedidoDTO pedido = new PedidoDTO();
 		
 		try {
-			ObjectMapper objectMapper = new ObjectMapper();
+			ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+			objectMapper.registerModule(new JavaTimeModule());
 			pedido = objectMapper.readValue(pedidoJson, PedidoDTO.class);
 		} catch (IOException err) {
 			System.out.printf("Ocorreu um erro ao tentar converter a string json para um instância da entidade PedidoDTO", err.toString());
