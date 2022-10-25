@@ -52,7 +52,7 @@ public class CategoriaController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<CategoriaDTO> deleteCategoriaDTO(Integer id) {
+	public ResponseEntity<CategoriaDTO> deleteCategoriaDTO(@PathVariable Integer id) {
 		CategoriaDTO categoriaDTO = categoriaService.getById(id);
 		if (categoriaDTO == null) {
 			return new ResponseEntity<>(categoriaDTO, HttpStatus.NOT_FOUND);

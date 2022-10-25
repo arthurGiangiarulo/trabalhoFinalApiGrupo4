@@ -52,7 +52,7 @@ public class ItemPedidoController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<ItemPedidoDTO> deleteItemDTO(int id) {
+	public ResponseEntity<ItemPedidoDTO> deleteItemDTO(@PathVariable Integer id) {
 		ItemPedidoDTO itemDTO = itemService.getById(id);
 		if (itemDTO == null) {
 			return new ResponseEntity<>(itemDTO, HttpStatus.NOT_FOUND);
