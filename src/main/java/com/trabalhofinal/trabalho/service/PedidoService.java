@@ -85,7 +85,7 @@ public class PedidoService {
 //				resumoTemp.setValorBruto(item.getValorBruto());
 //				resumoTemp.setValorLiquido(item.getValorLiquido());
 //				listaResumo.add(resumoTemp);
-//			}); 
+//			});  
 			relatorio.setResumo(listaResumo);
 		//}
 		
@@ -123,7 +123,7 @@ public class PedidoService {
 			listaRelatorio.add(relatorio);
 		});
 		return listaRelatorio;
->>>>>>> a5f6a5566a54cbf7d73e12df1e9a165d1b48322f
+>>>>>>> a5f6a5566a54cbf7d73e12df1e9a165d1b48322f 
 	}
 
 	public RelatorioPedido getPedidoItem(PedidoDTO pedido) {
