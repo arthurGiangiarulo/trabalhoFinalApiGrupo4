@@ -26,7 +26,6 @@ public class PedidoController {
 	@Autowired
 	PedidoService pedidoService;
 	
-	
 
 //CONTROLLER DOS DTO's
 	@GetMapping("/search")
