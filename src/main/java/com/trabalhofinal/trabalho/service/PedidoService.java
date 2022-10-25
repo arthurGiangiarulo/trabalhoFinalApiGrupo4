@@ -30,8 +30,8 @@ public class PedidoService {
 	@Autowired
 	ItemPedidoService itemService;
 	
-//	@Autowired
-//	EmailService emailService;
+	@Autowired
+	EmailService emailService;
 	
 	@Autowired
 	ClienteService clienteService;
@@ -81,8 +81,7 @@ public class PedidoService {
 		
 		PedidoDTO pedidoAtualizado = converteEntitytoDTO(novoPedido);		
 		RelatorioPedido relatorio = getPedidoItem(pedidoAtualizado);
-//		emailService.sendMail("arthurcg@live.com", "Teste API", "Body");
-		
+		emailService.sendHtmlMail("", "Relatório do pedido", relatorio);
 	
 		return pedidoAtualizado;
 	}

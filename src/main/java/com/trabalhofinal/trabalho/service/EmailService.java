@@ -55,11 +55,23 @@ public class EmailService {
 		this.emailSender = javaMailSender;
 	}
 
-	public void sendMail(String destinatario, String assunto, String mensagem) {
+	public void sendMail(String destinatario, String assunto, RelatorioPedido relatorio) {
 		var mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(destinatario);
 		mailMessage.setSubject(assunto);
-		mailMessage.setText(mensagem);
+	
+		String body = "\nRelatório do pedido"
+				+ "\nId pedido = " + relatorio.getIdPedido()
+				+ "\ndataPedido = " + relatorio.getDataPedido()
+				+ "\nvalorTotal = " + relatorio.getValorTotal()
+				+ "\nresumo: \n\n"
+				+ "\nNome: " + relatorio.getResumo().get(0).getNome()
+				+ "\nPreço de venda: " + relatorio.getResumo().get(0).getPrecoVenda()
+				+ "\nQuantidade: " + relatorio.getResumo().get(0).getQuantidade()
+				+ "\nValor bruto: " + relatorio.getResumo().get(0).getValorBruto()
+				+ "\nValor líquido: " + relatorio.getResumo().get(0).getValorLiquido()
+				+ "\nPercentual de desconto: " + relatorio.getResumo().get(0).getPercentualDesconto();
+		mailMessage.setText(body);
 		mailMessage.setFrom(mailFrom);
 		try {
 			emailSender.send(mailMessage);
@@ -69,7 +81,6 @@ public class EmailService {
 	}
 	
 	public void sendHtmlMail(String destinatario, String assunto, RelatorioPedido relatorio) {
-		
 		MimeMessage mimeMessage = emailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
 		try {
@@ -77,55 +88,31 @@ public class EmailService {
 			helper.setFrom(mailFrom);
 			helper.setTo(destinatario);
 			
-			boolean html = true;
-//			String htmlBody = String.format(
-//					" <h1>Relatório do pedido</h1>\r\n"
-//					+ "    <p>idPedido</p>%d\r\n"
-//					+ "    <p>dataPedido%s</p>\r\n"
-//					+ "    <p>valorTotal%d</p>\r\n"
-//					+ "    <h2>Resumo:</h2>\r\n"
-//					+ "    <ol>\r\n"
-//					+ "        <li>idProduto%d</li>\r\n"
-//					+ "        <li>nome</li>%s\r\n"
-//					+ "        <li>precoVenda</li>%f\r\n"
-//					+ "        <li>quantidade</li>%d\r\n"
-//					+ "        <li>valorBruto</li>%d\r\n"
-//					+ "        <li>valorLiquido</li>%d\r\n"
-//					+ "        <li>percentualDesconto%d</li>\r\n"
-//					+ "    </ol>", relatorio.getIdPedido(), relatorio.getValorTotal());
-			Integer contador = 0;
-			
 			String htmlBody = String.format(
-					" <h1>Relatório do pedido</h1>\r\n"
-					+ "    <p>idPedido%d</p>\r\n"
-					+ "	   <p>dataPedido%s</p>\\r\\n"
-					+ "    <p>valorTotal%d</p>\r\n", 
+					" <h1>Relatório do pedido</h1>"
+					+ "    <p>Id do Pedido: %d</p>"
+					+ "	   <p>Data do pedido: %s</p>"
+					+ "    <p>valorTotal: %f</p>"
+					+ "	   <h2>Resumo:</h2>"
+					+ "	   <li>Id do Produto: %d</li>"
+					+ "    <li>Nome: %s</li>"
+					+ "    <li>Preço de venda: %f</li>"
+					+ "    <li>Quantidade: %d</li>"
+					+ "    <li>ValorBruto: %f</li>"
+					+ "    <li>ValorLiquido: %f</li>"
+					+ "    <li>Percentual de Desconto: %f</li>", 
 					relatorio.getIdPedido(),
-					relatorio.getDataPedido(), 
-					relatorio.getValorTotal());
-			String htmlFinal = "";
-			relatorio.getResumo().forEach(resumo ->{
-				String htmlBody2 = String.format(
-						"		<h2>Resumo:</h2>\\r\\\\n"
-						+ "		<li>idProduto%d</li>\r\n"
-						+ "        <li>nome%s</li>\r\n"
-						+ "        <li>precoVenda%s</li>\r\n"
-						+ "        <li>quantidade%s</li>\r\n"
-						+ "        <li>valorBruto%s</li>\r\n"
-						+ "        <li>valorLiquido%d</li>\r\n"
-						+ "        <li>percentualDesconto%s</li>", 
-						resumo.getIdProduto(),
-						resumo.getNome(),
-						resumo.getPrecoVenda(),
-						resumo.getQuantidade(),
-						resumo.getValorBruto(),
-						resumo.getValorLiquido(),
-						resumo.getPercentualDesconto());
-						htmlFinal.concat(htmlBody2);
-			});
-			
-			
-			helper.setText(htmlBody + htmlFinal, html);
+					relatorio.getDataPedido(),
+					relatorio.getValorTotal(),
+					relatorio.getResumo().get(0).getIdProduto(),
+					relatorio.getResumo().get(0).getNome(),
+					relatorio.getResumo().get(0).getPrecoVenda(),
+					relatorio.getResumo().get(0).getQuantidade(),
+					relatorio.getResumo().get(0).getValorBruto(),
+					relatorio.getResumo().get(0).getValorLiquido(),
+					relatorio.getResumo().get(0).getPercentualDesconto());
+			boolean html = true;
+			helper.setText(htmlBody, html);
 			emailSender.send(mimeMessage);
 		} catch(Exception e) {
 			e.printStackTrace();
