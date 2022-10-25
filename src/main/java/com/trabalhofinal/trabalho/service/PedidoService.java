@@ -30,7 +30,7 @@ public class PedidoService {
 	@Autowired
 	ItemPedidoService itemService;
 	
-	@Autowired
+	@Autowired 
 	ClienteService clienteService;
 
 	@Autowired
@@ -66,6 +66,31 @@ public class PedidoService {
 		return pedidoAtualizado;
 	}
 	
+<<<<<<< HEAD
+	public RelatorioPedido relatorio(PedidoDTO pedidoDTO) {
+		List<ResumoPedido> listaResumo = new ArrayList<>();
+		RelatorioPedido relatorio = new RelatorioPedido();
+		relatorio.setIdPedido(pedidoDTO.getIdPedido());
+		relatorio.setDataPedido(pedidoDTO.getDataPedido());
+		relatorio.setValorTotal(pedidoDTO.getValorTotal());
+		
+//		if(pedidoDTO.getItensPedidosDTO().size()> 0) {
+//			pedidoDTO.getItensPedidosDTO().forEach(item -> {
+//				ResumoPedido resumoTemp = new ResumoPedido();
+//				resumoTemp.setIdProduto(item.getProdutoDTO().getIdProduto());
+//				resumoTemp.setNome(item.getProdutoDTO().getNome());
+//				resumoTemp.setPercentualDesconto(item.getPercentualDesconto());
+//				resumoTemp.setPrecoVenda(item.getPrecoVenda());
+//				resumoTemp.setQuantidade(item.getQuantidade());
+//				resumoTemp.setValorBruto(item.getValorBruto());
+//				resumoTemp.setValorLiquido(item.getValorLiquido());
+//				listaResumo.add(resumoTemp);
+//			}); 
+			relatorio.setResumo(listaResumo);
+		//}
+		
+		//return relatorio;
+=======
 	public List<RelatorioPedido> getAllPedidoItem() {
 		List<PedidoDTO> pedidos = getAll();
 		List<RelatorioPedido> listaRelatorio = new ArrayList<>();
@@ -98,6 +123,7 @@ public class PedidoService {
 			listaRelatorio.add(relatorio);
 		});
 		return listaRelatorio;
+>>>>>>> a5f6a5566a54cbf7d73e12df1e9a165d1b48322f
 	}
 
 	public RelatorioPedido getPedidoItem(PedidoDTO pedido) {
