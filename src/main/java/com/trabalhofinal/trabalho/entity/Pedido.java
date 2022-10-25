@@ -13,13 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.trabalhofinal.trabalho.dto.ClienteDTO;
-import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
-import com.trabalhofinal.trabalho.service.ClienteService;
-import com.trabalhofinal.trabalho.service.ItemPedidoService;
-
 @Entity
 @Table(name = "pedido")
 public class Pedido {

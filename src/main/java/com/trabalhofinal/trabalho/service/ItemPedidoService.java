@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trabalhofinal.trabalho.dto.ItemPedidoDTO;
+import com.trabalhofinal.trabalho.dto.PedidoDTO;
 import com.trabalhofinal.trabalho.entity.ItemPedido;
 import com.trabalhofinal.trabalho.repository.ItemPedidoRepository;
 
@@ -65,7 +66,7 @@ public class ItemPedidoService {
 		}
 		return itemAtualizadoDTO;
 	}
-
+	
 	public ItemPedidoDTO delete(Integer id) {
 		itemPedidoRepository.deleteById(id);
 		return getById(id);
