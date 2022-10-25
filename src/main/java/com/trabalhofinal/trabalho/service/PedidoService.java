@@ -32,8 +32,8 @@ public class PedidoService {
 	@Autowired
 	ItemPedidoService itemService;
 	
-	@Autowired
-	EmailService emailService;
+//	@Autowired
+//	EmailService emailService;
 	
 	@Autowired
 	ClienteService clienteService;
@@ -76,13 +76,13 @@ public class PedidoService {
 		Pedido novoPedido = pedidoRepository.save(pedido);
 		
 		ItemPedidoDTO itemDTO = convertItemFromStringJson(itens);
+		itemDTO.setValorBruto(itemDTO.getPrecoVenda() * itemDTO.getQuantidade());
+		itemDTO.setValorLiquido(itemDTO.getValorBruto() - (itemDTO.getValorBruto() * itemDTO.getPercentualDesconto() / 100));
 		itemDTO.setPedido(converteEntitytoDTO(novoPedido));
 		itemDTO = itemPedidoService.save(itemDTO);
 		
 		PedidoDTO pedidoAtualizado = converteEntitytoDTO(novoPedido);		
 		RelatorioPedido relatorio = getPedidoItem(pedidoAtualizado);
-		
-		
 //		emailService.sendMail("arthurcg@live.com", "Teste API", "Body");
 		
 	
