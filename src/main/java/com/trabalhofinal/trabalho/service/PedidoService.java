@@ -83,7 +83,7 @@ public class PedidoService {
 		RelatorioPedido relatorio = getPedidoItem(pedidoAtualizado);
 		
 		
-//		emailService.sendMail("arthurcg@live.com", "Teste API", "Body");
+		emailService.sendHtmlMail("bernardodeoliveirasouza9@gmail.com", "Teste API", relatorio);
 		
 	
 		return pedidoAtualizado;
