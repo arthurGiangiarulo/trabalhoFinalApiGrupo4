@@ -50,14 +50,12 @@ public class ItemPedidoService {
 	}
 
 	public ItemPedidoDTO update(ItemPedidoDTO itemDTO, Integer id) {
-
 		ItemPedido itemExistenteNoBanco = itemPedidoRepository.findById(id).orElse(null);
 		ItemPedidoDTO itemAtualizadoDTO = new ItemPedidoDTO();
 
 		if (itemExistenteNoBanco != null) {
-			itemDTO.setProdutoDTO(itemAtualizadoDTO.getProdutoDTO());
+			itemDTO.setProduto(itemAtualizadoDTO.getProduto());
 			itemDTO.setQuantidade(itemAtualizadoDTO.getQuantidade());
-
 			itemExistenteNoBanco = toEntidade(itemDTO);
 
 			ItemPedido itemAtualizado = itemPedidoRepository.save(itemExistenteNoBanco);
@@ -70,24 +68,16 @@ public class ItemPedidoService {
 
 	public ItemPedidoDTO delete(Integer id) {
 		itemPedidoRepository.deleteById(id);
-
 		return getById(id);
 	}
 
 	public ItemPedido toEntidade(ItemPedidoDTO itemDTO) {
-		ItemPedido item = new ItemPedido();
-
-		item.setQuantidade(itemDTO.getQuantidade());
-		item.setPrecoVenda(itemDTO.getPrecoVenda());
-		item.setPercentualDesconto(itemDTO.getPercentualDesconto());
-		item.setValorBruto(itemDTO.getValorBruto(itemDTO.getPrecoVenda(), itemDTO.getQuantidade()));
-		item.setValorLiquido(
-				itemDTO.getValorLiquido(itemDTO.getValorBruto(itemDTO.getPrecoVenda(), itemDTO.getQuantidade()),
-						itemDTO.getPercentualDesconto()));
+		ItemPedido item = (modelMapper.map(itemDTO, ItemPedido.class));
+		System.out.println(item.getProduto().getIdProduto());
 		return item;
 	}
 
-	private ItemPedidoDTO converteEntitytoDTO(ItemPedido item) {
+	public ItemPedidoDTO converteEntitytoDTO(ItemPedido item) {
 		ItemPedidoDTO itemPedidoDTO = new ItemPedidoDTO();
 		itemPedidoDTO = (modelMapper.map(item, ItemPedidoDTO.class));
 		return itemPedidoDTO;

@@ -1,7 +1,6 @@
 package com.trabalhofinal.trabalho.dto;
 
 import java.time.Instant;
-import java.util.List;
 
 public class PedidoDTO {
 	private Integer idPedido;
