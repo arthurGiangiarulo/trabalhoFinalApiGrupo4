@@ -68,10 +68,11 @@ public class ProdutoController {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<ProdutoDTO> deleteProdutoDTO(@PathVariable Integer id) {
 		ProdutoDTO produtoDTO = produtoService.getById(id);
-		if (produtoDTO == null) {
+		if (produtoDTO != null) {
+			return new ResponseEntity<>(produtoService.delete(id), HttpStatus.OK);		
+			} else {
+			
 			return new ResponseEntity<>(produtoDTO, HttpStatus.NOT_FOUND);
-		} else {
-			return new ResponseEntity<>(produtoService.delete(id), HttpStatus.OK);
 		}
 	}
 }
