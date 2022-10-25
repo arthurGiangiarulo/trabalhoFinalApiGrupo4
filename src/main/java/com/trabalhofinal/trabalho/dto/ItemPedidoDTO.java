@@ -7,8 +7,8 @@ public class ItemPedidoDTO {
 	private Double percentualDesconto;
 	private Double valorBruto;
 	private Double valorLiquido;
-	private PedidoDTO pedidoDTO;
-	private ProdutoDTO produtoDTO;
+	private PedidoDTO pedido;
+	private ProdutoDTO produto;
 
 	// Getters and Setters
 	public Integer getIdItemPedido() {
@@ -67,20 +67,19 @@ public class ItemPedidoDTO {
 		this.valorLiquido = valorLiquido;
 	}
 
-	public PedidoDTO getPedidoDTO() {
-		return pedidoDTO;
+	public PedidoDTO getPedido() {
+		return pedido;
 	}
 
-	public void setPedidoDTO(PedidoDTO pedidoDTO) {
-		this.pedidoDTO = pedidoDTO;
+	public void setPedido(PedidoDTO pedido) {
+		this.pedido = pedido;
 	}
 
-	public ProdutoDTO getProdutoDTO() {
-		return produtoDTO;
+	public ProdutoDTO getProduto() {
+		return produto;
 	}
 
-	public void setProdutoDTO(ProdutoDTO produtoDTO) {
-		this.produtoDTO = produtoDTO;
+	public void setProduto(ProdutoDTO produto) {
+		this.produto = produto;
 	}
-
 }

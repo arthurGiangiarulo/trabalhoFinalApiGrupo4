@@ -41,6 +41,7 @@ public class ItemPedidoController {
 
 	@PostMapping("/save")
 	public ResponseEntity<ItemPedidoDTO> save(@RequestBody ItemPedidoDTO itemDTO) {
+		System.out.println(itemDTO.getProduto().getIdProduto());
 		return new ResponseEntity<>(itemService.save(itemDTO), HttpStatus.CREATED);
 	}
 

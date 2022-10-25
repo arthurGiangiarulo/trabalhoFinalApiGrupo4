@@ -47,11 +47,15 @@ public class PedidoController {
 
 	@PostMapping("/save")
 	public ResponseEntity<PedidoDTO> save(@RequestBody PedidoDTO pedidoDTO) {
-		
 //		emailService.sendMail("arthurcg@live.com", "Teste API", "Body");
 		return new ResponseEntity<>(pedidoService.save(pedidoDTO), HttpStatus.CREATED);
 	}
 
+	@GetMapping("/search/pedidoitem")
+	public ResponseEntity<List<RelatorioPedido>> getAllPedidoItem() {
+		return new ResponseEntity<>(pedidoService.getAllPedidoItem(), HttpStatus.OK);
+	}
+	
 	@PutMapping("/update/{id}")
 	public ResponseEntity<PedidoDTO> updateEditoraDTO(@RequestBody PedidoDTO pedidoDTO, @PathVariable Integer id) {
 		return new ResponseEntity<>(pedidoService.update(pedidoDTO, id), HttpStatus.OK);
