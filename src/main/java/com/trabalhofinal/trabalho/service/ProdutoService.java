@@ -61,10 +61,15 @@ public class ProdutoService {
 		ProdutoDTO produtoFromJson = convertProdutoFromStringJson(produtoJson);
 		String fileName = StringUtils.cleanPath(foto.getOriginalFilename());
 		try {
-			produtoFromJson.setImagem(Base64.getEncoder().encodeToString(foto.getBytes()));
-		} catch (Exception e) {
-				e.printStackTrace();
+			produtoFromJson.setImagem(foto.getBytes());
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
+//		try {
+//			produtoFromJson.setImagem(Base64.getEncoder().encodeToString(foto.getBytes()));
+//		} catch (Exception e) {
+//				e.printStackTrace();
+//		}
 		produtoRepository.save(toEntidade(produtoFromJson));
 		return produtoFromJson;
 	}

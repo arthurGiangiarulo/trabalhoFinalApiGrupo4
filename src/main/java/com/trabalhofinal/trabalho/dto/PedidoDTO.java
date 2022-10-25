@@ -10,7 +10,7 @@ public class PedidoDTO {
 	private Instant dataEnvio;
 	private String status;
 	private Double valorTotal;
-	private List<ItemPedidoDTO> itensPedidosDTO;
+//	private List<ItemPedidoDTO> itensPedidosDTO;
 	private ClienteDTO clienteDTO;
 
 //	Getters and Setters
@@ -62,13 +62,13 @@ public class PedidoDTO {
 		this.valorTotal = valorTotal;
 	}
 
-	public List<ItemPedidoDTO> getItensPedidosDTO() {
-		return itensPedidosDTO;
-	}
-
-	public void setItensPedidosDTO(List<ItemPedidoDTO> itensPedidosDTO) {
-		this.itensPedidosDTO = itensPedidosDTO;
-	}
+//	public List<ItemPedidoDTO> getItensPedidosDTO() {
+//		return itensPedidosDTO;
+//	}
+//
+//	public void setItensPedidosDTO(List<ItemPedidoDTO> itensPedidosDTO) {
+//		this.itensPedidosDTO = itensPedidosDTO;
+//	}
 
 	public ClienteDTO getClienteDTO() {
 		return clienteDTO;

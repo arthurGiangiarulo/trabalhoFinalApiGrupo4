@@ -72,22 +72,22 @@ public class PedidoService {
 		relatorio.setDataPedido(pedidoDTO.getDataPedido());
 		relatorio.setValorTotal(pedidoDTO.getValorTotal());
 		
-		if(pedidoDTO.getItensPedidosDTO().size()> 0) {
-			pedidoDTO.getItensPedidosDTO().forEach(item -> {
-				ResumoPedido resumoTemp = new ResumoPedido();
-				resumoTemp.setIdProduto(item.getProdutoDTO().getIdProduto());
-				resumoTemp.setNome(item.getProdutoDTO().getNome());
-				resumoTemp.setPercentualDesconto(item.getPercentualDesconto());
-				resumoTemp.setPrecoVenda(item.getPrecoVenda());
-				resumoTemp.setQuantidade(item.getQuantidade());
-				resumoTemp.setValorBruto(item.getValorBruto());
-				resumoTemp.setValorLiquido(item.getValorLiquido());
-				listaResumo.add(resumoTemp);
-			});
+//		if(pedidoDTO.getItensPedidosDTO().size()> 0) {
+//			pedidoDTO.getItensPedidosDTO().forEach(item -> {
+//				ResumoPedido resumoTemp = new ResumoPedido();
+//				resumoTemp.setIdProduto(item.getProdutoDTO().getIdProduto());
+//				resumoTemp.setNome(item.getProdutoDTO().getNome());
+//				resumoTemp.setPercentualDesconto(item.getPercentualDesconto());
+//				resumoTemp.setPrecoVenda(item.getPrecoVenda());
+//				resumoTemp.setQuantidade(item.getQuantidade());
+//				resumoTemp.setValorBruto(item.getValorBruto());
+//				resumoTemp.setValorLiquido(item.getValorLiquido());
+//				listaResumo.add(resumoTemp);
+//			});
 			relatorio.setResumo(listaResumo);
-		}
+		//}
 		
-		return relatorio;
+		//return relatorio;
 	}
 
 	public PedidoDTO update(PedidoDTO pedidoDTO, Integer id) {

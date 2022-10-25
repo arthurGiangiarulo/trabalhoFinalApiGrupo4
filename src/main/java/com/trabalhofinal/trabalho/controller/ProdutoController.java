@@ -55,7 +55,7 @@ public class ProdutoController {
 			return new ResponseEntity<>(produtoService.saveProdutoImgDatabase(produtoDTO, foto), HttpStatus.CREATED);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(produtoService.saveProdutoImgDatabase(produtoDTO, foto), HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(produtoService.saveProdutoImgDatabase(produtoDTO, foto), HttpStatus.BAD_REQUEST);
 		}
    }
 		
