@@ -64,7 +64,7 @@ public class ClienteService {
 			clienteExistenteNoBanco.setEmail(clienteExistente.getEmail());
 			clienteExistenteNoBanco.setEndereco(clienteExistente.getEndereco());
 
-			clienteExistenteNoBanco = toEntidade(clienteDTO);
+			
 
 			Cliente clienteAtualizado = clienteRepository.save(clienteExistenteNoBanco);
 			
