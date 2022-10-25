@@ -10,7 +10,6 @@ public class PedidoDTO {
 	private Instant dataEnvio;
 	private String status;
 	private Double valorTotal;
-	private List<ItemPedidoDTO> itensPedido;
 	private ClienteDTO clienteDTO;
 
 //	Getters and Setters
@@ -60,14 +59,6 @@ public class PedidoDTO {
 
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
-	}
-
-	public List<ItemPedidoDTO> getItensPedido() {
-		return itensPedido;
-	}
-
-	public void setItensPedido(List<ItemPedidoDTO> itensPedido) {
-		this.itensPedido = itensPedido;
 	}
 
 	public ClienteDTO getClienteDTO() {
